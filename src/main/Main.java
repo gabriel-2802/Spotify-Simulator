@@ -111,6 +111,7 @@ public final class Main {
 
         ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
         objectWriter.writeValue(new File(filePath2), outputs);
+        System.out.println("hello");
 
         Admin.reset();
     }
