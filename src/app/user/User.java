@@ -11,11 +11,14 @@ import app.player.PlayerStats;
 import app.searchBar.Filters;
 import app.searchBar.SearchBar;
 import app.utils.Enums;
+import com.sun.tools.jconsole.JConsoleContext;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Getter
+@Setter
 public class User {
     @Getter
     private String username;
@@ -32,6 +35,10 @@ public class User {
     private final Player player;
     private final SearchBar searchBar;
     private boolean lastSearched;
+    @Getter
+    private Enums.Connection connectionStatus;
+    @Getter
+    private Enums.UserType type;
 
     public User(String username, int age, String city) {
         this.username = username;
@@ -43,6 +50,22 @@ public class User {
         player = new Player();
         searchBar = new SearchBar(username);
         lastSearched = false;
+        connectionStatus = Enums.Connection.ONLINE;
+        type = Enums.UserType.USER;
+    }
+
+    public User(String username, int age, String city, Enums.UserType type) {
+        this.username = username;
+        this.age = age;
+        this.city = city;
+        playlists = new ArrayList<>();
+        likedSongs = new ArrayList<>();
+        followedPlaylists = new ArrayList<>();
+        player = new Player();
+        searchBar = new SearchBar(username);
+        lastSearched = false;
+        connectionStatus = Enums.Connection.ONLINE;
+        this.type = type;
     }
 
     public ArrayList<String> search(Filters filters, String type) {
@@ -319,5 +342,15 @@ public class User {
 
     public void simulateTime(int time) {
         player.simulatePlayer(time);
+    }
+    public String switchConnectionStatus() {
+       if (connectionStatus == Enums.Connection.ONLINE) {
+           connectionStatus = Enums.Connection.OFFLINE;
+       } else {
+           connectionStatus = Enums.Connection.ONLINE;
+       }
+
+       player.switchConnectionStatus();
+        return username + " has changed status successfully.";
     }
 }

@@ -53,6 +53,10 @@ public class FilterUtils {
         return filter(entries, entry -> entry.matchesFollowers(followers));
     }
 
+    public static List<LibraryEntry> filterByDescription(List<LibraryEntry> entries, String description) {
+        return filter(entries, entry -> entry.matchesDescription(description));
+    }
+
     private static List<LibraryEntry> filter(List<LibraryEntry> entries, FilterCriteria criteria) {
         List<LibraryEntry> result = new ArrayList<>();
         for (LibraryEntry entry : entries) {

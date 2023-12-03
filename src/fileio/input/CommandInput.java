@@ -1,97 +1,38 @@
 package fileio.input;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.ArrayList;
+
+@Getter
+@Setter
 public final class CommandInput {
     private String command;
     private String username;
     private Integer timestamp;
-    private String type; // song / playlist / podcast
+    private String type; // song / playlist / podcast //adduser
     private FiltersInput filters; // pentru search
     private Integer itemNumber; // pentru select
     private Integer repeatMode; // pentru repeat
     private Integer playlistId; // pentru add/remove song
     private String playlistName; // pentru create playlist
     private Integer seed; // pentru shuffle
+    private Integer age; // for add user
+    private String city; // for add user
+    private ArrayList<SongInput> songs; //for add album
+    private String name; // for add album
+    private String description; // for add album
+    private Integer releaseYear; // for add album
+    private String date; // for add event
+    private Integer price; //for add merch
+    private ArrayList<EpisodeInput> episodes; // for add podcast
+    private String nextPage; // for next page
+
+
+
 
     public CommandInput() {
-    }
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getCommand() {
-        return command;
-    }
-
-    public void setCommand(String command) {
-        this.command = command;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public Integer getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Integer timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public FiltersInput getFilters() {
-        return filters;
-    }
-
-    public void setFilters(FiltersInput filters) {
-        this.filters = filters;
-    }
-
-    public Integer getItemNumber() {
-        return itemNumber;
-    }
-
-    public void setItemNumber(Integer itemNumber) {
-        this.itemNumber = itemNumber;
-    }
-
-    public Integer getRepeatMode() {
-        return repeatMode;
-    }
-
-    public void setRepeatMode(Integer repeatMode) {
-        this.repeatMode = repeatMode;
-    }
-
-    public Integer getPlaylistId() {
-        return playlistId;
-    }
-
-    public void setPlaylistId(Integer playlistId) {
-        this.playlistId = playlistId;
-    }
-
-    public String getPlaylistName() {
-        return playlistName;
-    }
-
-    public void setPlaylistName(String playlistName) {
-        this.playlistName = playlistName;
-    }
-
-    public Integer getSeed() {
-        return seed;
-    }
-
-    public void setSeed(Integer seed) {
-        this.seed = seed;
     }
 
     @Override

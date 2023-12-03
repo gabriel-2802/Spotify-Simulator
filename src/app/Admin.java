@@ -1,18 +1,28 @@
 package app;
 
+import app.audio.Collections.Album;
 import app.audio.Collections.Playlist;
 import app.audio.Collections.Podcast;
 import app.audio.Files.Episode;
 import app.audio.Files.Song;
+import app.user.Artist;
+import app.user.Host;
 import app.user.User;
+import app.utils.Enums;
 import fileio.input.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.*;
 
+@Getter
+@Setter
 public class Admin {
     private static List<User> users = new ArrayList<>();
     private static List<Song> songs = new ArrayList<>();
     private static List<Podcast> podcasts = new ArrayList<>();
+    @Getter
+    private static List<Album> albums = new ArrayList<>();
     private static int timestamp = 0;
 
     public static void setUsers(List<UserInput> userInputList) {
@@ -112,5 +122,36 @@ public class Admin {
         songs = new ArrayList<>();
         podcasts = new ArrayList<>();
         timestamp = 0;
+    }
+
+    public static ArrayList<String> getOnlineUsers() {
+        ArrayList<String> onlineUsers = new ArrayList<>();
+        for (User user : users) {
+            if (user.getConnectionStatus().equals(Enums.Connection.ONLINE)) {
+                onlineUsers.add(user.getUsername());
+            }
+        }
+        return onlineUsers;
+    }
+
+    public static String addUser(String username, int age, String city, Enums.UserType userType) {
+        for (User user : users) {
+            if (user.getUsername().equals(username)) {
+                return "The username " + username + " is already taken.";
+            }
+        }
+        User newUser = switch (userType) {
+            case ARTIST -> new Artist(username, age, city, userType);
+            case HOST -> new Host(username, age, city, userType);
+            default -> new User(username, age, city);
+
+        };
+        users.add(newUser);
+        return "The username " + username + " has been added successfully.";
+    }
+
+    public static void addAlbum(Album album) {
+        albums.add(album);
+        songs.addAll(album.getSongs());
     }
 }

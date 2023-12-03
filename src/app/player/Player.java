@@ -16,6 +16,7 @@ public class Player {
     private PlayerSource source;
     @Getter
     private String type;
+    private Enums.Connection connectionStatus;
 
     private ArrayList<PodcastBookmark> bookmarks = new ArrayList<>();
 
@@ -23,6 +24,7 @@ public class Player {
     public Player() {
         this.repeatMode = Enums.RepeatMode.NO_REPEAT;
         this.paused = true;
+        connectionStatus = Enums.Connection.ONLINE;
     }
 
     public void stop() {
@@ -117,7 +119,7 @@ public class Player {
     }
 
     public void simulatePlayer(int time) {
-        if (!paused) {
+        if (!paused && connectionStatus == Enums.Connection.ONLINE) {
             while (time >= source.getDuration()) {
                 time -= source.getDuration();
                 next();
@@ -189,5 +191,13 @@ public class Player {
         }
 
         return new PlayerStats(filename, duration, repeatMode, shuffle, paused);
+    }
+
+    public void switchConnectionStatus() {
+        if (connectionStatus == Enums.Connection.ONLINE) {
+            connectionStatus = Enums.Connection.OFFLINE;
+        } else {
+            connectionStatus = Enums.Connection.ONLINE;
+        }
     }
 }

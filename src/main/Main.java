@@ -80,9 +80,8 @@ public final class Main {
 
         for (CommandInput command : commands) {
             Admin.updateTimestamp(command.getTimestamp());
-
             String commandName = command.getCommand();
-
+            System.out.println(commandName + " for " + command.getUsername());
             switch (commandName) {
                 case "search" -> outputs.add(CommandRunner.search(command));
                 case "select" -> outputs.add(CommandRunner.select(command));
@@ -105,13 +104,17 @@ public final class Main {
                 case "getPreferredGenre" -> outputs.add(CommandRunner.getPreferredGenre(command));
                 case "getTop5Songs" -> outputs.add(CommandRunner.getTop5Songs(command));
                 case "getTop5Playlists" -> outputs.add(CommandRunner.getTop5Playlists(command));
+                case "switchConnectionStatus" -> outputs.add(CommandRunner.switchConnectionStatus(command));
+                case "getOnlineUsers" -> outputs.add(CommandRunner.getOnlineUsers(command));
+                case "addUser" -> outputs.add(CommandRunner.addUser(command));
+                case "addAlbum" -> outputs.add(CommandRunner.addAlbum(command));
+                case "showAlbums" -> outputs.add(CommandRunner.showAlbums(command));
                 default -> System.out.println("Invalid command " + commandName);
             }
         }
 
         ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
         objectWriter.writeValue(new File(filePath2), outputs);
-        System.out.println("hello");
 
         Admin.reset();
     }
