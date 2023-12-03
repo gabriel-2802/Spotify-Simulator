@@ -8,8 +8,8 @@ import lombok.Getter;
 import java.util.ArrayList;
 
 @Getter
-public final class Playlist extends AudioCollection {
-    private final ArrayList<Song> songs;
+public class Playlist extends AudioCollection {
+    private  ArrayList<Song> songs;
     private Enums.Visibility visibility;
     private Integer followers;
     private int timestamp;
@@ -87,4 +87,13 @@ public final class Playlist extends AudioCollection {
             return count == Integer.parseInt(query);
         }
     }
+
+    public int totalLikes() {
+        int total = 0;
+        for (Song song : songs) {
+            total += song.getLikes();
+        }
+        return total;
+    }
+
 }

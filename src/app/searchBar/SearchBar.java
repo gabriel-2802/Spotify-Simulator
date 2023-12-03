@@ -96,21 +96,20 @@ public class SearchBar {
                 }
 
                 break;
-//            case "album":
-//                entries = new ArrayList<>(Admin.getAlbums());
-//                if (filters.getName() != null) {
-//                    entries = filterByName(entries, filters.getName());
-//                }
-//
-//                if (filters.getOwner() != null) {
-//                    entries = filterByOwner(entries, filters.getOwner());
-//                }
-//
-//                if (filters.getDescription() != null) {
-//                    entries = filterByDescription(entries, filters.getDescription());
-//                }
-//
-//                break;
+            case "album":
+                entries = new ArrayList<>(Admin.getAlbums());
+                if (filters.getName() != null) {
+                    entries = filterByName(entries, filters.getName());
+                }
+
+                if (filters.getOwner() != null) {
+                    entries = filterByOwner(entries, filters.getOwner());
+                }
+
+                if (filters.getDescription() != null) {
+                    entries = filterByDescription(entries, filters.getDescription());
+                }
+                break;
             default:
                 entries = new ArrayList<>();
         }

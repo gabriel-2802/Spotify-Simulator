@@ -21,6 +21,8 @@ public class Admin {
     private static List<User> users = new ArrayList<>();
     private static List<Song> songs = new ArrayList<>();
     private static List<Podcast> podcasts = new ArrayList<>();
+    private static List<Artist> artists = new ArrayList<>();
+    private static List<Host> hosts = new ArrayList<>();
     @Getter
     private static List<Album> albums = new ArrayList<>();
     private static int timestamp = 0;
@@ -127,7 +129,7 @@ public class Admin {
     public static ArrayList<String> getOnlineUsers() {
         ArrayList<String> onlineUsers = new ArrayList<>();
         for (User user : users) {
-            if (user.getConnectionStatus().equals(Enums.Connection.ONLINE)) {
+            if (user.getConnectionStatus().equals(Enums.Connection.ONLINE) && user.getType() == Enums.UserType.USER) {
                 onlineUsers.add(user.getUsername());
             }
         }
@@ -147,6 +149,10 @@ public class Admin {
 
         };
         users.add(newUser);
+        switch (userType) {
+            case ARTIST -> artists.add((Artist) newUser);
+            case HOST -> hosts.add((Host) newUser);
+        }
         return "The username " + username + " has been added successfully.";
     }
 

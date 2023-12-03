@@ -7,6 +7,8 @@ import app.player.PlayerStats;
 import app.searchBar.Filters;
 import app.user.Artist;
 import app.user.User;
+import app.user.utils.Event;
+import app.user.utils.Merch;
 import app.utils.Enums;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -491,6 +493,56 @@ public class CommandRunner {
         objectNode.put("timestamp", commandInput.getTimestamp());
         objectNode.put("result", objectMapper.valueToTree(albums));
 
+        return objectNode;
+    }
+
+    public static ObjectNode printCurrentPage(CommandInput commandInput) {
+        User user = Admin.getUser(commandInput.getUsername());
+        if (user == null) {
+            return userNonexistent(commandInput);
+        }
+        user.updatePage();
+        String message = user.getPage().toString();
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("user", commandInput.getUsername());
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("timestamp", commandInput.getTimestamp());
+        objectNode.put("message", message);
+
+        return objectNode;
+    }
+
+    public static ObjectNode addMerch(CommandInput commandInput) {
+        User user = Admin.getUser(commandInput.getUsername());
+        if (user == null) {
+            return userNonexistent(commandInput);
+        }
+
+        Merch newMerch = new Merch(commandInput.getName(), commandInput.getPrice(), commandInput.getDescription());
+        String message = user.addMerch(newMerch);
+
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("user", commandInput.getUsername());
+        objectNode.put("timestamp", commandInput.getTimestamp());
+        objectNode.put("message", message);
+        return objectNode;
+    }
+
+    public static ObjectNode addEvent(CommandInput commandInput) {
+        User user = Admin.getUser(commandInput.getUsername());
+        if (user == null) {
+            return userNonexistent(commandInput);
+        }
+
+        Event newEvent = new Event(commandInput.getName(), commandInput.getDate(), commandInput.getDescription());
+        String message = user.addEvent(newEvent);
+
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("user", commandInput.getUsername());
+        objectNode.put("timestamp",commandInput.getTimestamp());
+        objectNode.put("message", message);
         return objectNode;
     }
 

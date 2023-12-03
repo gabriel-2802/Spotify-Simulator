@@ -81,7 +81,7 @@ public final class Main {
         for (CommandInput command : commands) {
             Admin.updateTimestamp(command.getTimestamp());
             String commandName = command.getCommand();
-            System.out.println(commandName + " for " + command.getUsername());
+//            System.out.println(commandName + " for " + command.getUsername());
             switch (commandName) {
                 case "search" -> outputs.add(CommandRunner.search(command));
                 case "select" -> outputs.add(CommandRunner.select(command));
@@ -109,6 +109,9 @@ public final class Main {
                 case "addUser" -> outputs.add(CommandRunner.addUser(command));
                 case "addAlbum" -> outputs.add(CommandRunner.addAlbum(command));
                 case "showAlbums" -> outputs.add(CommandRunner.showAlbums(command));
+                case "printCurrentPage" -> outputs.add(CommandRunner.printCurrentPage(command));
+                case "addMerch" -> outputs.add(CommandRunner.addMerch(command));
+                case "addEvent" -> outputs.add(CommandRunner.addEvent(command));
                 default -> System.out.println("Invalid command " + commandName);
             }
         }

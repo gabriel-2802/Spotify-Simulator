@@ -6,10 +6,14 @@ import app.audio.Collections.PlaylistOutput;
 import app.audio.Files.AudioFile;
 import app.audio.Files.Song;
 import app.audio.LibraryEntry;
+import app.pagination.HomePage;
+import app.pagination.Page;
 import app.player.Player;
 import app.player.PlayerStats;
 import app.searchBar.Filters;
 import app.searchBar.SearchBar;
+import app.user.utils.Event;
+import app.user.utils.Merch;
 import app.utils.Enums;
 import com.sun.tools.jconsole.JConsoleContext;
 import lombok.Getter;
@@ -17,8 +21,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
-@Getter
-@Setter
+
 public class User {
     @Getter
     private String username;
@@ -29,6 +32,7 @@ public class User {
     @Getter
     private ArrayList<Playlist> playlists;
     @Getter
+    @Setter
     private ArrayList<Song> likedSongs;
     @Getter
     private ArrayList<Playlist> followedPlaylists;
@@ -39,6 +43,8 @@ public class User {
     private Enums.Connection connectionStatus;
     @Getter
     private Enums.UserType type;
+    @Getter
+    private Page page; // the page the user is currently on
 
     public User(String username, int age, String city) {
         this.username = username;
@@ -52,6 +58,7 @@ public class User {
         lastSearched = false;
         connectionStatus = Enums.Connection.ONLINE;
         type = Enums.UserType.USER;
+        page = new HomePage(this);
     }
 
     public User(String username, int age, String city, Enums.UserType type) {
@@ -66,6 +73,7 @@ public class User {
         lastSearched = false;
         connectionStatus = Enums.Connection.ONLINE;
         this.type = type;
+        page = new HomePage(this);
     }
 
     public ArrayList<String> search(Filters filters, String type) {
@@ -103,10 +111,9 @@ public class User {
         if (!searchBar.getLastSearchType().equals("song") && ((AudioCollection)searchBar.getLastSelected()).getNumberOfTracks() == 0) {
             return "You can't load an empty audio collection!";
         }
-
         player.setSource(searchBar.getLastSelected(), searchBar.getLastSearchType());
-        searchBar.clearSelection();
 
+        searchBar.clearSelection();
         player.pause();
 
         return "Playback loaded successfully.";
@@ -184,7 +191,7 @@ public class User {
         if (player.getCurrentAudioFile() == null)
             return "Please load a source before liking or unliking.";
 
-        if (!player.getType().equals("song") && !player.getType().equals("playlist"))
+        if (!player.getType().equals("song") && !player.getType().equals("playlist") && !player.getType().equals("album"))
             return "Loaded source is not a song.";
 
         Song song = (Song) player.getCurrentAudioFile();
@@ -352,5 +359,25 @@ public class User {
 
        player.switchConnectionStatus();
         return username + " has changed status successfully.";
+    }
+
+    public ArrayList<Song> getLikedSongs() {
+        return likedSongs;
+    }
+
+    public ArrayList<Playlist> getFollowedPlaylists() {
+        return followedPlaylists;
+    }
+
+    public void updatePage() {
+        page.updatePage();
+    }
+
+    public String addMerch(Merch merch) {
+        return username + " is not an artist.";
+    }
+
+    public String addEvent(Event event) {
+        return username + " is not an artist.";
     }
 }
