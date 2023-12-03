@@ -44,6 +44,7 @@
   "message" : "melodymaster has added new event successfully."
 }, {
   "command" : "addEvent",
+  "user" : "alice23",
   "timestamp" : 55,
   "message" : "The username alice23 doesn't exist."
 }, {
@@ -89,6 +90,7 @@
   "message" : "Price for merchandise can not be negative."
 }, {
   "command" : "addMerch",
+  "user" : "Melodic Hoodie",
   "timestamp" : 95,
   "message" : "The username Melodic Hoodie doesn't exist."
 }, {
