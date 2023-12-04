@@ -21,5 +21,4 @@
 * There are 2 new types of users: ```Artist``` and ```Host``` that allows them to modify the content of the library itself by adding or removing their own content
 * The programme now supports the removal of users and all their interactions with the other users.
 * In order to successfully implement the ```deleteUser``` functionality, we must first check if anyone is listening to the content of the user that is to be deleted. If so, the user cannot be deleted. Otherwise we remove all the follows and likes the user ever gave, delete the playlists he created and remove the content he uploaded from the library, as well as from the playlists of all other users.
-
-![my project]()
+* In order to efficiently print the content of the pages, I chose to overwrite the ```toString``` method of the ```Page``` , ```Album```, ```Song```, ```Merch```, ```Event```, ```Announcement``` and  ```Playlist``` classes
