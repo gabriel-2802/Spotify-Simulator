@@ -196,7 +196,7 @@ public class User {
             return "Please load a source before using the shuffle function.";
 
         if (!player.getType().equals("playlist") && !player.getType().equals("album"))
-            return "The loaded source is not a playlist or album.";
+            return "The loaded source is not a playlist or an album.";
 
         player.shuffle(seed);
 
@@ -274,6 +274,7 @@ public class User {
     public String createPlaylist(String name, int timestamp) {
         if (playlists.stream().anyMatch(playlist -> playlist.getName().equals(name)))
             return "A playlist with the same name already exists.";
+
 
         playlists.add(new Playlist(name, username, timestamp));
 
@@ -494,6 +495,19 @@ public class User {
 
     public String removeEvent(String name) {
         return username + " is not an artist.";
+    }
+    public void removeSongsFromPlaylistByArtist(String artist) {
+        System.out.println("Removing songs by " + artist + " from " + username + "'s playlists.");
+        System.out.println("->nr of playlists: " + playlists.size() + " from " + username);
+        for (Playlist playlist : playlists) {
+            System.out.println("----playlist: " + playlist.getName() + " from " + username);
+            playlist.removeSongsByArtist(artist);
+        }
+        System.out.println("->nr of playlists: " + playlists.size() + " from " + username);
+        for (Playlist playlist : followedPlaylists) {
+            System.out.println("---playlist: " + playlist.getName() + " from " + username);
+            playlist.removeSongsByArtist(artist);
+        }
     }
 
 

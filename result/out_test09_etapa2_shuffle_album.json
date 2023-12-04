@@ -376,6 +376,16 @@
   "timestamp" : 3000,
   "message" : "melodymaster deleted the album successfully."
 }, {
+  "command" : "showPlaylists",
+  "user" : "bob35",
+  "timestamp" : 3001,
+  "result" : [ {
+    "name" : "My playlist",
+    "songs" : [ "Retro Rhythms", "Elevate", "I Don't Wanna Live Forever", "Hustle Hard", "Begin Again" ],
+    "visibility" : "public",
+    "followers" : 1
+  } ]
+}, {
   "command" : "status",
   "user" : "bob35",
   "timestamp" : 3250,

@@ -101,4 +101,8 @@ public class Playlist extends AudioCollection {
         return getName() + " - " + getOwner();
     }
 
+    public void removeSongsByArtist(String artist) {
+        songs.removeIf(song -> song.getArtist().equals(artist));
+    }
+
 }

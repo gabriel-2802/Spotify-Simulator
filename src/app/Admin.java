@@ -192,6 +192,7 @@ public class Admin {
         return allUsers;
     }
 
+    //TODO modify it
     private static boolean validUserDelete(String username) {
         for (User user : users) {
 
@@ -224,7 +225,10 @@ public class Admin {
         for (User user : users) {
             user.getLikedSongs().removeIf(song -> song.getArtist().equals(username));
             user.getFollowedPlaylists().removeIf(playlist -> playlist.getOwner().equals(username));
+            user.removeSongsFromPlaylistByArtist(username);
         }
+
+
         albums.removeIf(album -> album.getOwner().equals(username));
 
     }
