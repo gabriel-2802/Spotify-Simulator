@@ -9,19 +9,22 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class HomePage implements Page{
+public class HomePage extends Page{
     private final User user;
     ArrayList <String> songs;
     ArrayList <String>  playlists;
 
 
     public HomePage(User user) {
+        this.owner = user.getUsername();
         this.user = user;
         this.songs = new ArrayList<>();
         this.playlists = new ArrayList<>();
+        owner = user.getUsername();
     }
 
-    private void clearPage() {
+    @Override
+    public void clearPage() {
         songs.clear();
         playlists.clear();
     }
@@ -29,12 +32,13 @@ public class HomePage implements Page{
     public void updatePage() {
         clearPage();
         List<Song> likedSongs = user.getLikedSongs();
+
         if (likedSongs != null) {
             songs.addAll(likedSongs.stream()
                     .sorted(Comparator.comparingInt(Song::getLikes).reversed())
                     .limit(5)
                     .map(Song::getName)
-                    .collect(Collectors.toList()));
+                    .toList());
         }
 
         // Update playlists
@@ -44,7 +48,7 @@ public class HomePage implements Page{
                     .sorted(Comparator.comparingInt(Playlist::totalLikes).reversed())
                     .limit(5)
                     .map(Playlist::getName)
-                    .collect(Collectors.toList()));
+                    .toList());
         }
     }
 

@@ -1,6 +1,7 @@
 package app.player;
 
 import app.audio.Collections.AudioCollection;
+import app.audio.Collections.Podcast;
 import app.audio.Files.AudioFile;
 import app.audio.LibraryEntry;
 import app.utils.Enums;
@@ -13,6 +14,7 @@ public class Player {
     private Enums.RepeatMode repeatMode;
     private boolean shuffle;
     private boolean paused;
+    @Getter
     private PlayerSource source;
     @Getter
     private String type;
@@ -25,6 +27,7 @@ public class Player {
         this.repeatMode = Enums.RepeatMode.NO_REPEAT;
         this.paused = true;
         connectionStatus = Enums.Connection.ONLINE;
+        source = null;
     }
 
     public void stop() {
@@ -40,7 +43,8 @@ public class Player {
 
     private void bookmarkPodcast() {
         if (source != null && source.getAudioFile() != null) {
-            PodcastBookmark currentBookmark = new PodcastBookmark(source.getAudioCollection().getName(), source.getIndex(), source.getDuration());
+            PodcastBookmark currentBookmark = new PodcastBookmark(source.getAudioCollection().getName(),
+                    source.getIndex(), source.getDuration(), ((Podcast) source.getAudioCollection()).getOwner());
             bookmarks.removeIf(bookmark -> bookmark.getName().equals(currentBookmark.getName()));
             bookmarks.add(currentBookmark);
         }
@@ -85,12 +89,13 @@ public class Player {
         paused = !paused;
     }
 
+    //TODO: album
     public void shuffle (Integer seed) {
         if (seed != null) {
             source.generateShuffleOrder(seed);
         }
 
-        if (source.getType() == Enums.PlayerSourceType.PLAYLIST) {
+        if (source.getType() == Enums.PlayerSourceType.PLAYLIST ) {
             shuffle = !shuffle;
             if (shuffle) {
                 source.updateShuffleIndex();
@@ -201,5 +206,11 @@ public class Player {
         } else {
             connectionStatus = Enums.Connection.ONLINE;
         }
+    }
+
+    public AudioCollection getCurrentAudioCollection() {
+        if (source == null)
+            return null;
+        return source.getAudioCollection();
     }
 }

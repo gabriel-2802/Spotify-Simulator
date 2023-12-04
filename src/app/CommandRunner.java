@@ -502,8 +502,13 @@ public class CommandRunner {
         if (user == null) {
             return userNonexistent(commandInput);
         }
-        user.updatePage();
-        String message = user.getPage().toString();
+        String message;
+        if (user.getConnectionStatus() == Enums.Connection.OFFLINE) {
+            message = commandInput.getUsername() + " is offline.";
+        } else {
+            user.updatePage();
+             message = user.getPage().toString();
+        }
         ObjectNode objectNode = objectMapper.createObjectNode();
         objectNode.put("user", commandInput.getUsername());
         objectNode.put("command", commandInput.getCommand());
@@ -544,6 +549,29 @@ public class CommandRunner {
         objectNode.put("user", commandInput.getUsername());
         objectNode.put("timestamp",commandInput.getTimestamp());
         objectNode.put("message", message);
+        return objectNode;
+    }
+
+    public static ObjectNode getAllUsers(CommandInput commandInput) {
+        List<String> users = Admin.getAllUsers();
+
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("timestamp", commandInput.getTimestamp());
+        objectNode.put("result", objectMapper.valueToTree(users));
+
+        return objectNode;
+    }
+
+    public static ObjectNode deleteUser(CommandInput commandInput) {
+        String message = Admin.deleteUser(commandInput.getUsername());
+
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("user", commandInput.getUsername());
+        objectNode.put("timestamp", commandInput.getTimestamp());
+        objectNode.put("message", message);
+
         return objectNode;
     }
 

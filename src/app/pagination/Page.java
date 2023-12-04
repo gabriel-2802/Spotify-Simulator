@@ -1,5 +1,10 @@
 package app.pagination;
 
-public interface Page {
-    void updatePage();
+import lombok.Getter;
+
+@Getter
+public abstract class Page {
+    protected String owner;
+    abstract public void updatePage();
+    abstract public void clearPage();
 }

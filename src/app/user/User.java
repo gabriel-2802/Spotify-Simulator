@@ -1,12 +1,15 @@
 package app.user;
 
+import app.Admin;
 import app.audio.Collections.AudioCollection;
 import app.audio.Collections.Playlist;
 import app.audio.Collections.PlaylistOutput;
 import app.audio.Files.AudioFile;
 import app.audio.Files.Song;
 import app.audio.LibraryEntry;
+import app.pagination.ArtistPage;
 import app.pagination.HomePage;
+import app.pagination.HostPage;
 import app.pagination.Page;
 import app.player.Player;
 import app.player.PlayerStats;
@@ -15,7 +18,6 @@ import app.searchBar.SearchBar;
 import app.user.utils.Event;
 import app.user.utils.Merch;
 import app.utils.Enums;
-import com.sun.tools.jconsole.JConsoleContext;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -43,7 +45,13 @@ public class User {
     private Enums.Connection connectionStatus;
     @Getter
     private Enums.UserType type;
+
+    public void setPage(Page page) {
+        this.page = page;
+    }
+
     @Getter
+    @Setter
     private Page page; // the page the user is currently on
 
     public User(String username, int age, String city) {
@@ -81,11 +89,22 @@ public class User {
         player.stop();
 
         lastSearched = true;
-        ArrayList<String> results = new ArrayList<>();
-        List<LibraryEntry> libraryEntries = searchBar.search(filters, type);
 
-        for (LibraryEntry libraryEntry : libraryEntries) {
-            results.add(libraryEntry.getName());
+        ArrayList<String> results = new ArrayList<>();
+
+        switch (type) {
+            case "song", "album", "playlist", "podcast":
+                List<LibraryEntry> libraryEntries = searchBar.search(filters, type);
+
+                for (LibraryEntry libraryEntry : libraryEntries) {
+                    results.add(libraryEntry.getName());
+                }
+            case "artist", "host":
+                List<User> users = searchBar.searchCreators(type, filters.getName());
+
+                for (User user : users) {
+                    results.add(user.getUsername());
+                }
         }
         return results;
     }
@@ -96,12 +115,37 @@ public class User {
 
         lastSearched = false;
 
-        LibraryEntry selected = searchBar.select(itemNumber);
+        switch (searchBar.getLastSearchType()) {
+            case "song", "album", "playlist", "podcast":
+                LibraryEntry selected = searchBar.select(itemNumber);
 
-        if (selected == null)
-            return "The selected ID is too high.";
+                if (selected == null)
+                    return "The selected ID is too high.";
 
-        return "Successfully selected %s.".formatted(selected.getName());
+                return "Successfully selected %s.".formatted(selected.getName());
+            case "host":
+                User selectedUser = searchBar.selectCreator(itemNumber);
+
+                if (selectedUser == null) {
+                    return "The selected ID is too high.";
+                } else {
+                    page = new HostPage((Host)selectedUser);
+                }
+
+                return "Successfully selected %s's page.".formatted(selectedUser.getUsername());
+            case "artist":
+                User selectedArtist = searchBar.selectCreator(itemNumber);
+
+                if (selectedArtist == null) {
+                    return "The selected ID is too high.";
+                } else {
+                    page = new ArtistPage((Artist)selectedArtist);
+                }
+
+                return "Successfully selected %s's page.".formatted(selectedArtist.getUsername());
+            default:
+                return "Invalid search type.";
+        }
     }
 
     public String load() {
@@ -153,6 +197,7 @@ public class User {
         if (player.getCurrentAudioFile() == null)
             return "Please load a source before using the shuffle function.";
 
+        // TODO check if the loaded source is an album
         if (!player.getType().equals("playlist"))
             return "The loaded source is not a playlist.";
 
@@ -282,6 +327,7 @@ public class User {
         return playlistOutputs;
     }
 
+    // TODO: follow albums?
     public String follow() {
         LibraryEntry selection = searchBar.getLastSelected();
         String type = searchBar.getLastSearchType();
@@ -361,14 +407,6 @@ public class User {
         return username + " has changed status successfully.";
     }
 
-    public ArrayList<Song> getLikedSongs() {
-        return likedSongs;
-    }
-
-    public ArrayList<Playlist> getFollowedPlaylists() {
-        return followedPlaylists;
-    }
-
     public void updatePage() {
         page.updatePage();
     }
@@ -380,4 +418,28 @@ public class User {
     public String addEvent(Event event) {
         return username + " is not an artist.";
     }
+
+    /* functions returns the audio colelction that the user is listening to */
+    public AudioFile listeningTo() {
+        if (player.getCurrentAudioFile() != null) {
+            return player.getCurrentAudioFile();
+        }
+
+        return null;
+    }
+
+    public void deleteData() {
+        for (Playlist playlist : followedPlaylists) {
+            playlist.decreaseFollowers();
+        }
+        followedPlaylists.clear();
+
+        for (Song song : likedSongs) {
+            song.dislike();
+        }
+        likedSongs.clear();
+
+        Admin.removePlaylistsData(username);
+    }
+
 }

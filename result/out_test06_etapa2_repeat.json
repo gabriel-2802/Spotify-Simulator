@@ -113,8 +113,8 @@
   "command" : "search",
   "user" : "alice22",
   "timestamp" : 1006,
-  "message" : "Search returned 3 results",
-  "results" : [ "Harmonic Horizons", "Harmonic Horizons", "Harmonic Horizons" ]
+  "message" : "Search returned 1 results",
+  "results" : [ "Harmonic Horizons" ]
 }, {
   "command" : "select",
   "user" : "alice22",

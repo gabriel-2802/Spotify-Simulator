@@ -25,6 +25,7 @@ public final class Song extends AudioFile {
         this.releaseYear = songInput.getReleaseYear();
         this.artist = songInput.getArtist();
         this.likes = 0;
+        owner = artist;
     }
     public Song(String name, Integer duration, String album, ArrayList<String> tags, String lyrics,
                 String genre, Integer releaseYear, String artist) {
@@ -36,6 +37,7 @@ public final class Song extends AudioFile {
         this.releaseYear = releaseYear;
         this.artist = artist;
         this.likes = 0;
+        owner = artist;
     }
 
     @Override

@@ -20,7 +20,7 @@ public class Event {
     }
 
     public String toString() {
-        return name + " - " + date;
+        return name + " - " + date + ":\n\t" + description;
     }
 
     public boolean hasValidDate() {

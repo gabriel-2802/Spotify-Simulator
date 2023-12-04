@@ -3,6 +3,7 @@ package app.searchBar;
 
 import app.Admin;
 import app.audio.LibraryEntry;
+import app.user.User;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import static app.searchBar.FilterUtils.filterByFollowers;
 
 public class SearchBar {
     private List<LibraryEntry> results;
+    private List<User> userResults;
     private final String user;
     private static final Integer MAX_RESULTS = 5;
     @Getter
@@ -20,6 +22,7 @@ public class SearchBar {
 
     @Getter
     private LibraryEntry lastSelected;
+    private User lastSelectedUser;
 
     public SearchBar(String user) {
         this.results = new ArrayList<>();
@@ -28,6 +31,7 @@ public class SearchBar {
 
     public void clearSelection() {
         lastSelected = null;
+        lastSelectedUser = null;
         lastSearchType = null;
     }
     public List<LibraryEntry> search(Filters filters, String type) {
@@ -123,9 +127,38 @@ public class SearchBar {
         return this.results;
     }
 
+    public List<User> searchCreators(String type, String name) {
+        List <User> entries =  switch (type) {
+            case "artist" -> FilterUtils.filterArtists(Admin.getArtists(), name);
+            case "host" -> FilterUtils.filterHosts(Admin.getHosts(), name);
+            default -> new ArrayList<>();
+        };
+
+        while (entries.size() > MAX_RESULTS) {
+            entries.remove(entries.size() - 1);
+        }
+
+        this.userResults = entries;
+        this.lastSearchType = type;
+        return this.userResults;
+    }
+
+    public User selectCreator(Integer itemNumber) {
+        if (this.userResults.size() < itemNumber) {
+            results.clear();
+            userResults.clear();
+
+            return null;
+        } else {
+            lastSelectedUser =  this.userResults.get(itemNumber - 1);
+            userResults.clear();
+            return lastSelectedUser;
+        }
+    }
     public LibraryEntry select(Integer itemNumber) {
         if (this.results.size() < itemNumber) {
             results.clear();
+            userResults.clear();
 
             return null;
         } else {

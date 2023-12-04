@@ -3,18 +3,25 @@ package app.user;
 import app.Admin;
 import app.audio.Collections.Album;
 import app.audio.Collections.AlbumOutput;
+import app.audio.Collections.Playlist;
 import app.audio.Files.Song;
 import app.user.utils.Event;
 import app.user.utils.Merch;
 import app.utils.Enums;
 import fileio.input.SongInput;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 public class Artist extends User {
+    @Getter
     private ArrayList<Album> albums;
+    @Getter
     private ArrayList<Merch> merch;
+    @Getter
     private ArrayList<Event> events;
     public Artist(String username, int age, String city, Enums.UserType type) {
         super(username, age, city, type);
@@ -87,5 +94,12 @@ public class Artist extends User {
 
         events.add(event);
         return getUsername() + " has added new event successfully.";
+    }
+
+    @Override
+    public void deleteData() {
+        super.deleteData();
+        Admin.removePlaylistsData(getUsername());
+        Admin.removeArtistData(getUsername());
     }
 }
