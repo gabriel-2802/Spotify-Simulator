@@ -1,20 +1,25 @@
-# Proiect GlobalWaves  - Etapa 2
+# Proiect GlobalWaves
+### Copyright Carauleanu Valentin Gabriel 321CA
 
-<div align="center"><img src="https://tenor.com/view/listening-to-music-spongebob-gif-8009182.gif" width="300px"></div>
+## Structure of the project
 
-#### Assignment Link: [https://ocw.cs.pub.ro/courses/poo-ca-cd/teme/proiect/etapa1](https://ocw.cs.pub.ro/courses/poo-ca-cd/teme/proiect/etapa1)
+* I chose to use the solution ```app```, offered by the team as it gave the project a more cohesive structure than my own
+* ```audio```: contains the audio files used for the project, as well as the new ```Album``` class
+* ```pagination```: contains the page functionality for the project
+* ```player```: contains the newly updated player and it now supports Albums
+* ```searchBar```: contains the search functionality for the project and it now supports host and artist searches
+* ```user```: contains the 3 types of users and their functionality
+  * ```utils```: contains the user support classes such as ```Merch```, ```Announcement``` and ```Event```
+* ```utils``` : contains enums used for the project
+* ```Admin``` : utility class for admin functionalities
+* ```CommandRunner``` : utility class for command line functionalities
 
+## Implementation
 
-## Skel Structure
+* The pagination of the project is based around the Page abstract class, which allows the updatePage and clearPage methods to be implemented in the child classes
+* Each time a user accesses a page, the page is either instantiated or updated. The pages don't exist outside of the user's session and each time a user re-accesses a page, it is re-instantiated
+* There are 2 new types of users: ```Artist``` and ```Host``` that allows them to modify the content of the library itself by adding or removing their own content
+* The programme now supports the removal of users and all their interactions with the other users.
+* In order to successfully implement the ```deleteUser``` functionality, we must first check if anyone is listening to the content of the user that is to be deleted. If so, the user cannot be deleted. Otherwise we remove all the follows and likes the user ever gave, delete the playlists he created and remove the content he uploaded from the library, as well as from the playlists of all other users.
 
-* src/
-  * checker/ - checker files
-  * fileio/ - contains classes used to read data from the json files
-  * main/
-      * Main - the Main class runs the checker on your implementation. Add the entry point to your implementation in it. Run Main to test your implementation from the IDE or from command line.
-      * Test - run the main method from Test class with the name of the input file from the command line and the result will be written
-        to the out.txt file. Thus, you can compare this result with ref.
-* input/ - contains the tests and library in JSON format
-* ref/ - contains all reference output for the tests in JSON format
-
-<div align="center"><img src="https://tenor.com/view/homework-time-gif-24854817.gif" width="500px"></div>
+![my project]()

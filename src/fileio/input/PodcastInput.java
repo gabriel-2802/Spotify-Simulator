@@ -1,7 +1,5 @@
 package fileio.input;
 
-import app.audio.Files.Episode;
-
 import java.util.ArrayList;
 
 public final class PodcastInput {

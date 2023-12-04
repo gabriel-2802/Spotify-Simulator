@@ -2,13 +2,9 @@ package app;
 
 import app.audio.Collections.AlbumOutput;
 import app.audio.Collections.PlaylistOutput;
-import app.audio.Collections.Podcast;
 import app.audio.Collections.PodcastOutput;
-import app.audio.Files.Episode;
-import app.audio.Files.Song;
 import app.player.PlayerStats;
 import app.searchBar.Filters;
-import app.user.Artist;
 import app.user.User;
 import app.user.utils.Event;
 import app.user.utils.Merch;
@@ -16,8 +12,6 @@ import app.utils.Enums;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.input.CommandInput;
-import fileio.input.EpisodeInput;
-import fileio.input.SongInput;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,7 +2,7 @@ package app.audio.Collections;
 
 import app.audio.Files.AudioFile;
 import app.audio.Files.Episode;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public final class Podcast extends AudioCollection {

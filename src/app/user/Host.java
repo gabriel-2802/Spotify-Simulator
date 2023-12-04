@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.fasterxml.jackson.databind.type.LogicalType.Collection;
 @Getter
 public class Host extends User {
     private ArrayList<Podcast> podcasts;

@@ -3,7 +3,6 @@ package app.user;
 import app.Admin;
 import app.audio.Collections.Album;
 import app.audio.Collections.AlbumOutput;
-import app.audio.Collections.Playlist;
 import app.audio.Files.Song;
 import app.user.utils.Event;
 import app.user.utils.Merch;
@@ -13,8 +12,6 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 
 public class Artist extends User {
     @Getter
