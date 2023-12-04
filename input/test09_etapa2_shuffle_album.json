@@ -473,11 +473,6 @@
     "name": "Harmonic Horizons"
   },
   {
-    "command":"showPlaylists",
-    "username":"bob35",
-    "timestamp": 3001
-  },
-  {
     "command": "status",
     "username": "bob35",
     "timestamp": 3250

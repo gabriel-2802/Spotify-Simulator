@@ -325,7 +325,6 @@ public class User {
         return playlistOutputs;
     }
 
-    // TODO: follow albums?
     public String follow() {
         LibraryEntry selection = searchBar.getLastSelected();
         String type = searchBar.getLastSearchType();
@@ -427,9 +426,17 @@ public class User {
     }
 
     /* functions returns the audio colelction that the user is listening to */
-    public AudioFile listeningTo() {
+    public AudioFile listeningToFile() {
         if (player.getCurrentAudioFile() != null) {
             return player.getCurrentAudioFile();
+        }
+
+        return null;
+    }
+
+    public AudioCollection listeningToCollection() {
+        if (player.getCurrentAudioFile() != null) {
+            return player.getCurrentAudioCollection();
         }
 
         return null;
@@ -495,19 +502,6 @@ public class User {
 
     public String removeEvent(String name) {
         return username + " is not an artist.";
-    }
-    public void removeSongsFromPlaylistByArtist(String artist) {
-        System.out.println("Removing songs by " + artist + " from " + username + "'s playlists.");
-        System.out.println("->nr of playlists: " + playlists.size() + " from " + username);
-        for (Playlist playlist : playlists) {
-            System.out.println("----playlist: " + playlist.getName() + " from " + username);
-            playlist.removeSongsByArtist(artist);
-        }
-        System.out.println("->nr of playlists: " + playlists.size() + " from " + username);
-        for (Playlist playlist : followedPlaylists) {
-            System.out.println("---playlist: " + playlist.getName() + " from " + username);
-            playlist.removeSongsByArtist(artist);
-        }
     }
 
 

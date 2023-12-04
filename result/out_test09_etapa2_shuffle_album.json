@@ -376,22 +376,12 @@
   "timestamp" : 3000,
   "message" : "melodymaster deleted the album successfully."
 }, {
-  "command" : "showPlaylists",
-  "user" : "bob35",
-  "timestamp" : 3001,
-  "result" : [ {
-    "name" : "My playlist",
-    "songs" : [ "Retro Rhythms", "Elevate", "I Don't Wanna Live Forever", "Hustle Hard", "Begin Again" ],
-    "visibility" : "public",
-    "followers" : 1
-  } ]
-}, {
   "command" : "status",
   "user" : "bob35",
   "timestamp" : 3250,
   "stats" : {
-    "name" : "Hustle Hard",
-    "remainedTime" : 167,
+    "name" : "Begin Again",
+    "remainedTime" : 173,
     "repeat" : "No Repeat",
     "shuffle" : true,
     "paused" : false
@@ -486,8 +476,8 @@
   "user" : "bob35",
   "timestamp" : 4410,
   "stats" : {
-    "name" : "Retro Rhythms",
-    "remainedTime" : 163,
+    "name" : "Elevate",
+    "remainedTime" : 168,
     "repeat" : "No Repeat",
     "shuffle" : true,
     "paused" : false
@@ -497,17 +487,17 @@
   "user" : "bob35",
   "timestamp" : 4750,
   "stats" : {
-    "name" : "Hustle Hard",
-    "remainedTime" : 55,
+    "name" : "",
+    "remainedTime" : 0,
     "repeat" : "No Repeat",
-    "shuffle" : true,
-    "paused" : false
+    "shuffle" : false,
+    "paused" : true
   }
 }, {
   "user" : "carol19",
   "command" : "printCurrentPage",
   "timestamp" : 5000,
-  "message" : "Liked songs:\n\t[Digital Dreams - melodymaster]\n\nFollowed playlists:\n\t[My playlist - bob35]"
+  "message" : "Liked songs:\n\t[]\n\nFollowed playlists:\n\t[My playlist - bob35]"
 }, {
   "command" : "status",
   "user" : "bob35",
@@ -525,7 +515,7 @@
   "timestamp" : 6000,
   "result" : [ {
     "name" : "My playlist",
-    "songs" : [ "Retro Rhythms", "Elevate", "I Don't Wanna Live Forever", "Hustle Hard", "Begin Again" ],
+    "songs" : [ "Elevate", "I Don't Wanna Live Forever", "Hustle Hard", "Begin Again" ],
     "visibility" : "public",
     "followers" : 1
   } ]

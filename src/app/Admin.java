@@ -196,10 +196,17 @@ public class Admin {
     private static boolean validUserDelete(String username) {
         for (User user : users) {
 
-                AudioFile userSource = user.listeningTo();
+                AudioFile userSource = user.listeningToFile();
                 if (userSource != null && userSource.getOwner().equals(username)) {
                     return false;
                 }
+
+                AudioCollection userCollection = user.listeningToCollection();
+
+                if (userCollection != null && userCollection.getOwner().equals(username)) {
+                    return false;
+                }
+
                 if (user.getPage().getOwner().equals(username) && !user.getUsername().equals(username)) {
                     return false;
                 }
@@ -225,7 +232,14 @@ public class Admin {
         for (User user : users) {
             user.getLikedSongs().removeIf(song -> song.getArtist().equals(username));
             user.getFollowedPlaylists().removeIf(playlist -> playlist.getOwner().equals(username));
-            user.removeSongsFromPlaylistByArtist(username);
+            for (Playlist playlist: user.getPlaylists()) {
+                playlist.removeSongsByArtist(username);
+            }
+
+            for (Playlist playlist: user.getFollowedPlaylists()) {
+                playlist.removeSongsByArtist(username);
+            }
+
         }
 
 
@@ -233,7 +247,6 @@ public class Admin {
 
     }
 
-    // TODO FIX IT
     public static String deleteUser(String username) {
         User user = getUser(username);
         if (user == null) {
@@ -256,7 +269,7 @@ public class Admin {
 
     public static boolean validMediaDelete(String creatorName) {
         for (User user : users) {
-            if (user.listeningTo() != null && user.listeningTo().getOwner().equals(creatorName)) {
+            if (user.listeningToFile() != null && user.listeningToFile().getOwner().equals(creatorName)) {
                 return false;
             }
         }
@@ -271,6 +284,16 @@ public class Admin {
         artist.getAlbums().remove(album);
         ArrayList<Song> songsToRemove = album.getSongs();
         songs.removeAll(songsToRemove);
+        for (User user : users) {
+            user.getLikedSongs().removeIf(Song -> Song.getAlbum().equals(album.getName()));
+            for (Playlist playlist : user.getPlaylists()) {
+                playlist.removeSongsByAlbum(album.getName());
+            }
+            for (Playlist playlist : user.getFollowedPlaylists()) {
+                playlist.removeSongsByAlbum(album.getName());
+            }
+        }
+
         albums.remove(album);
         return artist.getUsername() + " deleted the album successfully.";
     }

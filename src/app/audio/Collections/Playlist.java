@@ -104,5 +104,8 @@ public class Playlist extends AudioCollection {
     public void removeSongsByArtist(String artist) {
         songs.removeIf(song -> song.getArtist().equals(artist));
     }
+    public void removeSongsByAlbum(String album) {
+        songs.removeIf(song -> song.getAlbum().equals(album));
+    }
 
 }
