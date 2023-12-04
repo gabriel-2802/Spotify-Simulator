@@ -14,6 +14,7 @@ public class Merch {
         this.description = description;
     }
 
+    @Override
     public String toString() {
         return name + " - " + price + ":\n\t" + description;
     }

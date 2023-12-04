@@ -2,6 +2,9 @@ package app;
 
 import app.audio.Collections.AlbumOutput;
 import app.audio.Collections.PlaylistOutput;
+import app.audio.Collections.Podcast;
+import app.audio.Collections.PodcastOutput;
+import app.audio.Files.Episode;
 import app.audio.Files.Song;
 import app.player.PlayerStats;
 import app.searchBar.Filters;
@@ -13,6 +16,7 @@ import app.utils.Enums;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.input.CommandInput;
+import fileio.input.EpisodeInput;
 import fileio.input.SongInput;
 
 import java.util.ArrayList;
@@ -462,20 +466,13 @@ public class CommandRunner {
             return userNonexistent(commandInput);
         }
 
-        String message;
+        String message = user.addAlbum(commandInput.getName(),
+                    commandInput.getReleaseYear(), commandInput.getDescription(),
+                    commandInput.getUsername(), commandInput.getSongs());
         ObjectNode objectNode = objectMapper.createObjectNode();
         objectNode.put("command", commandInput.getCommand());
         objectNode.put("user", commandInput.getUsername());
         objectNode.put("timestamp", commandInput.getTimestamp());
-
-        if (user.getType() != Enums.UserType.ARTIST) {
-            message = commandInput.getUsername() + " is not an artist.";
-        } else {
-            message = ((Artist)user).addAlbum(commandInput.getName(),
-                    commandInput.getReleaseYear(), commandInput.getDescription(),
-                    commandInput.getUsername(), commandInput.getSongs());
-        }
-
         objectNode.put("message", message);
         return objectNode;
     }
@@ -486,7 +483,7 @@ public class CommandRunner {
             return userNonexistent(commandInput);
         }
 
-        ArrayList<AlbumOutput> albums = ((Artist)user).showAlbums();
+        ArrayList<AlbumOutput> albums = user.showAlbums();
 
         ObjectNode objectNode = objectMapper.createObjectNode();
         objectNode.put("command", commandInput.getCommand());
@@ -575,4 +572,80 @@ public class CommandRunner {
         return objectNode;
     }
 
+    public static ObjectNode addPodcast(CommandInput commandInput) {;
+        User user = Admin.getUser(commandInput.getUsername());
+        if (user == null) {
+            return userNonexistent(commandInput);
+        }
+
+        String message = user.addPodcast(commandInput.getName(), commandInput.getUsername(), commandInput.getEpisodes());
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("user", commandInput.getUsername());
+        objectNode.put("timestamp",commandInput.getTimestamp());
+        objectNode.put("message", message);
+        return objectNode;
+
+    }
+
+    public static ObjectNode addAnnouncement(CommandInput command) {
+        User user = Admin.getUser(command.getUsername());
+        if (user == null) {
+            return userNonexistent(command);
+        }
+
+        String message = user.addAnnouncement(command.getName(), command.getDescription());
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", command.getCommand());
+        objectNode.put("user", command.getUsername());
+        objectNode.put("timestamp",command.getTimestamp());
+        objectNode.put("message", message);
+        return objectNode;
+    }
+
+    public static ObjectNode removeAnnouncement(CommandInput commandInput) {
+        User user = Admin.getUser(commandInput.getUsername());
+        if (user == null) {
+            return userNonexistent(commandInput);
+        }
+
+        String message = user.removeAnnouncement(commandInput.getName());
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("user", commandInput.getUsername());
+        objectNode.put("timestamp",commandInput.getTimestamp());
+        objectNode.put("message", message);
+        return objectNode;
+    }
+
+    public static ObjectNode showPodcasts(CommandInput commandInput) {
+        User user = Admin.getUser(commandInput.getUsername());
+        if (user == null) {
+            return userNonexistent(commandInput);
+        }
+
+        ArrayList<PodcastOutput> albums = user.showPodcasts();
+
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("user", commandInput.getUsername());
+        objectNode.put("timestamp", commandInput.getTimestamp());
+        objectNode.put("result", objectMapper.valueToTree(albums));
+
+        return objectNode;
+    }
+
+    public static ObjectNode removeAlbum(CommandInput commandInput) {
+        User user = Admin.getUser(commandInput.getUsername());
+        if (user == null) {
+            return userNonexistent(commandInput);
+        }
+        String message = user.removeAlbum(commandInput.getName());
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("user", commandInput.getUsername());
+        objectNode.put("timestamp",commandInput.getTimestamp());
+        objectNode.put("message", message);
+        return objectNode;
+    }
 }

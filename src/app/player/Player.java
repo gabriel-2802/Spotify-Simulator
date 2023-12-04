@@ -19,7 +19,7 @@ public class Player {
     @Getter
     private String type;
     private Enums.Connection connectionStatus;
-
+    @Getter
     private ArrayList<PodcastBookmark> bookmarks = new ArrayList<>();
 
 
@@ -212,5 +212,13 @@ public class Player {
         if (source == null)
             return null;
         return source.getAudioCollection();
+    }
+
+    public void removePodcastBookmark(String name) {
+        for (PodcastBookmark bookmark : bookmarks) {
+            if (bookmark.getName().equals(name)) {
+                bookmarks.remove(bookmark);
+            }
+        }
     }
 }

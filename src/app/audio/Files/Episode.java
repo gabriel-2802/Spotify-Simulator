@@ -11,4 +11,9 @@ public final class Episode extends AudioFile {
         this.description = description;
         this.owner = owner;
     }
+
+    @Override
+    public String toString() {
+        return getName() + " - " + description;
+    }
 }

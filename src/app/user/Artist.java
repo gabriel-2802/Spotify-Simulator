@@ -30,6 +30,7 @@ public class Artist extends User {
         events = new ArrayList<>();
     }
 
+    @Override
     public String addAlbum(String name, int releaseYear, String description, String owner, ArrayList<SongInput> songsInput) {
         ArrayList<Song> songs = new ArrayList<>();
         ArrayList <String> songNames = new ArrayList<>();
@@ -99,7 +100,24 @@ public class Artist extends User {
     @Override
     public void deleteData() {
         super.deleteData();
-        Admin.removePlaylistsData(getUsername());
         Admin.removeArtistData(getUsername());
+    }
+
+    @Override
+    public String removeAlbum(String albumName) {
+        Album albumToRemove = null;
+        for (Album album : albums) {
+            if (album.getName().equals(albumName)) {
+                albumToRemove = album;
+                break;
+            }
+        }
+
+        if (albumToRemove == null) {
+            return getUsername() + " doesn't have an album with the given name.";
+        }
+
+        return Admin.removeAlbum(this, albumToRemove);
+
     }
 }

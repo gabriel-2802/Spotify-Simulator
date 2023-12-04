@@ -19,6 +19,7 @@ public class Event {
         this.description = description;
     }
 
+    @Override
     public String toString() {
         return name + " - " + date + ":\n\t" + description;
     }

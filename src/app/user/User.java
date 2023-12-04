@@ -1,9 +1,7 @@
 package app.user;
 
 import app.Admin;
-import app.audio.Collections.AudioCollection;
-import app.audio.Collections.Playlist;
-import app.audio.Collections.PlaylistOutput;
+import app.audio.Collections.*;
 import app.audio.Files.AudioFile;
 import app.audio.Files.Song;
 import app.audio.LibraryEntry;
@@ -13,11 +11,14 @@ import app.pagination.HostPage;
 import app.pagination.Page;
 import app.player.Player;
 import app.player.PlayerStats;
+import app.player.PodcastBookmark;
 import app.searchBar.Filters;
 import app.searchBar.SearchBar;
 import app.user.utils.Event;
 import app.user.utils.Merch;
 import app.utils.Enums;
+import fileio.input.EpisodeInput;
+import fileio.input.SongInput;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -411,12 +412,21 @@ public class User {
         page.updatePage();
     }
 
+
+    public String addAlbum(String name, int releaseYear, String description, String owner, ArrayList<SongInput> songsInput) {
+        return username + " is not an artist.";
+    }
+
     public String addMerch(Merch merch) {
         return username + " is not an artist.";
     }
 
     public String addEvent(Event event) {
         return username + " is not an artist.";
+    }
+
+    public String addPodcast(String name, String owner, List<EpisodeInput> episodeInputs) {
+        return username + " is not a host.";
     }
 
     /* functions returns the audio colelction that the user is listening to */
@@ -441,5 +451,37 @@ public class User {
 
         Admin.removePlaylistsData(username);
     }
+
+    public List<PodcastBookmark> getBookmarks() {
+        return player.getBookmarks();
+    }
+
+    public String addAnnouncement(String name, String message) {
+        return username + " is not a host";
+    }
+    public String removeAnnouncement(String name) {
+        return username + " is not a host";
+    }
+
+    public ArrayList<AlbumOutput> showAlbums() {
+        throw new UnsupportedOperationException("Not supported by this user type");
+    }
+
+    public ArrayList<PodcastOutput> showPodcasts() {
+        throw new UnsupportedOperationException("Not supported by this user type");
+    }
+
+    public String removeAlbum(String name) {
+        return username + " is not an artist.";
+    }
+
+    public String removePodcast(String name) {
+        return username + " is not a host.";
+    }
+
+    public void removePodcastBookmark(String name) {
+        player.removePodcastBookmark(name);
+    }
+
 
 }

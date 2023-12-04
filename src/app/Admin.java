@@ -170,6 +170,10 @@ public class Admin {
         songs.addAll(album.getSongs());
     }
 
+    public static void addPodcast(Podcast podcast) {
+        podcasts.add(podcast);
+    }
+
     public static ArrayList<String> getAllUsers() {
         ArrayList<String> allUsers = new ArrayList<>();
         for (User user : users) {
@@ -203,7 +207,10 @@ public class Admin {
     }
 
     public static void removeHostData(String username) {
-
+        for (User user : users) {
+            user.getBookmarks().removeIf(bookmark -> bookmark.getOwner().equals(username));
+        }
+        podcasts.removeIf(podcast -> podcast.getOwner().equals(username));
     }
     public static void removePlaylistsData(String username) {
         for (User user : users) {
@@ -242,6 +249,41 @@ public class Admin {
         return username + " was successfully deleted.";
     }
 
+    public static boolean validMediaDelete(String creatorName) {
+        for (User user : users) {
+            if (user.listeningTo() != null && user.listeningTo().getOwner().equals(creatorName)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
+    public static String removeAlbum(Artist artist, Album album) {
+        if (!validMediaDelete(artist.getUsername())) {
+            return artist.getUsername() + " can't delete this album.";
+        }
 
+        artist.getAlbums().remove(album);
+        ArrayList<Song> songsToRemove = album.getSongs();
+        songs.removeAll(songsToRemove);
+        albums.remove(album);
+        return artist.getUsername() + "deleted the album successfully.";
+    }
+
+    public static String removePodcast(Host host, Podcast podcast) {
+        if (!validMediaDelete(host.getUsername())) {
+            return host.getUsername() + " can't delete this podcast.";
+        }
+
+        host.getPodcasts().remove(podcast);
+        podcasts.remove(podcast);
+        for (User user : users) {
+            user.removePodcastBookmark(podcast.getName());
+        }
+        return host.getUsername() + "deleted the podcast successfully.";
+
+    }
 }
+
+
+
