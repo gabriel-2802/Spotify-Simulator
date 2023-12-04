@@ -27,11 +27,11 @@ public class LikedContentPage extends Page {
         public void updatePage() {
                 clearPage();
                 for (Song song : user.getLikedSongs()) {
-                        songs.add(song.getName());
+                        songs.add(song.toString());
                 }
 
                 for (app.audio.Collections.Playlist playlist : user.getFollowedPlaylists()) {
-                        playlists.add(playlist.getName());
+                        playlists.add(playlist.toString());
                 }
         }
 

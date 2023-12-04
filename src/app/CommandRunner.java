@@ -648,4 +648,49 @@ public class CommandRunner {
         objectNode.put("message", message);
         return objectNode;
     }
+
+    public static ObjectNode removePodcast(CommandInput commandInput) {
+        User user = Admin.getUser(commandInput.getUsername());
+        if (user == null) {
+            return userNonexistent(commandInput);
+        }
+
+        String message = user.removePodcast(commandInput.getName());
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("user", commandInput.getUsername());
+        objectNode.put("timestamp",commandInput.getTimestamp());
+        objectNode.put("message", message);
+        return objectNode;
+    }
+
+    public static ObjectNode changePage(CommandInput commandInput) {
+        User user = Admin.getUser(commandInput.getUsername());
+        if (user == null) {
+            return userNonexistent(commandInput);
+        }
+
+        String message = user.changePage(commandInput.getNextPage());
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("user", commandInput.getUsername());
+        objectNode.put("timestamp",commandInput.getTimestamp());
+        objectNode.put("message", message);
+        return objectNode;
+    }
+
+    public static ObjectNode removeEvent(CommandInput commandInput) {
+        User user = Admin.getUser(commandInput.getUsername());
+        if (user == null) {
+            return userNonexistent(commandInput);
+        }
+
+        String message = user.removeEvent(commandInput.getName());
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("user", commandInput.getUsername());
+        objectNode.put("timestamp",commandInput.getTimestamp());
+        objectNode.put("message", message);
+        return objectNode;
+    }
 }

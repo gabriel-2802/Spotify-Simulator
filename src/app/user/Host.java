@@ -103,9 +103,14 @@ public class Host extends User {
         }
 
         if (podcastToRemove == null) {
-            return getUsername() + " doesn't gave a podcast with the given name.";
+            return getUsername() + " doesn't have a podcast with the given name.";
         }
 
         return Admin.removePodcast(this, podcastToRemove);
+    }
+
+    @Override
+    public String changePage(String pageName) {
+        throw new UnsupportedOperationException("Host cannot change page.");
     }
 }

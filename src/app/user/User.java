@@ -5,10 +5,7 @@ import app.audio.Collections.*;
 import app.audio.Files.AudioFile;
 import app.audio.Files.Song;
 import app.audio.LibraryEntry;
-import app.pagination.ArtistPage;
-import app.pagination.HomePage;
-import app.pagination.HostPage;
-import app.pagination.Page;
+import app.pagination.*;
 import app.player.Player;
 import app.player.PlayerStats;
 import app.player.PodcastBookmark;
@@ -457,7 +454,7 @@ public class User {
     }
 
     public String addAnnouncement(String name, String message) {
-        return username + " is not a host";
+        return username + " is not a host.";
     }
     public String removeAnnouncement(String name) {
         return username + " is not a host";
@@ -481,6 +478,23 @@ public class User {
 
     public void removePodcastBookmark(String name) {
         player.removePodcastBookmark(name);
+    }
+
+    public String changePage(String pageName) {
+        return switch (pageName) {
+            case "Home":
+                page = new HomePage(this);
+                yield getUsername() + " accessed Home successfully.";
+            case "LikedContent":
+                page = new LikedContentPage(this);
+                yield getUsername() + " accessed LikedContent successfully.";
+            default:
+                yield getUsername() + " is trying to access a non-existent page.";
+        };
+    }
+
+    public String removeEvent(String name) {
+        return username + " is not an artist.";
     }
 
 

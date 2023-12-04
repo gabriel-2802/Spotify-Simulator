@@ -96,4 +96,9 @@ public class Playlist extends AudioCollection {
         return total;
     }
 
+    @Override
+    public String toString() {
+        return getName() + " - " + getOwner();
+    }
+
 }

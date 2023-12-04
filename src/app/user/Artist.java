@@ -118,6 +118,28 @@ public class Artist extends User {
         }
 
         return Admin.removeAlbum(this, albumToRemove);
+    }
 
+    @Override
+    public String changePage(String pagename) {
+        throw new UnsupportedOperationException("Artist cannot change page.");
+    }
+
+    @Override
+    public String removeEvent(String name) {
+        Event eventToRemove = null;
+        for (Event event : events) {
+            if (event.getName().equals(name)) {
+                eventToRemove = event;
+                break;
+            }
+        }
+
+        if (eventToRemove == null) {
+            return getUsername() + " doesn't have an event with the given name.";
+        }
+
+        events.remove(eventToRemove);
+        return getUsername() + " deleted the event successfully.";
     }
 }

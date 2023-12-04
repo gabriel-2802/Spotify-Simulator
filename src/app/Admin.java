@@ -267,7 +267,7 @@ public class Admin {
         ArrayList<Song> songsToRemove = album.getSongs();
         songs.removeAll(songsToRemove);
         albums.remove(album);
-        return artist.getUsername() + "deleted the album successfully.";
+        return artist.getUsername() + " deleted the album successfully.";
     }
 
     public static String removePodcast(Host host, Podcast podcast) {
@@ -280,8 +280,7 @@ public class Admin {
         for (User user : users) {
             user.removePodcastBookmark(podcast.getName());
         }
-        return host.getUsername() + "deleted the podcast successfully.";
-
+        return host.getUsername() + " deleted the podcast successfully.";
     }
 }
 
