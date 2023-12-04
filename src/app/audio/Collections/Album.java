@@ -31,4 +31,13 @@ public class Album extends AudioCollection {
     public boolean matchesDescription(String description) {
         return this.description.toLowerCase().startsWith(description.toLowerCase());
     }
+
+    public int likes() {
+        int likes = 0;
+        for (Song song : songs) {
+            likes += song.getLikes();
+        }
+        return likes;
+    }
+
 }

@@ -229,6 +229,7 @@ public class Admin {
 
     }
 
+    // TODO FIX IT
     public static String deleteUser(String username) {
         User user = getUser(username);
         if (user == null) {
@@ -282,6 +283,33 @@ public class Admin {
         }
         return host.getUsername() + " deleted the podcast successfully.";
     }
+
+    public static List<String> getTop5Albums() {
+        List<String> topAlbums = new ArrayList<>();
+        List<Album> sortedAlbums = new ArrayList<>(albums);
+        sortedAlbums.sort(Comparator.comparingInt(Album::likes).reversed());
+        int count = 0;
+        for (Album album : sortedAlbums) {
+            if (count >= 5) break;
+            topAlbums.add(album.getName());
+            count++;
+        }
+        return topAlbums;
+    }
+
+    public static List<String> getTop5Artists() {
+        List<String> topArtists = new ArrayList<>();
+        List<Artist> sortedArtists = new ArrayList<>(artists);
+        sortedArtists.sort(Comparator.comparingInt(Artist::likes).reversed());
+        int count = 0;
+        for (Artist artist : sortedArtists) {
+            if (count >= 5) break;
+            topArtists.add(artist.getUsername());
+            count++;
+        }
+        return topArtists;
+    }
+
 }
 
 

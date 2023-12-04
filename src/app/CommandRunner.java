@@ -693,4 +693,26 @@ public class CommandRunner {
         objectNode.put("message", message);
         return objectNode;
     }
+
+    public static ObjectNode getTop5Albums(CommandInput commandInput) {
+        List<String> albums = Admin.getTop5Albums();
+
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("timestamp", commandInput.getTimestamp());
+        objectNode.put("result", objectMapper.valueToTree(albums));
+
+        return objectNode;
+    }
+
+    public static ObjectNode getTop5Artists(CommandInput commandInput) {
+        List<String> artists = Admin.getTop5Artists();
+
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("command", commandInput.getCommand());
+        objectNode.put("timestamp", commandInput.getTimestamp());
+        objectNode.put("result", objectMapper.valueToTree(artists));
+
+        return objectNode;
+    }
 }

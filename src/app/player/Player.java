@@ -95,7 +95,7 @@ public class Player {
             source.generateShuffleOrder(seed);
         }
 
-        if (source.getType() == Enums.PlayerSourceType.PLAYLIST ) {
+        if (source.getType() == Enums.PlayerSourceType.PLAYLIST || source.getType() == Enums.PlayerSourceType.ALBUM) {
             shuffle = !shuffle;
             if (shuffle) {
                 source.updateShuffleIndex();
@@ -215,10 +215,6 @@ public class Player {
     }
 
     public void removePodcastBookmark(String name) {
-        for (PodcastBookmark bookmark : bookmarks) {
-            if (bookmark.getName().equals(name)) {
-                bookmarks.remove(bookmark);
-            }
-        }
+        bookmarks.removeIf(bookmark -> bookmark.getName().equals(name));
     }
 }

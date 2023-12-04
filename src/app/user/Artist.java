@@ -142,4 +142,12 @@ public class Artist extends User {
         events.remove(eventToRemove);
         return getUsername() + " deleted the event successfully.";
     }
+
+    public int likes() {
+        int likes = 0;
+        for (Album album : albums) {
+            likes += album.likes();
+        }
+        return likes;
+    }
 }

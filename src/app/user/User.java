@@ -195,9 +195,8 @@ public class User {
         if (player.getCurrentAudioFile() == null)
             return "Please load a source before using the shuffle function.";
 
-        // TODO check if the loaded source is an album
-        if (!player.getType().equals("playlist"))
-            return "The loaded source is not a playlist.";
+        if (!player.getType().equals("playlist") && !player.getType().equals("album"))
+            return "The loaded source is not a playlist or album.";
 
         player.shuffle(seed);
 
