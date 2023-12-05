@@ -40,4 +40,12 @@ public class Album extends AudioCollection {
         return likes;
     }
 
+    @Override
+    public boolean containsMediaByCreator(String name) {
+        if (songs.get(0).getArtist().equals(name)) {
+            return true;
+        }
+        return false;
+    }
+
 }

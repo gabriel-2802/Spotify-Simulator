@@ -30,6 +30,10 @@ public final class Podcast extends AudioCollection {
     @Override
     public String toString() {
         return getName() + ":\n\t" + String.join(", ", episodes.toString()) + "\n";
+    }
 
+    @Override
+    public boolean containsMediaByCreator(String creator) {
+        return episodes.get(0).getOwner().equals(creator);
     }
 }

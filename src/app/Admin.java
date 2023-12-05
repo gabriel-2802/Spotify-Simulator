@@ -272,6 +272,16 @@ public class Admin {
             if (user.listeningToFile() != null && user.listeningToFile().getOwner().equals(creatorName)) {
                 return false;
             }
+
+            AudioCollection userCollection = user.listeningToCollection();
+            if (userCollection != null) {
+                if (userCollection.getOwner().equals(creatorName)) {
+                    return false;
+                }
+                if (userCollection.containsMediaByCreator(creatorName)) {
+                    return false;
+                }
+            }
         }
         return true;
     }
@@ -314,7 +324,7 @@ public class Admin {
     public static List<String> getTop5Albums() {
         List<String> topAlbums = new ArrayList<>();
         List<Album> sortedAlbums = new ArrayList<>(albums);
-        sortedAlbums.sort(Comparator.comparingInt(Album::likes).reversed());
+        sortedAlbums.sort(Comparator.comparingInt(Album::likes).reversed().thenComparing(Album::getName));
         int count = 0;
         for (Album album : sortedAlbums) {
             if (count >= 5) break;

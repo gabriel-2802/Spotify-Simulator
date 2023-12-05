@@ -108,4 +108,14 @@ public class Playlist extends AudioCollection {
         songs.removeIf(song -> song.getAlbum().equals(album));
     }
 
+    @Override
+    public boolean containsMediaByCreator(String artist) {
+        for (Song song : songs) {
+            if (song.getArtist().equals(artist)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
