@@ -1,13 +1,15 @@
 package app.pagination;
 
 import app.audio.Collections.Album;
+import app.pagination.visitors.Visitor;
 import app.user.Artist;
 import app.user.User;
 import app.user.utils.Event;
 import app.user.utils.Merch;
+import lombok.Getter;
 
 import java.util.ArrayList;
-
+@Getter
 public class ArtistPage extends Page {
     private final User artist;
     private ArrayList<String> albums;
@@ -29,20 +31,8 @@ public class ArtistPage extends Page {
         events.clear();
     }
     @Override
-    public void updatePage() {
-        clearPage();
-
-        for (Merch merch : ((Artist)artist).getMerch()) {
-            this.merch.add(merch.toString());
-        }
-
-        for (Album album : ((Artist)artist).getAlbums()) {
-            albums.add(album.getName());
-        }
-
-        for (Event event : ((Artist)artist).getEvents()) {
-            events.add(event.toString());
-        }
+    public void acceptVisitor(Visitor visitor) {
+        visitor.visit(this);
     }
 
     @Override

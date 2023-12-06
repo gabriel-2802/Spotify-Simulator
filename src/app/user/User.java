@@ -6,6 +6,8 @@ import app.audio.Files.AudioFile;
 import app.audio.Files.Song;
 import app.audio.LibraryEntry;
 import app.pagination.*;
+import app.pagination.visitors.UpdateVisitor;
+import app.pagination.visitors.Visitor;
 import app.player.Player;
 import app.player.PlayerStats;
 import app.player.PodcastBookmark;
@@ -405,7 +407,8 @@ public class User {
     }
 
     public void updatePage() {
-        page.updatePage();
+        Visitor updateVisitor = new UpdateVisitor();
+        page.acceptVisitor(updateVisitor);
     }
 
 

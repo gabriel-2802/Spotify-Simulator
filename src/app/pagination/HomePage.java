@@ -2,17 +2,18 @@ package app.pagination;
 
 import app.audio.Collections.Playlist;
 import app.audio.Files.Song;
+import app.pagination.visitors.Visitor;
 import app.user.User;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-
+@Getter
 public class HomePage extends Page{
     private final User user;
     ArrayList <String> songs;
     ArrayList <String>  playlists;
-
 
     public HomePage(User user) {
         this.owner = user.getUsername();
@@ -28,27 +29,8 @@ public class HomePage extends Page{
         playlists.clear();
     }
     @Override
-    public void updatePage() {
-        clearPage();
-        List<Song> likedSongs = user.getLikedSongs();
-
-        if (likedSongs != null) {
-            songs.addAll(likedSongs.stream()
-                    .sorted(Comparator.comparingInt(Song::getLikes).reversed())
-                    .limit(5)
-                    .map(Song::getName)
-                    .toList());
-        }
-
-        // Update playlists
-        List<Playlist> followedPlaylists = user.getFollowedPlaylists();
-        if (followedPlaylists != null) {
-            playlists.addAll(followedPlaylists.stream()
-                    .sorted(Comparator.comparingInt(Playlist::totalLikes).reversed())
-                    .limit(5)
-                    .map(Playlist::getName)
-                    .toList());
-        }
+    public void acceptVisitor(Visitor visitor) {
+        visitor.visit(this);
     }
 
     @Override
