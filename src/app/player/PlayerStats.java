@@ -20,13 +20,14 @@ public class PlayerStats {
         this.name = name;
         this.remainedTime = remainedTime;
         this.paused = paused;
-        switch (repeatMode) {
-            case REPEAT_ALL -> this.repeat = "Repeat All";
-            case REPEAT_ONCE -> this.repeat = "Repeat Once";
-            case REPEAT_INFINITE -> this.repeat = "Repeat Infinite";
-            case REPEAT_CURRENT_SONG -> this.repeat = "Repeat Current Song";
-            case NO_REPEAT -> this.repeat = "No Repeat";
-        }
+        repeat = switch (repeatMode) {
+            case REPEAT_ALL -> "Repeat All";
+            case REPEAT_ONCE -> "Repeat Once";
+            case REPEAT_INFINITE -> "Repeat Infinite";
+            case REPEAT_CURRENT_SONG -> "Repeat Current Song";
+            case NO_REPEAT -> "No Repeat";
+            default -> "";
+        };
         this.shuffle = shuffle;
     }
 

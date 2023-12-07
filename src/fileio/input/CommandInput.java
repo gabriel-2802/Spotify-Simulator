@@ -34,17 +34,17 @@ public final class CommandInput {
 
     @Override
     public String toString() {
-        return "CommandInput{" +
-                "command='" + command + '\''
+        return "CommandInput{"
+                + "command='" + command + '\''
                 + ", username='" + username + '\''
                 + ", timestamp=" + timestamp
                 + ", type='" + type + '\''
-                + ", filters=" + filters +
-                ", itemNumber=" + itemNumber
+                + ", filters=" + filters
+                + ", itemNumber=" + itemNumber
                 + ", repeatMode=" + repeatMode
                 + ", playlistId=" + playlistId
                 + ", playlistName='" + playlistName + '\''
-                + ", seed=" + seed +
-                '}';
+                + ", seed=" + seed
+                + '}';
     }
 }

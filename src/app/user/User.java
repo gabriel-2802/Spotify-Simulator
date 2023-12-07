@@ -1,11 +1,19 @@
 package app.user;
 
 import app.Admin;
-import app.audio.Collections.*;
+import app.audio.Collections.AlbumOutput;
+import app.audio.Collections.AudioCollection;
+import app.audio.Collections.Playlist;
+import app.audio.Collections.PlaylistOutput;
+import app.audio.Collections.PodcastOutput;
 import app.audio.Files.AudioFile;
 import app.audio.Files.Song;
 import app.audio.LibraryEntry;
-import app.pagination.*;
+import app.pagination.ArtistPage;
+import app.pagination.HomePage;
+import app.pagination.HostPage;
+import app.pagination.LikedContentPage;
+import app.pagination.Page;
 import app.pagination.visitors.UpdateVisitor;
 import app.pagination.visitors.PageVisitor;
 import app.player.Player;
@@ -26,18 +34,18 @@ import java.util.List;
 
 public class User {
     @Getter
-    private String username;
+    private final String username;
     @Getter
-    private int age;
+    private final int age;
     @Getter
-    private String city;
+    private final String city;
     @Getter
-    private ArrayList<Playlist> playlists;
+    private final ArrayList<Playlist> playlists;
     @Getter
     @Setter
     private ArrayList<Song> likedSongs;
     @Getter
-    private ArrayList<Playlist> followedPlaylists;
+    private final ArrayList<Playlist> followedPlaylists;
     private final Player player;
     private final SearchBar searchBar;
     private boolean lastSearched;
@@ -84,10 +92,10 @@ public class User {
     /**
      * searches for the given filters and type
      * @param filters the filters
-     * @param type the type of the search
+     * @param typee the type of the search
      * @return list of results as strings
      */
-    public ArrayList<String> search(final Filters filters, final String type) {
+    public ArrayList<String> search(final Filters filters, final String typee) {
         searchBar.clearSelection();
         player.stop();
 
@@ -95,21 +103,22 @@ public class User {
 
         ArrayList<String> results = new ArrayList<>();
 
-        switch (type) {
+        switch (typee) {
             case "song", "album", "playlist", "podcast":
-                List<LibraryEntry> libraryEntries = searchBar.search(filters, type);
+                List<LibraryEntry> libraryEntries = searchBar.search(filters, typee);
 
                 for (LibraryEntry libraryEntry : libraryEntries) {
                     results.add(libraryEntry.getName());
                 }
             case "artist", "host":
-                List<User> users = searchBar.searchCreators(type, filters.getName());
+                List<User> users = searchBar.searchCreators(typee, filters.getName());
 
                 for (User user : users) {
                     results.add(user.getUsername());
                 }
+            default:
+                return results;
         }
-        return results;
     }
 
     /**
@@ -118,8 +127,9 @@ public class User {
      * @return a message about the success of the operation
      */
     public String select(final int itemNumber) {
-        if (!lastSearched)
+        if (!lastSearched) {
             return "Please conduct a search before making a selection.";
+        }
 
         lastSearched = false;
 
@@ -127,8 +137,9 @@ public class User {
             case "song", "album", "playlist", "podcast":
                 LibraryEntry selected = searchBar.select(itemNumber);
 
-                if (selected == null)
+                if (selected == null) {
                     return "The selected ID is too high.";
+                }
 
                 return "Successfully selected %s.".formatted(selected.getName());
             case "host":
@@ -137,7 +148,7 @@ public class User {
                 if (selectedUser == null) {
                     return "The selected ID is too high.";
                 } else {
-                    page = new HostPage((Host)selectedUser);
+                    page = new HostPage(selectedUser);
                 }
 
                 return "Successfully selected %s's page.".formatted(selectedUser.getUsername());
@@ -147,7 +158,7 @@ public class User {
                 if (selectedArtist == null) {
                     return "The selected ID is too high.";
                 } else {
-                    page = new ArtistPage((Artist)selectedArtist);
+                    page = new ArtistPage(selectedArtist);
                 }
 
                 return "Successfully selected %s's page.".formatted(selectedArtist.getUsername());
@@ -161,11 +172,12 @@ public class User {
      * @return a message about the success of the operation
      */
     public String load() {
-        if (searchBar.getLastSelected() == null)
+        if (searchBar.getLastSelected() == null) {
             return "Please select a source before attempting to load.";
+        }
 
         if (!searchBar.getLastSearchType().equals("song")
-                && ((AudioCollection)searchBar.getLastSelected()).getNumberOfTracks() == 0) {
+                && ((AudioCollection) searchBar.getLastSelected()).getNumberOfTracks() == 0) {
             return "You can't load an empty audio collection!";
         }
         player.setSource(searchBar.getLastSelected(), searchBar.getLastSearchType());
@@ -181,15 +193,17 @@ public class User {
      * @return a message about the success of the operation
      */
     public String playPause() {
-        if (player.getCurrentAudioFile() == null)
+        if (player.getCurrentAudioFile() == null) {
             return "Please load a source before attempting to pause or resume playback.";
+        }
 
         player.pause();
 
-        if (player.getPaused())
+        if (player.getPaused()) {
             return "Playback paused successfully.";
-        else
+        } else {
             return "Playback resumed successfully.";
+        }
     }
 
     /**
@@ -197,19 +211,21 @@ public class User {
      * @return a message about the success of the operation
      */
     public String repeat() {
-        if (player.getCurrentAudioFile() == null)
+        if (player.getCurrentAudioFile() == null) {
             return "Please load a source before setting the repeat status.";
+        }
 
         Enums.RepeatMode repeatMode = player.repeat();
         String repeatStatus = "";
 
-        switch(repeatMode) {
-            case NO_REPEAT -> repeatStatus = "no repeat";
-            case REPEAT_ONCE -> repeatStatus = "repeat once";
-            case REPEAT_ALL -> repeatStatus = "repeat all";
-            case REPEAT_INFINITE -> repeatStatus = "repeat infinite";
-            case REPEAT_CURRENT_SONG -> repeatStatus = "repeat current song";
-        }
+        repeatStatus = switch (repeatMode) {
+            case NO_REPEAT -> "no repeat";
+            case REPEAT_ONCE -> "repeat once";
+            case REPEAT_ALL -> "repeat all";
+            case REPEAT_INFINITE -> "repeat infinite";
+            case REPEAT_CURRENT_SONG -> "repeat current song";
+            default -> "";
+        };
 
         return "Repeat mode changed to %s.".formatted(repeatStatus);
     }
@@ -220,16 +236,19 @@ public class User {
      * @return a message about the success of the operation
      */
     public String shuffle(final Integer seed) {
-        if (player.getCurrentAudioFile() == null)
+        if (player.getCurrentAudioFile() == null) {
             return "Please load a source before using the shuffle function.";
+        }
 
-        if (!player.getType().equals("playlist") && !player.getType().equals("album"))
+        if (!player.getType().equals("playlist") && !player.getType().equals("album")) {
             return "The loaded source is not a playlist or an album.";
+        }
 
         player.shuffle(seed);
 
-        if (player.getShuffle())
+        if (player.getShuffle()) {
             return "Shuffle function activated successfully.";
+        }
         return "Shuffle function deactivated successfully.";
     }
 
@@ -238,11 +257,13 @@ public class User {
      * @return a message about the success of the operation
      */
     public String forward() {
-        if (player.getCurrentAudioFile() == null)
+        if (player.getCurrentAudioFile() == null) {
             return "Please load a source before attempting to forward.";
+        }
 
-        if (!player.getType().equals("podcast"))
+        if (!player.getType().equals("podcast")) {
             return "The loaded source is not a podcast.";
+        }
 
         player.skipNext();
 
@@ -254,11 +275,13 @@ public class User {
      * @return a message about the success of the operation
      */
     public String backward() {
-        if (player.getCurrentAudioFile() == null)
+        if (player.getCurrentAudioFile() == null) {
             return "Please select a source before rewinding.";
+        }
 
-        if (!player.getType().equals("podcast"))
+        if (!player.getType().equals("podcast")) {
             return "The loaded source is not a podcast.";
+        }
 
         player.skipPrev();
 
@@ -270,12 +293,14 @@ public class User {
      * @return a message about the success of the operation
      */
     public String like() {
-        if (player.getCurrentAudioFile() == null)
+        if (player.getCurrentAudioFile() == null) {
             return "Please load a source before liking or unliking.";
+        }
 
         if (!player.getType().equals("song") && !player.getType().equals("playlist")
-                && !player.getType().equals("album"))
+                && !player.getType().equals("album")) {
             return "Loaded source is not a song.";
+        }
 
         Song song = (Song) player.getCurrentAudioFile();
 
@@ -296,13 +321,15 @@ public class User {
      * @return a message about the success of the operation
      */
     public String next() {
-        if (player.getCurrentAudioFile() == null)
+        if (player.getCurrentAudioFile() == null) {
             return "Please load a source before skipping to the next track.";
+        }
 
         player.next();
 
-        if (player.getCurrentAudioFile() == null)
+        if (player.getCurrentAudioFile() == null) {
             return "Please load a source before skipping to the next track.";
+        }
 
         return "Skipped to next track successfully. The current track is %s."
                 .formatted(player.getCurrentAudioFile().getName());
@@ -313,8 +340,9 @@ public class User {
      * @return a message about the success of the operation
      */
     public String prev() {
-        if (player.getCurrentAudioFile() == null)
+        if (player.getCurrentAudioFile() == null) {
             return "Please load a source before returning to the previous track.";
+        }
 
         player.prev();
 
@@ -329,8 +357,9 @@ public class User {
      * @return a message about the success of the operation
      */
     public String createPlaylist(final String name, final int timestamp) {
-        if (playlists.stream().anyMatch(playlist -> playlist.getName().equals(name)))
+        if (playlists.stream().anyMatch(playlist -> playlist.getName().equals(name))) {
             return "A playlist with the same name already exists.";
+        }
 
 
         playlists.add(new Playlist(name, username, timestamp));
@@ -340,27 +369,30 @@ public class User {
 
     /**
      * add or remove a song from a playlist
-     * @param Id the id of the playlist
+     * @param id the id of the playlist
      * @return a message about the success of the operation
      */
-    public String addRemoveInPlaylist(final int Id) {
-        if (player.getCurrentAudioFile() == null)
+    public String addRemoveInPlaylist(final int id) {
+        if (player.getCurrentAudioFile() == null) {
             return "Please load a source before adding to or removing from the playlist.";
+        }
 
-        if (player.getType().equals("podcast"))
+        if (player.getType().equals("podcast")) {
             return "The loaded source is not a song.";
+        }
 
-        if (Id > playlists.size())
+        if (id > playlists.size()) {
             return "The specified playlist does not exist.";
+        }
 
-        Playlist playlist = playlists.get(Id - 1);
+        Playlist playlist = playlists.get(id - 1);
 
-        if (playlist.containsSong((Song)player.getCurrentAudioFile())) {
-            playlist.removeSong((Song)player.getCurrentAudioFile());
+        if (playlist.containsSong((Song) player.getCurrentAudioFile())) {
+            playlist.removeSong((Song) player.getCurrentAudioFile());
             return "Successfully removed from playlist.";
         }
 
-        playlist.addSong((Song)player.getCurrentAudioFile());
+        playlist.addSong((Song) player.getCurrentAudioFile());
         return "Successfully added to playlist.";
     }
 
@@ -370,8 +402,9 @@ public class User {
      * @return a message about the success of the operation
      */
     public String switchPlaylistVisibility(final Integer playlistId) {
-        if (playlistId > playlists.size())
+        if (playlistId > playlists.size()) {
             return "The specified playlist ID is too high.";
+        }
 
         Playlist playlist = playlists.get(playlistId - 1);
         playlist.switchVisibility();
@@ -402,18 +435,21 @@ public class User {
      */
     public String follow() {
         LibraryEntry selection = searchBar.getLastSelected();
-        String type = searchBar.getLastSearchType();
+        String typee = searchBar.getLastSearchType();
 
-        if (selection == null)
+        if (selection == null) {
             return "Please select a source before following or unfollowing.";
+        }
 
-        if (!type.equals("playlist"))
+        if (!typee.equals("playlist")) {
             return "The selected source is not a playlist.";
+        }
 
-        Playlist playlist = (Playlist)selection;
+        Playlist playlist = (Playlist) selection;
 
-        if (playlist.getOwner().equals(username))
+        if (playlist.getOwner().equals(username)) {
             return "You cannot follow or unfollow your own playlist.";
+        }
 
         if (followedPlaylists.contains(playlist)) {
             followedPlaylists.remove(playlist);
@@ -669,7 +705,7 @@ public class User {
      * @param pageName the name of the page
      * @return a message about the success of the operation
      */
-    public String changePage(String pageName) {
+    public String changePage(final String pageName) {
         return switch (pageName) {
             case "Home":
                 page = new HomePage(this);
@@ -687,7 +723,7 @@ public class User {
      * @param name of the event
      * @return a message about the success of the operation
      */
-    public String removeEvent(String name) {
+    public String removeEvent(final String name) {
         return username + " is not an artist.";
     }
 }

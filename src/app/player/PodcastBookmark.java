@@ -9,19 +9,24 @@ public class PodcastBookmark {
     private final int id;
     private final int timestamp;
 
-    public PodcastBookmark(final String name, final int id, final int timestamp, final String owner) {
+    public PodcastBookmark(final String name, final int id,
+                           final int timestamp, final String owner) {
         this.name = name;
         this.id = id;
         this.timestamp = timestamp;
         this.owner = owner;
     }
 
+    /**
+     * Returns the string representation of the bookmark
+     * @return the string representation of the bookmark
+     */
     @Override
     public String toString() {
-        return "PodcastBookmark{" +
-                "name='" + name + '\'' +
-                ", id=" + id +
-                ", timestamp=" + timestamp +
-                '}';
+        return "PodcastBookmark{"
+                + "name='" + name + '\''
+                + ", id=" + id
+                + ", timestamp=" + timestamp
+                + '}';
     }
 }

@@ -36,7 +36,7 @@ public class Host extends User {
      */
     @Override
     public ArrayList<String> search(final Filters filters, final String type) {
-        throw new UnsupportedOperationException("This type of user does not support search");
+        throw new UnsupportedOperationException("unsupported search");
     }
 
     /**
@@ -45,7 +45,7 @@ public class Host extends User {
      */
     @Override
     public String select(final int itemNumber) {
-        throw new UnsupportedOperationException("This type of user does not support select");
+        throw new UnsupportedOperationException("unsupported select");
     }
 
     /**
@@ -54,7 +54,7 @@ public class Host extends User {
      */
     @Override
     public String load() {
-        throw new UnsupportedOperationException("This type of user does not support load");
+        throw new UnsupportedOperationException("unsupported load");
     }
 
     /**
@@ -63,7 +63,7 @@ public class Host extends User {
      */
     @Override
     public String playPause() {
-        throw new UnsupportedOperationException("This type of user does not support playPause");
+        throw new UnsupportedOperationException("unsupported playPause");
     }
 
     /**
@@ -72,7 +72,7 @@ public class Host extends User {
      */
     @Override
     public String repeat() {
-        throw new UnsupportedOperationException("This type of user does not support repeat");
+        throw new UnsupportedOperationException("unsupported repeat");
     }
 
     /**
@@ -82,7 +82,7 @@ public class Host extends User {
      */
     @Override
     public String shuffle(final Integer seed) {
-        throw new UnsupportedOperationException("This type of user does not support shuffle");
+        throw new UnsupportedOperationException("unsupported shuffle");
     }
 
     /**
@@ -91,7 +91,7 @@ public class Host extends User {
      */
     @Override
     public String forward() {
-        throw new UnsupportedOperationException("This type of user does not support forward");
+        throw new UnsupportedOperationException("unsupported forward");
     }
 
     /**
@@ -100,7 +100,7 @@ public class Host extends User {
      */
     @Override
     public String backward() {
-        throw new UnsupportedOperationException("This type of user does not support backward");
+        throw new UnsupportedOperationException("unsupported backward");
     }
 
     /**
@@ -109,7 +109,7 @@ public class Host extends User {
      */
     @Override
     public String like() {
-        throw new UnsupportedOperationException("This type of user does not support like");
+        throw new UnsupportedOperationException("unsupported like");
     }
 
     /**
@@ -118,7 +118,7 @@ public class Host extends User {
      */
     @Override
     public String next() {
-        throw new UnsupportedOperationException("This type of user does not support next");
+        throw new UnsupportedOperationException("unsupported next");
     }
 
     /**
@@ -127,7 +127,7 @@ public class Host extends User {
      */
     @Override
     public String prev() {
-        throw new UnsupportedOperationException("This type of user does not support prev");
+        throw new UnsupportedOperationException("unsupported prev");
     }
 
     /**
@@ -138,17 +138,17 @@ public class Host extends User {
      */
     @Override
     public String createPlaylist(final String name, final int timestamp) {
-        throw new UnsupportedOperationException("This type of user does not support createPlaylist");
+        throw new UnsupportedOperationException("unsupported createPlaylist");
     }
 
     /**
      * add or remove a song from a playlist
-     * @param Id the id of the playlist
+     * @param id the id of the playlist
      * @return a message about the success of the operation
      */
     @Override
-    public String addRemoveInPlaylist(final int Id) {
-        throw new UnsupportedOperationException("This type of user does not support addRemoveInPlaylist");
+    public String addRemoveInPlaylist(final int id) {
+        throw new UnsupportedOperationException("unsupported addRemoveInPlaylist");
     }
 
     /**
@@ -157,7 +157,7 @@ public class Host extends User {
      * @return a message about the success of the operation
      */
     public String switchPlaylistVisibility(final Integer playlistId) {
-        throw new UnsupportedOperationException("This type of user does not support switchPlaylistVisibility");
+        throw new UnsupportedOperationException("unsupported switchPlaylistVisibility");
     }
 
     /**
@@ -165,7 +165,7 @@ public class Host extends User {
      * @return a list of playlists
      */
     public ArrayList<PlaylistOutput> showPlaylists() {
-        throw new UnsupportedOperationException("This type of user does not support showPlaylists");
+        throw new UnsupportedOperationException("unsupported showPlaylists");
     }
 
     /**
@@ -174,7 +174,7 @@ public class Host extends User {
      */
     @Override
     public String follow() {
-        throw new UnsupportedOperationException("This type of user does not support follow");
+        throw new UnsupportedOperationException("unsupported follow");
     }
 
     /**
@@ -183,7 +183,7 @@ public class Host extends User {
      */
     @Override
     public PlayerStats getPlayerStats() {
-        throw new UnsupportedOperationException("This type of user does not support getPlayerStats");
+        throw new UnsupportedOperationException("unsupported getPlayerStats");
     }
 
     /**
@@ -192,7 +192,7 @@ public class Host extends User {
      */
     @Override
     public ArrayList<String> showPreferredSongs() {
-        throw new UnsupportedOperationException("This type of user does not support showPreferredSongs");
+        throw new UnsupportedOperationException("unsupported showPreferredSongs");
     }
 
     /**
@@ -201,7 +201,7 @@ public class Host extends User {
      */
     @Override
     public String getPreferredGenre() {
-        throw new UnsupportedOperationException("This type of user does not support getPreferredGenre");
+        throw new UnsupportedOperationException("unsupported getPreferredGenre");
     }
 
     /**
@@ -327,7 +327,7 @@ public class Host extends User {
      * @return a message about the success of the operation
      */
     @Override
-    public String changePage(String pageName) {
+    public String changePage(final String pageName) {
         throw new UnsupportedOperationException("Host cannot change page.");
     }
 }

@@ -78,7 +78,9 @@ public class PlayerSource {
                 isPaused = true;
             }
         } else {
-            if (repeatMode == Enums.RepeatMode.REPEAT_ONCE || repeatMode == Enums.RepeatMode.REPEAT_CURRENT_SONG || repeatMode == Enums.RepeatMode.REPEAT_INFINITE) {
+            if (repeatMode == Enums.RepeatMode.REPEAT_ONCE
+                    || repeatMode == Enums.RepeatMode.REPEAT_CURRENT_SONG
+                    || repeatMode == Enums.RepeatMode.REPEAT_INFINITE) {
                 remainedDuration = audioFile.getDuration();
             } else if (repeatMode == Enums.RepeatMode.NO_REPEAT) {
                 if (shuffle) {

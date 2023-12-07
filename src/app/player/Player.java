@@ -23,6 +23,7 @@ public class Player {
     private Enums.Connection connectionStatus;
     @Getter
     private ArrayList<PodcastBookmark> bookmarks = new ArrayList<>();
+    private static final int SECONDS = 90;
 
 
     public Player() {
@@ -101,15 +102,15 @@ public class Player {
     /**
      * Sets the source
      * @param entry the entry
-     * @param type the type of the source
+     * @param typee the type of the source
      */
-    public void setSource(final LibraryEntry entry, final String type) {
+    public void setSource(final LibraryEntry entry, final String typee) {
         if ("podcast".equals(this.type)) {
             bookmarkPodcast();
         }
 
-        this.type = type;
-        this.source = createSource(type, entry, bookmarks);
+        this.type = typee;
+        this.source = createSource(typee, entry, bookmarks);
         this.repeatMode = Enums.RepeatMode.NO_REPEAT;
         this.shuffle = false;
         this.paused = true;
@@ -126,12 +127,13 @@ public class Player {
      * Shuffles the source if it is a playlist or an album
      * @param seed the seed
      */
-    public void shuffle (final Integer seed) {
+    public void shuffle(final Integer seed) {
         if (seed != null) {
             source.generateShuffleOrder(seed);
         }
 
-        if (source.getType() == Enums.PlayerSourceType.PLAYLIST || source.getType() == Enums.PlayerSourceType.ALBUM) {
+        if (source.getType() == Enums.PlayerSourceType.PLAYLIST
+                || source.getType() == Enums.PlayerSourceType.ALBUM) {
             shuffle = !shuffle;
             if (shuffle) {
                 source.updateShuffleIndex();
@@ -169,17 +171,18 @@ public class Player {
      * Simulates the player time
      * @param time the time
      */
-    public void simulatePlayer(int time) {
+    public void simulatePlayer(final int time) {
+        int myTime = time;
         if (!paused && connectionStatus == Enums.Connection.ONLINE) {
-            while (time >= source.getDuration()) {
-                time -= source.getDuration();
+            while (myTime >= source.getDuration()) {
+                myTime -= source.getDuration();
                 next();
                 if (paused) {
                     break;
                 }
             }
             if (!paused) {
-                source.skip(-time);
+                source.skip(-myTime);
             }
         }
     }
@@ -210,7 +213,7 @@ public class Player {
      * Skips the song
      * @param duration the duration
      */
-    private void skip(int duration) {
+    private void skip(final int duration) {
         source.skip(duration);
         paused = false;
     }
@@ -220,7 +223,7 @@ public class Player {
      */
     public void skipNext() {
         if (source.getType() == Enums.PlayerSourceType.PODCAST) {
-            skip(-90);
+            skip(-SECONDS);
         }
     }
 
@@ -229,7 +232,7 @@ public class Player {
      */
     public void skipPrev() {
         if (source.getType() == Enums.PlayerSourceType.PODCAST) {
-            skip(90);
+            skip(SECONDS);
         }
     }
 
@@ -238,8 +241,9 @@ public class Player {
      * @return the current audio file
      */
     public AudioFile getCurrentAudioFile() {
-        if (source == null)
+        if (source == null) {
             return null;
+        }
         return source.getAudioFile();
     }
 
@@ -291,8 +295,9 @@ public class Player {
      * @return the current audio collection
      */
     public AudioCollection getCurrentAudioCollection() {
-        if (source == null)
+        if (source == null) {
             return null;
+        }
         return source.getAudioCollection();
     }
 

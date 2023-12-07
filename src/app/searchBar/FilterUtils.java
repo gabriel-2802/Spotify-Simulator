@@ -10,7 +10,10 @@ import java.util.List;
 /**
  * Filter utilities
  */
-public class FilterUtils {
+public final class FilterUtils {
+    private FilterUtils() {
+        throw new IllegalStateException("Utility class");
+    }
 
     /**
      * Filters the given entries by name
@@ -179,7 +182,7 @@ public class FilterUtils {
      * @param host the host
      * @return the filtered hosts
      */
-    public static List <User> filterHosts(final List<Host> hosts, final String host) {
+    public static List<User> filterHosts(final List<Host> hosts, final String host) {
         List<User> result = new ArrayList<>();
         for (User user : hosts) {
             if (user.getUsername().toLowerCase().startsWith(host.toLowerCase())) {

@@ -42,7 +42,7 @@ public class Artist extends User {
      */
     @Override
     public ArrayList<String> search(final Filters filters, final String type) {
-        throw new UnsupportedOperationException("This type of user does not support search");
+        throw new UnsupportedOperationException("unsupported search");
     }
 
     /**
@@ -51,7 +51,7 @@ public class Artist extends User {
      */
     @Override
     public String select(final int itemNumber) {
-        throw new UnsupportedOperationException("This type of user does not support select");
+        throw new UnsupportedOperationException("unsupported select");
     }
 
     /**
@@ -60,7 +60,7 @@ public class Artist extends User {
      */
     @Override
     public String load() {
-        throw new UnsupportedOperationException("This type of user does not support load");
+        throw new UnsupportedOperationException("unsupported load");
     }
 
     /**
@@ -69,7 +69,7 @@ public class Artist extends User {
      */
     @Override
     public String playPause() {
-        throw new UnsupportedOperationException("This type of user does not support playPause");
+        throw new UnsupportedOperationException("unsupported playPause");
     }
 
     /**
@@ -78,7 +78,7 @@ public class Artist extends User {
      */
     @Override
     public String repeat() {
-        throw new UnsupportedOperationException("This type of user does not support repeat");
+        throw new UnsupportedOperationException("unsupported repeat");
     }
 
     /**
@@ -88,7 +88,7 @@ public class Artist extends User {
      */
     @Override
     public String shuffle(final Integer seed) {
-        throw new UnsupportedOperationException("This type of user does not support shuffle");
+        throw new UnsupportedOperationException("unsupported shuffle");
     }
 
     /**
@@ -97,7 +97,7 @@ public class Artist extends User {
      */
     @Override
     public String forward() {
-        throw new UnsupportedOperationException("This type of user does not support forward");
+        throw new UnsupportedOperationException("unsupported forward");
     }
 
     /**
@@ -106,7 +106,7 @@ public class Artist extends User {
      */
     @Override
     public String backward() {
-        throw new UnsupportedOperationException("This type of user does not support backward");
+        throw new UnsupportedOperationException("unsupported backward");
     }
 
     /**
@@ -115,7 +115,7 @@ public class Artist extends User {
      */
     @Override
     public String like() {
-        throw new UnsupportedOperationException("This type of user does not support like");
+        throw new UnsupportedOperationException("unsupported like");
     }
 
     /**
@@ -124,7 +124,7 @@ public class Artist extends User {
      */
     @Override
     public String next() {
-        throw new UnsupportedOperationException("This type of user does not support next");
+        throw new UnsupportedOperationException("unsupported next");
     }
 
     /**
@@ -133,7 +133,7 @@ public class Artist extends User {
      */
     @Override
     public String prev() {
-        throw new UnsupportedOperationException("This type of user does not support prev");
+        throw new UnsupportedOperationException("unsupported prev");
     }
 
     /**
@@ -144,17 +144,17 @@ public class Artist extends User {
      */
     @Override
     public String createPlaylist(final String name, final int timestamp) {
-        throw new UnsupportedOperationException("This type of user does not support createPlaylist");
+        throw new UnsupportedOperationException("unsupported createPlaylist");
     }
 
     /**
      * add or remove a song from a playlist
-     * @param Id the id of the playlist
+     * @param id the id of the playlist
      * @return a message about the success of the operation
      */
     @Override
-    public String addRemoveInPlaylist(final int Id) {
-        throw new UnsupportedOperationException("This type of user does not support addRemoveInPlaylist");
+    public String addRemoveInPlaylist(final int id) {
+        throw new UnsupportedOperationException("unsupported addRemoveInPlaylist");
     }
 
     /**
@@ -163,7 +163,7 @@ public class Artist extends User {
      * @return a message about the success of the operation
      */
     public String switchPlaylistVisibility(final Integer playlistId) {
-        throw new UnsupportedOperationException("This type of user does not support switchPlaylistVisibility");
+        throw new UnsupportedOperationException("unsupported switchPlaylistVisibility");
     }
 
     /**
@@ -171,7 +171,7 @@ public class Artist extends User {
      * @return a list of playlists
      */
     public ArrayList<PlaylistOutput> showPlaylists() {
-        throw new UnsupportedOperationException("This type of user does not support showPlaylists");
+        throw new UnsupportedOperationException("unsupported showPlaylists");
     }
 
     /**
@@ -180,7 +180,7 @@ public class Artist extends User {
      */
     @Override
     public String follow() {
-        throw new UnsupportedOperationException("This type of user does not support follow");
+        throw new UnsupportedOperationException("unsupported follow");
     }
 
     /**
@@ -189,7 +189,7 @@ public class Artist extends User {
      */
     @Override
     public PlayerStats getPlayerStats() {
-        throw new UnsupportedOperationException("This type of user does not support getPlayerStats");
+        throw new UnsupportedOperationException("unsupported getPlayerStats");
     }
 
     /**
@@ -198,7 +198,7 @@ public class Artist extends User {
      */
     @Override
     public ArrayList<String> showPreferredSongs() {
-        throw new UnsupportedOperationException("This type of user does not support showPreferredSongs");
+        throw new UnsupportedOperationException("unsupported showPreferredSongs");
     }
 
     /**
@@ -207,7 +207,7 @@ public class Artist extends User {
      */
     @Override
     public String getPreferredGenre() {
-        throw new UnsupportedOperationException("This type of user does not support getPreferredGenre");
+        throw new UnsupportedOperationException("unsupported getPreferredGenre");
     }
 
     /**
@@ -224,7 +224,7 @@ public class Artist extends User {
                            final String description, final String owner,
                            final ArrayList<SongInput> songsInput) {
         ArrayList<Song> songs = new ArrayList<>();
-        ArrayList <String> songNames = new ArrayList<>();
+        ArrayList<String> songNames = new ArrayList<>();
         for (SongInput songInput : songsInput) {
             songs.add(new Song(songInput));
             songNames.add(songInput.getName());
@@ -267,17 +267,17 @@ public class Artist extends User {
      * @return a message about the success of the operation
      */
     @Override
-    public String addMerch(final Merch merch) {
+    public String addMerch(final Merch merchh) {
         for (Merch product : this.merch) {
-            if (product.getName().equals(merch.getName())) {
+            if (product.getName().equals(merchh.getName())) {
                 return getUsername()  + " has merchandise with the same name.";
             }
         }
 
-        if (merch.getPrice() < 0 ) {
+        if (merchh.getPrice() < 0) {
             return "Price for merchandise can not be negative.";
         }
-        this.merch.add(merch);
+        this.merch.add(merchh);
         return getUsername() + " has added new merchandise successfully.";
     }
 
@@ -317,7 +317,7 @@ public class Artist extends User {
      * @return a message about the success of the operation
      */
     @Override
-    public String removeAlbum(String albumName) {
+    public String removeAlbum(final String albumName) {
         Album albumToRemove = null;
         for (Album album : albums) {
             if (album.getName().equals(albumName)) {

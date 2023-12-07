@@ -13,6 +13,11 @@ public class Event {
     private String name;
     private String date;
     private String description;
+    private static final int MAX_YEAR = 2023;
+    private static final int MIN_YEAR = 1900;
+    private static final int FEBRUARY = 2;
+    private static final int FEBRUARY_DAYS = 28;
+
 
     public Event(final String name, final String date, final String description) {
         this.name = name;
@@ -37,16 +42,16 @@ public class Event {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         try {
-            LocalDate date = LocalDate.parse(this.date, dateFormatter);
-            int year = date.getYear();
-            int month = date.getMonthValue();
-            int day = date.getDayOfMonth();
+            LocalDate givenDate = LocalDate.parse(this.date, dateFormatter);
+            int year = givenDate.getYear();
+            int month = givenDate.getMonthValue();
+            int day = givenDate.getDayOfMonth();
 
-            if (year < 1900 || year > 2023) {
+            if (year < MIN_YEAR || year > MAX_YEAR) {
                 return false;
             }
 
-            return month != 2 || day <= 28;
+            return month != FEBRUARY || day <= FEBRUARY_DAYS;
         } catch (DateTimeException e) {
             return false;
         }
