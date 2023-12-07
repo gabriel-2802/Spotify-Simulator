@@ -1,18 +1,17 @@
 package app.pagination;
 
-import app.audio.Files.Song;
-import app.pagination.visitors.Visitor;
+import app.pagination.visitors.PageVisitor;
 import app.user.User;
 import lombok.Getter;
-
 import java.util.ArrayList;
+
 @Getter
 public class LikedContentPage extends Page {
         private final User user;
         private ArrayList<String> songs;
         private ArrayList<String> playlists;
 
-        public LikedContentPage(User user) {
+        public LikedContentPage(final User user) {
                 this.owner = user.getUsername();
                 this.user = user;
                 this.songs = new ArrayList<>();
@@ -20,18 +19,31 @@ public class LikedContentPage extends Page {
                 owner = user.getUsername();
         }
 
+        /**
+         * Clears the page
+         */
         @Override
         public void clearPage() {
                 songs.clear();
                 playlists.clear();
         }
+
+        /**
+         * Accepts a visitor
+         * @param visitor the visitor
+         */
         @Override
-        public void acceptVisitor(Visitor visitor) {
+        public void acceptVisitor(final PageVisitor visitor) {
                 visitor.visit(this);
         }
+
+        /**
+         * Returns a string representation of the page
+         * @return a string representation of the page
+         */
         @Override
         public String toString() {
-                return "Liked songs:\n\t[" + String.join(", ", songs) + "]\n\n" +
-                        "Followed playlists:\n\t[" + String.join(", ", playlists) + "]";
+                return "Liked songs:\n\t[" + String.join(", ", songs) + "]\n\n"
+                        + "Followed playlists:\n\t[" + String.join(", ", playlists) + "]";
         }
 }

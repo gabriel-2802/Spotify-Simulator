@@ -1,11 +1,8 @@
 package fileio.input;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.ArrayList;
 
-public class FiltersInput {
+public final class FiltersInput {
     private String name;
     private String album;
     private ArrayList<String> tags;
@@ -15,9 +12,15 @@ public class FiltersInput {
     private String artist;
     private String owner; // pentru search playlist si podcast
     private String followers; // pentru search playlist -> followers
-    @Getter
-    @Setter
-    private String description; // pentru search album -> description
+    private String description; // pentru search podcast -> description
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public FiltersInput() {
     }
@@ -26,7 +29,7 @@ public class FiltersInput {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -34,7 +37,7 @@ public class FiltersInput {
         return album;
     }
 
-    public void setAlbum(String album) {
+    public void setAlbum(final String album) {
         this.album = album;
     }
 
@@ -42,7 +45,7 @@ public class FiltersInput {
         return tags;
     }
 
-    public void setTags(ArrayList<String> tags) {
+    public void setTags(final ArrayList<String> tags) {
         this.tags = tags;
     }
 
@@ -50,7 +53,7 @@ public class FiltersInput {
         return lyrics;
     }
 
-    public void setLyrics(String lyrics) {
+    public void setLyrics(final String lyrics) {
         this.lyrics = lyrics;
     }
 
@@ -58,7 +61,7 @@ public class FiltersInput {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(final String genre) {
         this.genre = genre;
     }
 
@@ -66,7 +69,7 @@ public class FiltersInput {
         return releaseYear;
     }
 
-    public void setReleaseYear(String releaseYear) {
+    public void setReleaseYear(final String releaseYear) {
         this.releaseYear = releaseYear;
     }
 
@@ -74,7 +77,7 @@ public class FiltersInput {
         return artist;
     }
 
-    public void setArtist(String artist) {
+    public void setArtist(final String artist) {
         this.artist = artist;
     }
 
@@ -82,7 +85,7 @@ public class FiltersInput {
         return owner;
     }
 
-    public void setOwner(String owner) {
+    public void setOwner(final String owner) {
         this.owner = owner;
     }
 
@@ -90,22 +93,22 @@ public class FiltersInput {
         return followers;
     }
 
-    public void setFollowers(String followers) {
+    public void setFollowers(final String followers) {
         this.followers = followers;
     }
 
     @Override
     public String toString() {
-        return "FilterInput{" +
-                ", name='" + name + '\'' +
-                ", album='" + album + '\'' +
-                ", tags=" + tags +
-                ", lyrics='" + lyrics + '\'' +
-                ", genre='" + genre + '\'' +
-                ", releaseYear='" + releaseYear + '\'' +
-                ", artist='" + artist + '\'' +
-                ", owner='" + owner + '\'' +
-                ", followers='" + followers + '\'' +
-                '}';
+        return "FilterInput{"
+                + ", name='" + name + '\''
+                + ", album='" + album + '\''
+                + ", tags=" + tags
+                + ", lyrics='" + lyrics + '\''
+                + ", genre='" + genre + '\''
+                + ", releaseYear='" + releaseYear + '\''
+                + ", artist='" + artist + '\''
+                + ", owner='" + owner + '\''
+                + ", followers='" + followers + '\''
+                + '}';
     }
 }

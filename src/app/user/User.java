@@ -7,7 +7,7 @@ import app.audio.Files.Song;
 import app.audio.LibraryEntry;
 import app.pagination.*;
 import app.pagination.visitors.UpdateVisitor;
-import app.pagination.visitors.Visitor;
+import app.pagination.visitors.PageVisitor;
 import app.player.Player;
 import app.player.PlayerStats;
 import app.player.PodcastBookmark;
@@ -44,17 +44,13 @@ public class User {
     @Getter
     private Enums.Connection connectionStatus;
     @Getter
-    private Enums.UserType type;
-
-    public void setPage(Page page) {
-        this.page = page;
-    }
-
+    private final Enums.UserType type;
     @Getter
     @Setter
     private Page page; // the page the user is currently on
 
-    public User(String username, int age, String city) {
+    public User(final String username, final int age, final
+    String city) {
         this.username = username;
         this.age = age;
         this.city = city;
@@ -69,7 +65,8 @@ public class User {
         page = new HomePage(this);
     }
 
-    public User(String username, int age, String city, Enums.UserType type) {
+    public User(final String username, final int age,
+                final String city, final Enums.UserType type) {
         this.username = username;
         this.age = age;
         this.city = city;
@@ -84,7 +81,13 @@ public class User {
         page = new HomePage(this);
     }
 
-    public ArrayList<String> search(Filters filters, String type) {
+    /**
+     * searches for the given filters and type
+     * @param filters the filters
+     * @param type the type of the search
+     * @return list of results as strings
+     */
+    public ArrayList<String> search(final Filters filters, final String type) {
         searchBar.clearSelection();
         player.stop();
 
@@ -109,7 +112,12 @@ public class User {
         return results;
     }
 
-    public String select(int itemNumber) {
+    /**
+     * selects the given item number
+     * @param itemNumber the item number
+     * @return a message about the success of the operation
+     */
+    public String select(final int itemNumber) {
         if (!lastSearched)
             return "Please conduct a search before making a selection.";
 
@@ -148,11 +156,16 @@ public class User {
         }
     }
 
+    /**
+     * loads the selected source
+     * @return a message about the success of the operation
+     */
     public String load() {
         if (searchBar.getLastSelected() == null)
             return "Please select a source before attempting to load.";
 
-        if (!searchBar.getLastSearchType().equals("song") && ((AudioCollection)searchBar.getLastSelected()).getNumberOfTracks() == 0) {
+        if (!searchBar.getLastSearchType().equals("song")
+                && ((AudioCollection)searchBar.getLastSelected()).getNumberOfTracks() == 0) {
             return "You can't load an empty audio collection!";
         }
         player.setSource(searchBar.getLastSelected(), searchBar.getLastSearchType());
@@ -163,6 +176,10 @@ public class User {
         return "Playback loaded successfully.";
     }
 
+    /**
+     * plays or pauses the playback
+     * @return a message about the success of the operation
+     */
     public String playPause() {
         if (player.getCurrentAudioFile() == null)
             return "Please load a source before attempting to pause or resume playback.";
@@ -175,6 +192,10 @@ public class User {
             return "Playback resumed successfully.";
     }
 
+    /**
+     * sets the repeat mode
+     * @return a message about the success of the operation
+     */
     public String repeat() {
         if (player.getCurrentAudioFile() == null)
             return "Please load a source before setting the repeat status.";
@@ -193,7 +214,12 @@ public class User {
         return "Repeat mode changed to %s.".formatted(repeatStatus);
     }
 
-    public String shuffle(Integer seed) {
+    /**
+     * sets the shuffle mode on or off
+     * @param seed the seed for the shuffle
+     * @return a message about the success of the operation
+     */
+    public String shuffle(final Integer seed) {
         if (player.getCurrentAudioFile() == null)
             return "Please load a source before using the shuffle function.";
 
@@ -207,6 +233,10 @@ public class User {
         return "Shuffle function deactivated successfully.";
     }
 
+    /**
+     * forwards the playback
+     * @return a message about the success of the operation
+     */
     public String forward() {
         if (player.getCurrentAudioFile() == null)
             return "Please load a source before attempting to forward.";
@@ -219,6 +249,10 @@ public class User {
         return "Skipped forward successfully.";
     }
 
+    /**
+     * rewinds the playback
+     * @return a message about the success of the operation
+     */
     public String backward() {
         if (player.getCurrentAudioFile() == null)
             return "Please select a source before rewinding.";
@@ -231,11 +265,16 @@ public class User {
         return "Rewound successfully.";
     }
 
+    /**
+     * likes the current song
+     * @return a message about the success of the operation
+     */
     public String like() {
         if (player.getCurrentAudioFile() == null)
             return "Please load a source before liking or unliking.";
 
-        if (!player.getType().equals("song") && !player.getType().equals("playlist") && !player.getType().equals("album"))
+        if (!player.getType().equals("song") && !player.getType().equals("playlist")
+                && !player.getType().equals("album"))
             return "Loaded source is not a song.";
 
         Song song = (Song) player.getCurrentAudioFile();
@@ -252,6 +291,10 @@ public class User {
         return "Like registered successfully.";
     }
 
+    /**
+     * moves to next song
+     * @return a message about the success of the operation
+     */
     public String next() {
         if (player.getCurrentAudioFile() == null)
             return "Please load a source before skipping to the next track.";
@@ -261,19 +304,31 @@ public class User {
         if (player.getCurrentAudioFile() == null)
             return "Please load a source before skipping to the next track.";
 
-        return "Skipped to next track successfully. The current track is %s.".formatted(player.getCurrentAudioFile().getName());
+        return "Skipped to next track successfully. The current track is %s."
+                .formatted(player.getCurrentAudioFile().getName());
     }
 
+    /**
+     * moves to previous song
+     * @return a message about the success of the operation
+     */
     public String prev() {
         if (player.getCurrentAudioFile() == null)
             return "Please load a source before returning to the previous track.";
 
         player.prev();
 
-        return "Returned to previous track successfully. The current track is %s.".formatted(player.getCurrentAudioFile().getName());
+        return "Returned to previous track successfully. The current track is %s."
+                .formatted(player.getCurrentAudioFile().getName());
     }
 
-    public String createPlaylist(String name, int timestamp) {
+    /**
+     * creates a playlist
+     * @param name the name of the playlist
+     * @param timestamp the timestamp of the playlist
+     * @return a message about the success of the operation
+     */
+    public String createPlaylist(final String name, final int timestamp) {
         if (playlists.stream().anyMatch(playlist -> playlist.getName().equals(name)))
             return "A playlist with the same name already exists.";
 
@@ -283,7 +338,12 @@ public class User {
         return "Playlist created successfully.";
     }
 
-    public String addRemoveInPlaylist(int Id) {
+    /**
+     * add or remove a song from a playlist
+     * @param Id the id of the playlist
+     * @return a message about the success of the operation
+     */
+    public String addRemoveInPlaylist(final int Id) {
         if (player.getCurrentAudioFile() == null)
             return "Please load a source before adding to or removing from the playlist.";
 
@@ -304,7 +364,12 @@ public class User {
         return "Successfully added to playlist.";
     }
 
-    public String switchPlaylistVisibility(Integer playlistId) {
+    /**
+     * switches the visibility of a playlist
+     * @param playlistId the id of the playlist
+     * @return a message about the success of the operation
+     */
+    public String switchPlaylistVisibility(final Integer playlistId) {
         if (playlistId > playlists.size())
             return "The specified playlist ID is too high.";
 
@@ -318,6 +383,10 @@ public class User {
         return "Visibility status updated successfully to private.";
     }
 
+    /**
+     * shows all playlists
+     * @return a list of playlists
+     */
     public ArrayList<PlaylistOutput> showPlaylists() {
         ArrayList<PlaylistOutput> playlistOutputs = new ArrayList<>();
         for (Playlist playlist : playlists) {
@@ -327,6 +396,10 @@ public class User {
         return playlistOutputs;
     }
 
+    /**
+     * follows the current playlist
+     * @return a message about the success of the operation
+     */
     public String follow() {
         LibraryEntry selection = searchBar.getLastSelected();
         String type = searchBar.getLastSearchType();
@@ -356,10 +429,18 @@ public class User {
         return "Playlist followed successfully.";
     }
 
+    /**
+     * returns the stats of the player
+     * @return the stats of the player
+     */
     public PlayerStats getPlayerStats() {
         return player.getStats();
     }
 
+    /**
+     * shows all liked songs
+     * @return a list of liked songs
+     */
     public ArrayList<String> showPreferredSongs() {
         ArrayList<String> results = new ArrayList<>();
         for (AudioFile audioFile : likedSongs) {
@@ -369,6 +450,10 @@ public class User {
         return results;
     }
 
+    /**
+     * shows the preffered genre of the user
+     * @return the preferred genre
+     */
     public String getPreferredGenre() {
         String[] genres = {"pop", "rock", "rap"};
         int[] counts = new int[genres.length];
@@ -392,9 +477,18 @@ public class User {
         return "This user's preferred genre is %s.".formatted(preferredGenre);
     }
 
-    public void simulateTime(int time) {
+    /**
+     * simulates the time
+     * @param time the time to be simulated
+     */
+    public void simulateTime(final int time) {
         player.simulatePlayer(time);
     }
+
+    /**
+     * switches the connection status
+     * @return a message about the success of the operation
+     */
     public String switchConnectionStatus() {
        if (connectionStatus == Enums.Connection.ONLINE) {
            connectionStatus = Enums.Connection.OFFLINE;
@@ -406,29 +500,64 @@ public class User {
         return username + " has changed status successfully.";
     }
 
+    /**
+     * updates the page of the user
+     */
     public void updatePage() {
-        Visitor updateVisitor = new UpdateVisitor();
+        PageVisitor updateVisitor = new UpdateVisitor();
         page.acceptVisitor(updateVisitor);
     }
 
-
-    public String addAlbum(String name, int releaseYear, String description, String owner, ArrayList<SongInput> songsInput) {
+    /**
+     * adds an album
+     * @param name the name of the album
+     * @param releaseYear the release year of the album
+     * @param description the description of the album
+     * @param owner the owner of the album
+     * @param songsInput the songs of the album
+     * @return a message about the success of the operation
+     */
+    public String addAlbum(final String name, final int releaseYear,
+                           final String description, final String owner,
+                           final ArrayList<SongInput> songsInput) {
         return username + " is not an artist.";
     }
 
-    public String addMerch(Merch merch) {
+    /**
+     * adds a merch
+     * @param merch the merch to be added
+     * @return a message about the success of the operation
+     */
+    public String addMerch(final Merch merch) {
         return username + " is not an artist.";
     }
 
-    public String addEvent(Event event) {
+    /**
+     * adds an event
+     * @param event the event to be added
+     * @return  a message about the success of the operation
+     */
+    public String addEvent(final Event event) {
         return username + " is not an artist.";
     }
 
-    public String addPodcast(String name, String owner, List<EpisodeInput> episodeInputs) {
+    /**
+     * adds a podcast
+     * @param name the name of the podcast
+     * @param owner the owner of the podcast
+     * @param episodeInputs the episodes of the podcast
+     * @return a message about the success of the operation
+     */
+    public String addPodcast(final String name, final String owner,
+                             final List<EpisodeInput> episodeInputs) {
         return username + " is not a host.";
     }
 
-    /* functions returns the audio colelction that the user is listening to */
+
+    /**
+     * return the current audio file being listened to by the user
+     * * @return the song or episode being listened to
+     */
     public AudioFile listeningToFile() {
         if (player.getCurrentAudioFile() != null) {
             return player.getCurrentAudioFile();
@@ -437,6 +566,10 @@ public class User {
         return null;
     }
 
+    /**
+     * returns the current audio collection being listened to by the user
+     * @return the playlist,album or podcast being listened to
+     */
     public AudioCollection listeningToCollection() {
         if (player.getCurrentAudioFile() != null) {
             return player.getCurrentAudioCollection();
@@ -445,6 +578,9 @@ public class User {
         return null;
     }
 
+    /**
+     * deletes the data of the user
+     */
     public void deleteData() {
         for (Playlist playlist : followedPlaylists) {
             playlist.decreaseFollowers();
@@ -459,37 +595,80 @@ public class User {
         Admin.removePlaylistsData(username);
     }
 
+    /**
+     * get the bookmarks of the user
+     * @return the bookmarks
+     */
     public List<PodcastBookmark> getBookmarks() {
         return player.getBookmarks();
     }
 
-    public String addAnnouncement(String name, String message) {
+    /**
+     * adds an announcement
+     * @param name of the announcement
+     * @param message of the announcement
+     * @return a message about the success of the operation
+     */
+    public String addAnnouncement(final String name, final String message) {
         return username + " is not a host.";
     }
-    public String removeAnnouncement(String name) {
+
+    /**
+     * removes an announcement
+     * @param name of the announcement
+     * @return a message about the success of the operation
+     */
+    public String removeAnnouncement(final String name) {
         return username + " is not a host";
     }
 
+    /**
+     * shows all albums
+     * @return a list of albums
+     */
     public ArrayList<AlbumOutput> showAlbums() {
         throw new UnsupportedOperationException("Not supported by this user type");
     }
 
+    /**
+     * shows all podcasts
+     * @return a list of podcasts
+     */
     public ArrayList<PodcastOutput> showPodcasts() {
         throw new UnsupportedOperationException("Not supported by this user type");
     }
 
-    public String removeAlbum(String name) {
+    /**
+     * removes an album
+     * @param name of the album
+     * @return a message about the success of the operation
+     */
+    public String removeAlbum(final String name) {
         return username + " is not an artist.";
     }
 
-    public String removePodcast(String name) {
+    /**
+     * removes a podcast
+     * @param name of the podcast
+     * @return a message about the success of the operation
+     */
+    public String removePodcast(final String name) {
         return username + " is not a host.";
     }
 
-    public void removePodcastBookmark(String name) {
+    /**
+     * removes a podcast bookmark
+     * @param name of the podcast bookmark
+     */
+    public void removePodcastBookmark(final String name) {
         player.removePodcastBookmark(name);
     }
 
+    /**
+     * changes the page of the user
+     * @param pageName the name of the page
+     * @return a message about the success of the operation
+     */
     public String changePage(String pageName) {
         return switch (pageName) {
             case "Home":
@@ -503,9 +682,12 @@ public class User {
         };
     }
 
+    /**
+     * removes an event
+     * @param name of the event
+     * @return a message about the success of the operation
+     */
     public String removeEvent(String name) {
         return username + " is not an artist.";
     }
-
-
 }

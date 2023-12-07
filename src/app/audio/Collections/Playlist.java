@@ -104,16 +104,32 @@ public final class Playlist extends AudioCollection {
         followers--;
     }
 
+    /**
+     * Gets number of tracks.
+     *
+     * @return the number of tracks
+     */
     @Override
     public int getNumberOfTracks() {
         return songs.size();
     }
 
+    /**
+     * Gets track by index.
+     *
+     * @param index the index
+     * @return the track by index
+     */
     @Override
     public AudioFile getTrackByIndex(final int index) {
         return songs.get(index);
     }
 
+    /**
+     * the method checks if the playlist is visible to a user
+     * @param user the user
+     * @return true if the playlist is visible to the user, false otherwise
+     */
     @Override
     public boolean isVisibleToUser(final String user) {
         return this.getVisibility() == Enums.Visibility.PUBLIC
@@ -121,11 +137,22 @@ public final class Playlist extends AudioCollection {
                 && this.getOwner().equals(user));
     }
 
+    /**
+     * the method checks if the playlist has a given number of followers
+     * @param followerNum the follower numbers
+     * @return true if the playlist has the given number of followers, false otherwise
+     */
     @Override
     public boolean matchesFollowers(final String followerNum) {
         return filterByFollowersCount(this.getFollowers(), followerNum);
     }
 
+    /**
+     * the method checks if the playlist has a given number of followers
+     * @param count the follower numbers
+     * @param query the query
+     * @return true if the playlist has the given number of followers, false otherwise
+     */
     private static boolean filterByFollowersCount(final int count, final String query) {
         if (query.startsWith("<")) {
             return count < Integer.parseInt(query.substring(1));
@@ -136,7 +163,10 @@ public final class Playlist extends AudioCollection {
         }
     }
 
-
+    /**
+     * the method computes the total number of likes of the playlist
+     * @return the total number of likes of the playlist
+     */
         public int totalLikes() {
         int total = 0;
         for (Song song : songs) {
@@ -145,20 +175,38 @@ public final class Playlist extends AudioCollection {
         return total;
     }
 
+    /**
+     * overridden the toString method
+     * @return the string representation of the playlist
+     */
     @Override
     public String toString() {
         return getName() + " - " + getOwner();
     }
 
-    public void removeSongsByArtist(String artist) {
+    /**
+     * the method removes all the songs by a given artist
+     * @param artist the artist
+     **/
+    public void removeSongsByArtist(final String artist) {
         songs.removeIf(song -> song.getArtist().equals(artist));
     }
-    public void removeSongsByAlbum(String album) {
+
+    /**
+     * the method removes all the songs from a given album
+     * @param album the album name
+     **/
+    public void removeSongsByAlbum(final String album) {
         songs.removeIf(song -> song.getAlbum().equals(album));
     }
 
+    /**
+     * the method checks if the playlist contains a song by a given artist
+     * @param artist the artist
+     * @return true if the playlist contains a song by the artist, false otherwise
+     */
     @Override
-    public boolean containsMediaByCreator(String artist) {
+    public boolean containsMediaByCreator(final String artist) {
         for (Song song : songs) {
             if (song.getArtist().equals(artist)) {
                 return true;
@@ -168,3 +216,4 @@ public final class Playlist extends AudioCollection {
     }
 
 }
+

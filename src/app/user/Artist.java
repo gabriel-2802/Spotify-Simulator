@@ -3,7 +3,10 @@ package app.user;
 import app.Admin;
 import app.audio.Collections.Album;
 import app.audio.Collections.AlbumOutput;
+import app.audio.Collections.PlaylistOutput;
 import app.audio.Files.Song;
+import app.player.PlayerStats;
+import app.searchBar.Filters;
 import app.user.utils.Event;
 import app.user.utils.Merch;
 import app.utils.Enums;
@@ -13,6 +16,9 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Artist class
+ */
 public class Artist extends User {
     @Getter
     private ArrayList<Album> albums;
@@ -20,15 +26,203 @@ public class Artist extends User {
     private ArrayList<Merch> merch;
     @Getter
     private ArrayList<Event> events;
-    public Artist(String username, int age, String city, Enums.UserType type) {
+    public Artist(final String username, final int age, final String city,
+                  final Enums.UserType type) {
         super(username, age, city, type);
         albums = new ArrayList<>();
         merch = new ArrayList<>();
         events = new ArrayList<>();
     }
 
+    /**
+     * adds a new song
+     * @param filters the filters
+     * @param type the type of the search
+     * @return a message about the success of the operation
+     */
     @Override
-    public String addAlbum(String name, int releaseYear, String description, String owner, ArrayList<SongInput> songsInput) {
+    public ArrayList<String> search(final Filters filters, final String type) {
+        throw new UnsupportedOperationException("This type of user does not support search");
+    }
+
+    /**
+     * selects media
+     * @param itemNumber the number of the item
+     */
+    @Override
+    public String select(final int itemNumber) {
+        throw new UnsupportedOperationException("This type of user does not support select");
+    }
+
+    /**
+     * loads the selected audio file
+     * @return a message about the success of the operation
+     */
+    @Override
+    public String load() {
+        throw new UnsupportedOperationException("This type of user does not support load");
+    }
+
+    /**
+     * plays pause on the audio file
+     * @return a message about the success of the operation
+     */
+    @Override
+    public String playPause() {
+        throw new UnsupportedOperationException("This type of user does not support playPause");
+    }
+
+    /**
+     * repeats the media
+     * @return a message about the success of the operation
+     */
+    @Override
+    public String repeat() {
+        throw new UnsupportedOperationException("This type of user does not support repeat");
+    }
+
+    /**
+     * shuffles the media
+     * @param seed the seed for the shuffle
+     * @return a message about the success of the operation
+     */
+    @Override
+    public String shuffle(final Integer seed) {
+        throw new UnsupportedOperationException("This type of user does not support shuffle");
+    }
+
+    /**
+     * forwards the playback
+     * @return a message about the success of the operation
+     */
+    @Override
+    public String forward() {
+        throw new UnsupportedOperationException("This type of user does not support forward");
+    }
+
+    /**
+     * rewinds the playback
+     * @return a message about the success of the operation
+     */
+    @Override
+    public String backward() {
+        throw new UnsupportedOperationException("This type of user does not support backward");
+    }
+
+    /**
+     * likes the current song
+     * @return a message about the success of the operation
+     */
+    @Override
+    public String like() {
+        throw new UnsupportedOperationException("This type of user does not support like");
+    }
+
+    /**
+     * moves to next song
+     * @return a message about the success of the operation
+     */
+    @Override
+    public String next() {
+        throw new UnsupportedOperationException("This type of user does not support next");
+    }
+
+    /**
+     * moves to previous song
+     * @return a message about the success of the operation
+     */
+    @Override
+    public String prev() {
+        throw new UnsupportedOperationException("This type of user does not support prev");
+    }
+
+    /**
+     * creates a playlist
+     * @param name the name of the playlist
+     * @param timestamp the timestamp of the playlist
+     * @return a message about the success of the operation
+     */
+    @Override
+    public String createPlaylist(final String name, final int timestamp) {
+        throw new UnsupportedOperationException("This type of user does not support createPlaylist");
+    }
+
+    /**
+     * add or remove a song from a playlist
+     * @param Id the id of the playlist
+     * @return a message about the success of the operation
+     */
+    @Override
+    public String addRemoveInPlaylist(final int Id) {
+        throw new UnsupportedOperationException("This type of user does not support addRemoveInPlaylist");
+    }
+
+    /**
+     * switches the visibility of a playlist
+     * @param playlistId the id of the playlist
+     * @return a message about the success of the operation
+     */
+    public String switchPlaylistVisibility(final Integer playlistId) {
+        throw new UnsupportedOperationException("This type of user does not support switchPlaylistVisibility");
+    }
+
+    /**
+     * shows all playlists
+     * @return a list of playlists
+     */
+    public ArrayList<PlaylistOutput> showPlaylists() {
+        throw new UnsupportedOperationException("This type of user does not support showPlaylists");
+    }
+
+    /**
+     * follows the current playlist
+     * @return a message about the success of the operation
+     */
+    @Override
+    public String follow() {
+        throw new UnsupportedOperationException("This type of user does not support follow");
+    }
+
+    /**
+     * returns the stats of the player
+     * @return the stats of the player
+     */
+    @Override
+    public PlayerStats getPlayerStats() {
+        throw new UnsupportedOperationException("This type of user does not support getPlayerStats");
+    }
+
+    /**
+     * shows all liked songs
+     * @return a list of liked songs
+     */
+    @Override
+    public ArrayList<String> showPreferredSongs() {
+        throw new UnsupportedOperationException("This type of user does not support showPreferredSongs");
+    }
+
+    /**
+     * shows the preffered genre of the user
+     * @return the preferred genre
+     */
+    @Override
+    public String getPreferredGenre() {
+        throw new UnsupportedOperationException("This type of user does not support getPreferredGenre");
+    }
+
+    /**
+     * Adds a new album
+     * @param name the name of the album
+     * @param releaseYear the release year of the album
+     * @param description the description of the album
+     * @param owner the owner of the album
+     * @param songsInput the songs of the album
+     * @return a message about the success of the operation
+     */
+    @Override
+    public String addAlbum(final String name, final int releaseYear,
+                           final String description, final String owner,
+                           final ArrayList<SongInput> songsInput) {
         ArrayList<Song> songs = new ArrayList<>();
         ArrayList <String> songNames = new ArrayList<>();
         for (SongInput songInput : songsInput) {
@@ -55,6 +249,10 @@ public class Artist extends User {
         return getUsername() + " has added new album successfully.";
     }
 
+    /**
+     * shows all albums of the artist
+     * @return a list of albums
+     */
     public ArrayList<AlbumOutput> showAlbums() {
         ArrayList<AlbumOutput> albumOutputs = new ArrayList<>();
         for (Album album : albums) {
@@ -63,8 +261,13 @@ public class Artist extends User {
         return albumOutputs;
     }
 
+    /**
+     * adds merchandise to the artist
+     * @param merch the merchandise
+     * @return a message about the success of the operation
+     */
     @Override
-    public String addMerch(Merch merch) {
+    public String addMerch(final Merch merch) {
         for (Merch product : this.merch) {
             if (product.getName().equals(merch.getName())) {
                 return getUsername()  + " has merchandise with the same name.";
@@ -78,8 +281,13 @@ public class Artist extends User {
         return getUsername() + " has added new merchandise successfully.";
     }
 
+    /**
+     * adds an event to the artist
+     * @param event the event
+     * @return a message about the success of the operation
+     */
     @Override
-    public String addEvent(Event event) {
+    public String addEvent(final Event event) {
         for (Event e : events) {
             if (e.getName().equals(event.getName())) {
                 return getUsername() + " has another event with the same name.";
@@ -94,12 +302,20 @@ public class Artist extends User {
         return getUsername() + " has added new event successfully.";
     }
 
+    /**
+     * deletes the data of the artist
+     */
     @Override
     public void deleteData() {
         super.deleteData();
         Admin.removeArtistData(getUsername());
     }
 
+    /**
+     * removes an album from the artist
+     * @param albumName the name of the album
+     * @return a message about the success of the operation
+     */
     @Override
     public String removeAlbum(String albumName) {
         Album albumToRemove = null;
@@ -117,13 +333,23 @@ public class Artist extends User {
         return Admin.removeAlbum(this, albumToRemove);
     }
 
+    /**
+     * changes the page of the artist
+     * @param pageName the name of the page
+     * @return a message about the success of the operation
+     */
     @Override
-    public String changePage(String pagename) {
+    public String changePage(final String pageName) {
         throw new UnsupportedOperationException("Artist cannot change page.");
     }
 
+    /**
+     * removes an event from the artist
+     * @param name the name of the event
+     * @return
+     */
     @Override
-    public String removeEvent(String name) {
+    public String removeEvent(final String name) {
         Event eventToRemove = null;
         for (Event event : events) {
             if (event.getName().equals(name)) {
@@ -140,6 +366,10 @@ public class Artist extends User {
         return getUsername() + " deleted the event successfully.";
     }
 
+    /**
+     * returns the number of likes from the albums of the artist
+     * @return the number of likes
+     */
     public int likes() {
         int likes = 0;
         for (Album album : albums) {

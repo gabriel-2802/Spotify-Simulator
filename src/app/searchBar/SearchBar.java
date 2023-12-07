@@ -9,9 +9,21 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static app.searchBar.FilterUtils.*;
+import static app.searchBar.FilterUtils.filterByAlbum;
+import static app.searchBar.FilterUtils.filterByArtist;
+import static app.searchBar.FilterUtils.filterByDescription;
 import static app.searchBar.FilterUtils.filterByFollowers;
+import static app.searchBar.FilterUtils.filterByGenre;
+import static app.searchBar.FilterUtils.filterByLyrics;
+import static app.searchBar.FilterUtils.filterByName;
+import static app.searchBar.FilterUtils.filterByOwner;
+import static app.searchBar.FilterUtils.filterByPlaylistVisibility;
+import static app.searchBar.FilterUtils.filterByReleaseYear;
+import static app.searchBar.FilterUtils.filterByTags;
 
+/**
+ * Search bar
+ */
 public class SearchBar {
     private List<LibraryEntry> results;
     private List<User> userResults;
@@ -24,17 +36,27 @@ public class SearchBar {
     private LibraryEntry lastSelected;
     private User lastSelectedUser;
 
-    public SearchBar(String user) {
+    public SearchBar(final String user) {
         this.results = new ArrayList<>();
         this.user = user;
     }
 
+    /**
+     * clears the selection
+     */
     public void clearSelection() {
         lastSelected = null;
         lastSelectedUser = null;
         lastSearchType = null;
     }
-    public List<LibraryEntry> search(Filters filters, String type) {
+
+    /**
+     * searches media for the given filters and type
+     * @param filters the filters
+     * @param type the type of the media
+     * @return the results
+     */
+    public List<LibraryEntry> search(final Filters filters, final String type) {
         List<LibraryEntry> entries;
 
         switch (type) {
@@ -127,7 +149,13 @@ public class SearchBar {
         return this.results;
     }
 
-    public List<User> searchCreators(String type, String name) {
+    /**
+     * searches creators for the given type and name
+     * @param type the type of the creator
+     * @param name the name of the creator
+     * @return the results
+     */
+    public List<User> searchCreators(final String type, final String name) {
         List <User> entries =  switch (type) {
             case "artist" -> FilterUtils.filterArtists(Admin.getArtists(), name);
             case "host" -> FilterUtils.filterHosts(Admin.getHosts(), name);
@@ -143,7 +171,12 @@ public class SearchBar {
         return this.userResults;
     }
 
-    public User selectCreator(Integer itemNumber) {
+    /**
+     * selects the given item number from the results
+     * @param itemNumber the item number
+     * @return the selected item
+     */
+    public User selectCreator(final Integer itemNumber) {
         if (this.userResults.size() < itemNumber) {
             results.clear();
             userResults.clear();
@@ -155,7 +188,13 @@ public class SearchBar {
             return lastSelectedUser;
         }
     }
-    public LibraryEntry select(Integer itemNumber) {
+
+    /**
+     * selects the given item number from the results
+     * @param itemNumber the item number
+     * @return the selected item
+     */
+    public LibraryEntry select(final Integer itemNumber) {
         if (this.results.size() < itemNumber) {
             results.clear();
             userResults.clear();

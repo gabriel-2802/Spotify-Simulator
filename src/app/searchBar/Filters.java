@@ -5,6 +5,9 @@ import lombok.Data;
 
 import java.util.ArrayList;
 
+/**
+ * wrapper class for FilterInput
+ */
 @Data
 public class Filters {
     private String name;
@@ -18,7 +21,7 @@ public class Filters {
     private String followers;
     private String description;
 
-    public Filters(FiltersInput filters) {
+    public Filters(final FiltersInput filters) {
         this.name = filters.getName();
         this.album = filters.getAlbum();
         this.tags = filters.getTags();

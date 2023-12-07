@@ -125,7 +125,7 @@ public abstract class LibraryEntry {
      * @param description the description
      * @return boolean
      */
-    public boolean matchesDescription(String description) {
+    public boolean matchesDescription(final String description) {
         return false;
     }
 }

@@ -3,6 +3,9 @@ package app.player;
 import app.utils.Enums;
 import lombok.Getter;
 
+/**
+ * Player stats
+ */
 @Getter
 public class PlayerStats {
     private final String name;
@@ -11,7 +14,9 @@ public class PlayerStats {
     private final boolean shuffle;
     private final boolean paused;
 
-    public PlayerStats(String name, int remainedTime, Enums.RepeatMode repeatMode, boolean shuffle, boolean paused) {
+    public PlayerStats(final String name, final int remainedTime,
+                       final Enums.RepeatMode repeatMode, final boolean shuffle,
+                       final boolean paused) {
         this.name = name;
         this.remainedTime = remainedTime;
         this.paused = paused;

@@ -9,7 +9,7 @@ public class PodcastBookmark {
     private final int id;
     private final int timestamp;
 
-    public PodcastBookmark(String name, int id, int timestamp, String owner) {
+    public PodcastBookmark(final String name, final int id, final int timestamp, final String owner) {
         this.name = name;
         this.id = id;
         this.timestamp = timestamp;

@@ -1,13 +1,10 @@
 package app.pagination;
 
-import app.audio.Collections.Podcast;
-import app.pagination.visitors.Visitor;
-import app.user.Host;
+import app.pagination.visitors.PageVisitor;
 import app.user.User;
-import app.user.utils.Announcement;
 import lombok.Getter;
-
 import java.util.ArrayList;
+
 @Getter
 public class HostPage extends Page {
         private final User host;
@@ -15,7 +12,7 @@ public class HostPage extends Page {
         private ArrayList<String> podcasts;
 
 
-        public HostPage(User host) {
+        public HostPage(final User host) {
                 this.host = host;
                 this.owner = host.getUsername();
                 announcements = new ArrayList<>();
@@ -23,20 +20,32 @@ public class HostPage extends Page {
 
         }
 
+        /**
+         * Clears the page
+         */
         @Override
         public void clearPage() {
                 announcements.clear();
                 podcasts.clear();
 
         }
+
+        /**
+         * Accepts a visitor
+         * @param visitor the visitor
+         */
         @Override
-        public void acceptVisitor(Visitor visitor) {
+        public void acceptVisitor(final PageVisitor visitor) {
                 visitor.visit(this);
         }
 
+        /**
+         * Returns a string representation of the page
+         * @return a string representation of the page
+         */
         @Override
         public String toString() {
-                return "Podcasts:\n\t[" + String.join(", ", podcasts) + "]\n\n" +
-                        "Announcements:\n\t[" + String.join(", ", announcements) + "]";
+                return "Podcasts:\n\t[" + String.join(", ", podcasts) + "]\n\n"
+                        + "Announcements:\n\t[" + String.join(", ", announcements) + "]";
         }
 }

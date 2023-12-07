@@ -17,26 +17,39 @@ import app.user.utils.Merch;
 import java.util.Comparator;
 import java.util.List;
 
-public class UpdateVisitor implements Visitor {
+/**
+ * Visitor that updates the page
+ */
+public class UpdateVisitor implements PageVisitor {
+    private static final int MAX_RESULTS = 5;
+    /**
+     * Updates the page
+     * @param artistPage the page to be updated
+     */
     @Override
-    public void visit(ArtistPage artistPage) {
+    public void visit(final ArtistPage artistPage) {
         artistPage.clearPage();
 
-        for (Merch merch : ((Artist)artistPage.getArtist()).getMerch()) {
+        for (Merch merch : ((Artist) artistPage.getArtist()).getMerch()) {
             artistPage.getMerch().add(merch.toString());
         }
 
-        for (Album album : ((Artist)artistPage.getArtist()).getAlbums()) {
+        for (Album album : ((Artist) artistPage.getArtist()).getAlbums()) {
             artistPage.getAlbums().add(album.getName());
         }
 
-        for (Event event : ((Artist)artistPage.getArtist()).getEvents()) {
+        for (Event event : ((Artist) artistPage.getArtist()).getEvents()) {
             artistPage.getEvents().add(event.toString());
         }
     }
 
+    /**
+     * Updates the page
+     * @param likePage the page to be updated
+     */
+
     @Override
-    public void visit(LikedContentPage likePage) {
+    public void visit(final LikedContentPage likePage) {
         likePage.clearPage();
         for (Song song : likePage.getUser().getLikedSongs()) {
             likePage.getSongs().add(song.toString());
@@ -47,15 +60,19 @@ public class UpdateVisitor implements Visitor {
         }
     }
 
+    /**
+     * Updates the page
+     * @param homePage the page to be updated
+     */
     @Override
-    public void visit(HomePage homePage) {
+    public void visit(final HomePage homePage) {
         homePage.clearPage();
         List<Song> likedSongs = homePage.getUser().getLikedSongs();
 
         if (likedSongs != null) {
             homePage.getSongs().addAll(likedSongs.stream()
                     .sorted(Comparator.comparingInt(Song::getLikes).reversed())
-                    .limit(5)
+                    .limit(MAX_RESULTS)
                     .map(Song::getName)
                     .toList());
         }
@@ -64,26 +81,27 @@ public class UpdateVisitor implements Visitor {
         if (followedPlaylists != null) {
             homePage.getPlaylists().addAll(followedPlaylists.stream()
                     .sorted(Comparator.comparingInt(Playlist::totalLikes).reversed())
-                    .limit(5)
+                    .limit(MAX_RESULTS)
                     .map(Playlist::getName)
                     .toList());
         }
 
     }
 
+    /**
+     * Updates the page
+     * @param hostPage the page to be updated
+     */
     @Override
-    public void visit(HostPage hostPage) {
+    public void visit(final HostPage hostPage) {
         hostPage.clearPage();
 
-        for (Podcast podcast: ((Host)hostPage.getHost()).getPodcasts()) {
+        for (Podcast podcast: ((Host) hostPage.getHost()).getPodcasts()) {
             hostPage.getPodcasts().add(podcast.toString());
         }
 
-        for (Announcement announcement: ((Host)hostPage.getHost()).getAnnouncements()) {
+        for (Announcement announcement: ((Host) hostPage.getHost()).getAnnouncements()) {
             hostPage.getAnnouncements().add(announcement.toString());
         }
     }
-
-
-
 }

@@ -10,6 +10,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+
+/**
+ * Player source
+ */
 public class PlayerSource {
     @Getter
     private Enums.PlayerSourceType type;
@@ -23,13 +27,14 @@ public class PlayerSource {
     private int remainedDuration;
     private final List<Integer> indices = new ArrayList<>();
 
-    public PlayerSource(Enums.PlayerSourceType type, AudioFile audioFile) {
+    public PlayerSource(final Enums.PlayerSourceType type, final AudioFile audioFile) {
         this.type = type;
         this.audioFile = audioFile;
         this.remainedDuration = audioFile.getDuration();
     }
 
-    public PlayerSource(Enums.PlayerSourceType type, AudioCollection audioCollection) {
+    public PlayerSource(final Enums.PlayerSourceType type,
+                        final AudioCollection audioCollection) {
         this.type = type;
         this.audioCollection = audioCollection;
         this.audioFile = audioCollection.getTrackByIndex(0);
@@ -38,7 +43,9 @@ public class PlayerSource {
         this.remainedDuration = audioFile.getDuration();
     }
 
-    public PlayerSource(Enums.PlayerSourceType type, AudioCollection audioCollection, PodcastBookmark bookmark) {
+    public PlayerSource(final Enums.PlayerSourceType type,
+                        final AudioCollection audioCollection,
+                        final PodcastBookmark bookmark) {
         this.type = type;
         this.audioCollection = audioCollection;
         this.index = bookmark.getId();
@@ -46,11 +53,21 @@ public class PlayerSource {
         this.audioFile = audioCollection.getTrackByIndex(index);
     }
 
+    /**
+     * Returns the duration of the current audio file
+     * @return the duration of the current audio file
+     */
     public int getDuration() {
         return remainedDuration;
     }
 
-    public boolean setNextAudioFile(Enums.RepeatMode repeatMode, boolean shuffle) {
+    /**
+     * sets the next audio file
+     * @param repeatMode the repeat mode of the player
+     * @param shuffle whether the player is shuffled
+     * @return whether the player is paused
+     */
+    public boolean setNextAudioFile(final Enums.RepeatMode repeatMode, final boolean shuffle) {
         boolean isPaused = false;
 
         if (type == Enums.PlayerSourceType.LIBRARY) {
@@ -100,7 +117,11 @@ public class PlayerSource {
         return isPaused;
     }
 
-    public void setPrevAudioFile(boolean shuffle) {
+    /**
+     * Sets the previous audio file
+     * @param shuffle whether the player is shuffled
+     */
+    public void setPrevAudioFile(final boolean shuffle) {
         if (type == Enums.PlayerSourceType.LIBRARY) {
             remainedDuration = audioFile.getDuration();
         } else {
@@ -125,7 +146,11 @@ public class PlayerSource {
         }
     }
 
-    public void generateShuffleOrder(Integer seed) {
+    /**
+     * geeenrates a shuffle order
+     * @param seed the seed for the random generator
+     */
+    public void generateShuffleOrder(final Integer seed) {
         indices.clear();
         Random random = new Random(seed);
         for (int i = 0; i < audioCollection.getNumberOfTracks(); i++) {
@@ -134,6 +159,9 @@ public class PlayerSource {
         Collections.shuffle(indices, random);
     }
 
+    /**
+     * Updates the shuffle index
+     */
     public void updateShuffleIndex() {
         for (int i = 0; i < indices.size(); i++) {
             if (indices.get(i) == index) {
@@ -143,7 +171,11 @@ public class PlayerSource {
         }
     }
 
-    public void skip(int duration) {
+    /**
+     * Skips the audio file
+     * @param duration the duration
+     */
+    public void skip(final int duration) {
         remainedDuration += duration;
         if (remainedDuration > audioFile.getDuration()) {
             remainedDuration = 0;
@@ -154,12 +186,18 @@ public class PlayerSource {
         }
     }
 
+    /**
+     * Updates the audio file
+     */
     private void updateAudioFile() {
         setAudioFile(audioCollection.getTrackByIndex(index));
     }
 
-    public void setAudioFile(AudioFile audioFile) {
+    /**
+     * Sets the audio file
+     * @param audioFile the audio file
+     */
+    public void setAudioFile(final AudioFile audioFile) {
         this.audioFile = audioFile;
     }
-
 }

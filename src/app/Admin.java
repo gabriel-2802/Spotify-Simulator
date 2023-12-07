@@ -369,6 +369,7 @@ public final class Admin {
 
         user.deleteData();
         users.remove(user);
+
         if (user.getType() == Enums.UserType.ARTIST) {
             artists.remove((Artist) user);
         } else if (user.getType() == Enums.UserType.HOST) {
@@ -382,24 +383,24 @@ public final class Admin {
      * @param creatorName of the creator
      * @return true if the media can be deleted, false otherwise
      */
-    public static boolean validMediaDelete(final String creatorName) {
+    public static boolean invalidMediaDelete(final String creatorName) {
         for (User user : users) {
             if (user.listeningToFile() != null
                     && user.listeningToFile().getOwner().equals(creatorName)) {
-                return false;
+                return true;
             }
 
             AudioCollection userCollection = user.listeningToCollection();
             if (userCollection != null) {
                 if (userCollection.getOwner().equals(creatorName)) {
-                    return false;
+                    return true;
                 }
                 if (userCollection.containsMediaByCreator(creatorName)) {
-                    return false;
+                    return true;
                 }
             }
         }
-        return true;
+        return false;
     }
 
     /**
@@ -408,15 +409,17 @@ public final class Admin {
      * @return a message that the album was deleted successfully or not
      **/
     public static String removeAlbum(final Artist artist, final Album album) {
-        if (!validMediaDelete(artist.getUsername())) {
+        if (invalidMediaDelete(artist.getUsername())) {
             return artist.getUsername() + " can't delete this album.";
         }
 
         artist.getAlbums().remove(album);
         ArrayList<Song> songsToRemove = album.getSongs();
         songs.removeAll(songsToRemove);
+
         for (User user : users) {
             user.getLikedSongs().removeIf(Song -> Song.getAlbum().equals(album.getName()));
+
             for (Playlist playlist : user.getPlaylists()) {
                 playlist.removeSongsByAlbum(album.getName());
             }
@@ -435,7 +438,7 @@ public final class Admin {
      * @return a message that the podcast was deleted successfully or not
      **/
     public static String removePodcast(final Host host, final Podcast podcast) {
-        if (!validMediaDelete(host.getUsername())) {
+        if (invalidMediaDelete(host.getUsername())) {
             return host.getUsername() + " can't delete this podcast.";
         }
 
@@ -456,6 +459,7 @@ public final class Admin {
         List<Album> sortedAlbums = new ArrayList<>(albums);
         sortedAlbums.sort(Comparator.comparingInt(Album::likes).
                 reversed().thenComparing(Album::getName));
+
         int count = 0;
         for (Album album : sortedAlbums) {
             if (count >= MAX_RESULTS) {
@@ -475,6 +479,7 @@ public final class Admin {
         List<String> topArtists = new ArrayList<>();
         List<Artist> sortedArtists = new ArrayList<>(artists);
         sortedArtists.sort(Comparator.comparingInt(Artist::likes).reversed());
+
         int count = 0;
         for (Artist artist : sortedArtists) {
             if (count >= MAX_RESULTS) {

@@ -5,12 +5,15 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 
+/**
+ * class used for outputting a podcast
+ */
 @Getter
 public class PodcastOutput {
     private String name;
     private ArrayList<String> episodes;
 
-    public PodcastOutput(Podcast podcast) {
+    public PodcastOutput(final Podcast podcast) {
         this.name = podcast.getName();
         this.episodes = new ArrayList<>();
         for (Episode episode : podcast.getEpisodes()) {

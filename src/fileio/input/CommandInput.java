@@ -29,25 +29,22 @@ public final class CommandInput {
     private ArrayList<EpisodeInput> episodes; // for add podcast
     private String nextPage; // for next page
 
-
-
-
     public CommandInput() {
     }
 
     @Override
     public String toString() {
         return "CommandInput{" +
-                "command='" + command + '\'' +
-                ", username='" + username + '\'' +
-                ", timestamp=" + timestamp +
-                ", type='" + type + '\'' +
-                ", filters=" + filters +
-                ", itemNumber=" + itemNumber +
-                ", repeatMode=" + repeatMode +
-                ", playlistId=" + playlistId +
-                ", playlistName='" + playlistName + '\'' +
-                ", seed=" + seed +
+                "command='" + command + '\''
+                + ", username='" + username + '\''
+                + ", timestamp=" + timestamp
+                + ", type='" + type + '\''
+                + ", filters=" + filters +
+                ", itemNumber=" + itemNumber
+                + ", repeatMode=" + repeatMode
+                + ", playlistId=" + playlistId
+                + ", playlistName='" + playlistName + '\''
+                + ", seed=" + seed +
                 '}';
     }
 }

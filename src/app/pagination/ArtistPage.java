@@ -1,14 +1,13 @@
 package app.pagination;
 
-import app.audio.Collections.Album;
-import app.pagination.visitors.Visitor;
-import app.user.Artist;
+import app.pagination.visitors.PageVisitor;
 import app.user.User;
-import app.user.utils.Event;
-import app.user.utils.Merch;
 import lombok.Getter;
-
 import java.util.ArrayList;
+
+/**
+ * Page for an artist
+ */
 @Getter
 public class ArtistPage extends Page {
     private final User artist;
@@ -16,7 +15,7 @@ public class ArtistPage extends Page {
     private ArrayList<String> merch;
     private ArrayList<String> events;
 
-    public ArtistPage(User artist) {
+    public ArtistPage(final User artist) {
         this.artist = artist;
         owner = artist.getUsername();
         albums = new ArrayList<>();
@@ -24,21 +23,33 @@ public class ArtistPage extends Page {
         events = new ArrayList<>();
     }
 
+    /**
+     * Clears the page
+     */
     @Override
     public void clearPage() {
         albums.clear();
         merch.clear();
         events.clear();
     }
+
+    /**
+     * Accepts a visitor
+     * @param visitor the visitor
+     */
     @Override
-    public void acceptVisitor(Visitor visitor) {
+    public void acceptVisitor(final PageVisitor visitor) {
         visitor.visit(this);
     }
 
+    /**
+     * Returns a string representation of the page
+     * @return a string representation of the page
+     */
     @Override
     public String toString() {
-        return "Albums:\n\t[" + String.join(", ", albums) + "]\n\n" +
-                "Merch:\n\t[" + String.join(", ", merch) + "]\n\n" +
-                "Events:\n\t[" + String.join(", ", events) + "]";
+        return "Albums:\n\t[" + String.join(", ", albums) + "]\n\n"
+                + "Merch:\n\t[" + String.join(", ", merch) + "]\n\n"
+                + "Events:\n\t[" + String.join(", ", events) + "]";
     }
 }

@@ -32,7 +32,7 @@ public final class Podcast extends AudioCollection {
     }
 
     @Override
-    public boolean containsMediaByCreator(String creator) {
+    public boolean containsMediaByCreator(final String creator) {
         return episodes.get(0).getOwner().equals(creator);
     }
 }
