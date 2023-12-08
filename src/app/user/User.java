@@ -57,6 +57,20 @@ public class User {
     @Setter
     private Page page; // the page the user is currently on
 
+    public User() {
+        username = "";
+        age = 0;
+        city = "";
+        playlists = new ArrayList<>();
+        likedSongs = new ArrayList<>();
+        followedPlaylists = new ArrayList<>();
+        player = new Player();
+        searchBar = new SearchBar(username);
+        lastSearched = false;
+        connectionStatus = Enums.Connection.ONLINE;
+        type = Enums.UserType.USER;
+        page = new HomePage(this);
+    }
     public User(final String username, final int age, final
     String city) {
         this.username = username;
