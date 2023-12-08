@@ -128,8 +128,7 @@ public class Artist extends Creator {
      */
     @Override
     public void deleteData() {
-        super.deleteData();
-        Admin.removeArtistData(getUsername());
+        Admin.removeUserData(this);
     }
 
     /**

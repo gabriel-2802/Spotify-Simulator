@@ -1,6 +1,5 @@
 Starting audit...
-[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\Admin.java:110:5: Missing a Javadoc comment. [MissingJavadocMethod]
-[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\Admin.java:120:5: Missing a Javadoc comment. [MissingJavadocMethod]
-[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\Admin.java:390: Line is longer than 100 characters (found 105). [LineLength]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\Admin.java:342:39: Parameter artist should be final. [FinalParameters]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\Admin.java:366:39: Parameter host should be final. [FinalParameters]
 Audit done.
-Checkstyle ends with 3 errors.
+Checkstyle ends with 2 errors.

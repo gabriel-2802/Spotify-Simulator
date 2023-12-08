@@ -692,7 +692,7 @@ public class User {
         }
         likedSongs.clear();
 
-        Admin.removePlaylistsData(username);
+        Admin.removeUserData(this);
     }
 
     /**

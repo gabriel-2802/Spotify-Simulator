@@ -29,7 +29,7 @@ public final class Main {
     /**
      * DO NOT MODIFY MAIN METHOD
      * Call the checker
-     * @param args from app.command line
+     * @param args from line
      * @throws IOException in case of exceptions to reading / writing
      */
     public static void main(final String[] args) throws IOException {

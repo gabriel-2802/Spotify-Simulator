@@ -8,7 +8,6 @@ import app.audio.Files.AudioFile;
 import app.audio.Files.Episode;
 import app.audio.Files.Song;
 import app.user.Artist;
-import app.user.Creator;
 import app.user.Host;
 import app.user.User;
 import fileio.input.PodcastInput;
@@ -30,8 +29,6 @@ public final class Admin {
     private static List<User> users = new ArrayList<>();
     @Getter
     private static List<Song> songs = new ArrayList<>();
-    @Getter
-    private static List<Creator> creators = new ArrayList<>();
     @Getter
     private static List<Podcast> podcasts = new ArrayList<>();
     @Getter
@@ -107,21 +104,29 @@ public final class Admin {
         return playlists;
     }
 
+    /**
+     * the method returns all the artists from the program
+     * @return a list of all the artists
+     */
     public static List<Artist> getArtists() {
         List<Artist> artists = new ArrayList<>();
-        for (Creator creator : creators) {
-            if (creator.getType() == Enums.UserType.ARTIST) {
-                artists.add((Artist) creator);
+        for (User user : users) {
+            if (user.getType() == Enums.UserType.ARTIST) {
+                artists.add((Artist) user);
             }
         }
         return artists;
     }
 
+    /**
+     * the method returns all the hosts from the program
+     * @return a list of all the hosts
+     */
     public static List<Host> getHosts() {
         List<Host> hosts = new ArrayList<>();
-        for (Creator creator : creators) {
-            if (creator.getType() == Enums.UserType.HOST) {
-                hosts.add((Host) creator);
+        for (User user : users) {
+            if (user.getType() == Enums.UserType.HOST) {
+                hosts.add((Host) user);
             }
         }
         return hosts;
@@ -205,7 +210,6 @@ public final class Admin {
         songs = new ArrayList<>();
         podcasts = new ArrayList<>();
         albums = new ArrayList<>();
-        creators = new ArrayList<>();
         timestamp = 0;
     }
 
@@ -248,12 +252,6 @@ public final class Admin {
         };
 
         users.add(newUser);
-        switch (userType) {
-            case ARTIST, HOST -> creators.add((Creator) newUser);
-            default -> {
-            }
-        }
-
         return "The username " + username + " has been added successfully.";
     }
 
@@ -323,21 +321,12 @@ public final class Admin {
     }
 
     /**
-     * the method removes all the data of a host from the platform
-     * @username of the host
+     * the method removes all the data of a user from the platform
+     * @param deleteUser  the user
      **/
-    public static void removeHostData(final String username) {
-        for (User user : users) {
-            user.getBookmarks().removeIf(bookmark -> bookmark.getOwner().equals(username));
-        }
-        podcasts.removeIf(podcast -> podcast.getOwner().equals(username));
-    }
-
-    /**
-     * the method removes all the playlist info of an user from the platform
-     * @username of the user
-     **/
-    public static void removePlaylistsData(final String username) {
+    public static void removeUserData(final User deleteUser) {
+        String username = deleteUser.getUsername();
+        // we remove the playlists from the users
         for (User user : users) {
             user.getFollowedPlaylists().removeIf(playlist ->
                     playlist.getOwner().equals(username));
@@ -348,9 +337,10 @@ public final class Admin {
 
     /**
      * the method removes all the data of an artist from the platform
-     * @username of the artist
-     **/
-    public static void removeArtistData(final String username) {
+     * @param artist the artist
+     */
+    public static void removeUserData(final Artist artist) {
+        String username = artist.getUsername();
         songs.removeIf(song -> song.getArtist().equals(username));
         for (User user : users) {
             user.getLikedSongs().removeIf(song -> song.getArtist().equals(username));
@@ -370,6 +360,18 @@ public final class Admin {
     }
 
     /**
+     * the method removes all the data of a host from the platform
+     * @param host the host
+     */
+    public static void removeUserData(final Host host) {
+        String username = host.getUsername();
+        for (User user : users) {
+            user.getBookmarks().removeIf(bookmark -> bookmark.getOwner().equals(username));
+        }
+        podcasts.removeIf(podcast -> podcast.getOwner().equals(username));
+    }
+
+    /**
      * the method removes all the data of an user from the platform
      * @username of the user
      * @return a message that the user was deleted successfully or not
@@ -386,10 +388,6 @@ public final class Admin {
 
         user.deleteData();
         users.remove(user);
-
-        if (user.getType().equals(Enums.UserType.ARTIST) || user.getType().equals(Enums.UserType.HOST)) {
-            creators.remove((Creator) user);
-        }
         return username + " was successfully deleted.";
     }
 

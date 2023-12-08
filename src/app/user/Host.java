@@ -29,9 +29,7 @@ public class Host extends Creator {
      */
     @Override
     public void deleteData() {
-        super.deleteData();
-        podcasts.clear();
-        Admin.removeHostData(getUsername());
+        Admin.removeUserData(this);
     }
 
     /**
