@@ -8,6 +8,7 @@ import app.audio.Files.AudioFile;
 import app.audio.Files.Episode;
 import app.audio.Files.Song;
 import app.user.Artist;
+import app.user.Creator;
 import app.user.Host;
 import app.user.User;
 import fileio.input.PodcastInput;
@@ -30,11 +31,9 @@ public final class Admin {
     @Getter
     private static List<Song> songs = new ArrayList<>();
     @Getter
+    private static List<Creator> creators = new ArrayList<>();
+    @Getter
     private static List<Podcast> podcasts = new ArrayList<>();
-    @Getter
-    private static List<Artist> artists = new ArrayList<>();
-    @Getter
-    private static List<Host> hosts = new ArrayList<>();
     @Getter
     private static List<Album> albums = new ArrayList<>();
     @Getter
@@ -106,6 +105,26 @@ public final class Admin {
             playlists.addAll(user.getPlaylists());
         }
         return playlists;
+    }
+
+    public static List<Artist> getArtists() {
+        List<Artist> artists = new ArrayList<>();
+        for (Creator creator : creators) {
+            if (creator.getType() == Enums.UserType.ARTIST) {
+                artists.add((Artist) creator);
+            }
+        }
+        return artists;
+    }
+
+    public static List<Host> getHosts() {
+        List<Host> hosts = new ArrayList<>();
+        for (Creator creator : creators) {
+            if (creator.getType() == Enums.UserType.HOST) {
+                hosts.add((Host) creator);
+            }
+        }
+        return hosts;
     }
 
     /**
@@ -185,9 +204,8 @@ public final class Admin {
         users = new ArrayList<>();
         songs = new ArrayList<>();
         podcasts = new ArrayList<>();
-        artists = new ArrayList<>();
-        hosts = new ArrayList<>();
         albums = new ArrayList<>();
+        creators = new ArrayList<>();
         timestamp = 0;
     }
 
@@ -231,8 +249,7 @@ public final class Admin {
 
         users.add(newUser);
         switch (userType) {
-            case ARTIST -> artists.add((Artist) newUser);
-            case HOST -> hosts.add((Host) newUser);
+            case ARTIST, HOST -> creators.add((Creator) newUser);
             default -> {
             }
         }
@@ -269,11 +286,11 @@ public final class Admin {
            }
         }
 
-        for (Artist artist : artists) {
+        for (Artist artist : getArtists()) {
             allUsers.add(artist.getUsername());
         }
 
-        for (Host host : hosts) {
+        for (Host host : getHosts()) {
             allUsers.add(host.getUsername());
         }
         return allUsers;
@@ -370,10 +387,8 @@ public final class Admin {
         user.deleteData();
         users.remove(user);
 
-        if (user.getType() == Enums.UserType.ARTIST) {
-            artists.remove((Artist) user);
-        } else if (user.getType() == Enums.UserType.HOST) {
-            hosts.remove((Host) user);
+        if (user.getType().equals(Enums.UserType.ARTIST) || user.getType().equals(Enums.UserType.HOST)) {
+            creators.remove((Creator) user);
         }
         return username + " was successfully deleted.";
     }
@@ -477,7 +492,7 @@ public final class Admin {
      **/
     public static List<String> getTop5Artists() {
         List<String> topArtists = new ArrayList<>();
-        List<Artist> sortedArtists = new ArrayList<>(artists);
+        List<Artist> sortedArtists = new ArrayList<>(getArtists());
         sortedArtists.sort(Comparator.comparingInt(Artist::likes).reversed());
 
         int count = 0;

@@ -1,2 +1,6 @@
 Starting audit...
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\Admin.java:110:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\Admin.java:120:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\Admin.java:390: Line is longer than 100 characters (found 105). [LineLength]
 Audit done.
+Checkstyle ends with 3 errors.
