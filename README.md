@@ -12,7 +12,7 @@
   * ```utils```: contains the user support classes such as ```Merch```, ```Announcement``` and ```Event```
 * ```utils``` : contains enums used for the project
 * ```Admin``` : utility class for admin functionalities
-* ```CommandRunner``` : utility class for command line functionalities
+* ```app.CommandRunner``` : utility class for app.command line functionalities
 
 ## Implementation
 

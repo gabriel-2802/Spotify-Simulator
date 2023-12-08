@@ -35,7 +35,7 @@ public final class CommandInput {
     @Override
     public String toString() {
         return "CommandInput{"
-                + "command='" + command + '\''
+                + "app.command='" + command + '\''
                 + ", username='" + username + '\''
                 + ", timestamp=" + timestamp
                 + ", type='" + type + '\''

@@ -127,6 +127,9 @@ public class User {
      * @return a message about the success of the operation
      */
     public String select(final int itemNumber) {
+        if (connectionStatus.equals(Enums.Connection.OFFLINE)) {
+            return username + " is offline.";
+        }
         if (!lastSearched) {
             return "Please conduct a search before making a selection.";
         }
@@ -172,6 +175,10 @@ public class User {
      * @return a message about the success of the operation
      */
     public String load() {
+        if (connectionStatus.equals(Enums.Connection.OFFLINE)) {
+            return username + " is offline.";
+        }
+
         if (searchBar.getLastSelected() == null) {
             return "Please select a source before attempting to load.";
         }
@@ -193,6 +200,10 @@ public class User {
      * @return a message about the success of the operation
      */
     public String playPause() {
+        if (connectionStatus.equals(Enums.Connection.OFFLINE)) {
+            return username + " is offline.";
+        }
+
         if (player.getCurrentAudioFile() == null) {
             return "Please load a source before attempting to pause or resume playback.";
         }
@@ -211,6 +222,9 @@ public class User {
      * @return a message about the success of the operation
      */
     public String repeat() {
+        if (connectionStatus.equals(Enums.Connection.OFFLINE)) {
+            return username + " is offline.";
+        }
         if (player.getCurrentAudioFile() == null) {
             return "Please load a source before setting the repeat status.";
         }
@@ -236,6 +250,9 @@ public class User {
      * @return a message about the success of the operation
      */
     public String shuffle(final Integer seed) {
+        if (connectionStatus.equals(Enums.Connection.OFFLINE)) {
+            return username + " is offline.";
+        }
         if (player.getCurrentAudioFile() == null) {
             return "Please load a source before using the shuffle function.";
         }
@@ -257,6 +274,9 @@ public class User {
      * @return a message about the success of the operation
      */
     public String forward() {
+        if (connectionStatus.equals(Enums.Connection.OFFLINE)) {
+            return username + " is offline.";
+        }
         if (player.getCurrentAudioFile() == null) {
             return "Please load a source before attempting to forward.";
         }
@@ -275,6 +295,10 @@ public class User {
      * @return a message about the success of the operation
      */
     public String backward() {
+        if (connectionStatus.equals(Enums.Connection.OFFLINE)) {
+            return username + " is offline.";
+        }
+
         if (player.getCurrentAudioFile() == null) {
             return "Please select a source before rewinding.";
         }
@@ -293,6 +317,10 @@ public class User {
      * @return a message about the success of the operation
      */
     public String like() {
+        if (connectionStatus.equals(Enums.Connection.OFFLINE)) {
+            return username + " is offline.";
+        }
+
         if (player.getCurrentAudioFile() == null) {
             return "Please load a source before liking or unliking.";
         }
@@ -321,6 +349,10 @@ public class User {
      * @return a message about the success of the operation
      */
     public String next() {
+        if (connectionStatus.equals(Enums.Connection.OFFLINE)) {
+            return username + " is offline.";
+        }
+
         if (player.getCurrentAudioFile() == null) {
             return "Please load a source before skipping to the next track.";
         }
@@ -340,6 +372,9 @@ public class User {
      * @return a message about the success of the operation
      */
     public String prev() {
+        if (connectionStatus.equals(Enums.Connection.OFFLINE)) {
+            return username + " is offline.";
+        }
         if (player.getCurrentAudioFile() == null) {
             return "Please load a source before returning to the previous track.";
         }
@@ -357,6 +392,10 @@ public class User {
      * @return a message about the success of the operation
      */
     public String createPlaylist(final String name, final int timestamp) {
+        if (connectionStatus.equals(Enums.Connection.OFFLINE)) {
+            return username + " is offline.";
+        }
+
         if (playlists.stream().anyMatch(playlist -> playlist.getName().equals(name))) {
             return "A playlist with the same name already exists.";
         }
@@ -373,6 +412,10 @@ public class User {
      * @return a message about the success of the operation
      */
     public String addRemoveInPlaylist(final int id) {
+        if (connectionStatus.equals(Enums.Connection.OFFLINE)) {
+            return username + " is offline.";
+        }
+
         if (player.getCurrentAudioFile() == null) {
             return "Please load a source before adding to or removing from the playlist.";
         }
@@ -402,6 +445,10 @@ public class User {
      * @return a message about the success of the operation
      */
     public String switchPlaylistVisibility(final Integer playlistId) {
+        if (connectionStatus.equals(Enums.Connection.OFFLINE)) {
+            return username + " is offline.";
+        }
+
         if (playlistId > playlists.size()) {
             return "The specified playlist ID is too high.";
         }
@@ -434,6 +481,9 @@ public class User {
      * @return a message about the success of the operation
      */
     public String follow() {
+        if (connectionStatus.equals(Enums.Connection.OFFLINE)) {
+            return username + " is offline.";
+        }
         LibraryEntry selection = searchBar.getLastSelected();
         String typee = searchBar.getLastSearchType();
 
@@ -706,6 +756,9 @@ public class User {
      * @return a message about the success of the operation
      */
     public String changePage(final String pageName) {
+        if (connectionStatus.equals(Enums.Connection.OFFLINE)) {
+            return username + " is offline.";
+        }
         return switch (pageName) {
             case "Home":
                 page = new HomePage(this);
