@@ -19,7 +19,8 @@ public class  GetTop5Albums extends Command {
      */
     @Override
     public ObjectNode execute() {
-        List<String> results = Admin.getTop5Albums();
+        Admin admin = Admin.getInstance();
+        List<String> results = admin.getTop5Albums();
         return new OutputBuilder<String>().setShowCommand(getCommand(), getTimestamp(),
                 results).build();
     }

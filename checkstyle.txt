@@ -1,5 +1,2 @@
 Starting audit...
-[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\Admin.java:342:39: Parameter artist should be final. [FinalParameters]
-[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\Admin.java:366:39: Parameter host should be final. [FinalParameters]
 Audit done.
-Checkstyle ends with 2 errors.

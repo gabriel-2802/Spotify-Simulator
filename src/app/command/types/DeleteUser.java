@@ -20,7 +20,8 @@ public class  DeleteUser extends Command {
      */
     @Override
     public ObjectNode execute() {
-        String message = Admin.deleteUser(getUsername());
+        Admin admin = Admin.getInstance();
+        String message = admin.deleteUser(getUsername());
         return new OutputBuilder<>().setMessageCommand(getCommand(), getUsername(),
                 getTimestamp(), message).build();
     }

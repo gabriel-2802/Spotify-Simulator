@@ -80,7 +80,8 @@ public class SearchBar {
 
                 break;
             case "playlist":
-                entries = new ArrayList<>(Admin.getPlaylists());
+                Admin admin = Admin.getInstance();
+                entries = new ArrayList<>(admin.getPlaylists());
 
                 entries = FilterUtils.filterByPlaylistVisibility(entries, user);
 
@@ -143,9 +144,10 @@ public class SearchBar {
      * @return the results
      */
     public List<User> searchCreators(final String type, final String name) {
+        Admin admin = Admin.getInstance();
         List<User> entries =  switch (type) {
-            case "artist" -> FilterUtils.filterArtists(Admin.getArtists(), name);
-            case "host" -> FilterUtils.filterHosts(Admin.getHosts(), name);
+            case "artist" -> FilterUtils.filterArtists(admin.getArtists(), name);
+            case "host" -> FilterUtils.filterHosts(admin.getHosts(), name);
             default -> new ArrayList<>();
         };
 
@@ -165,7 +167,6 @@ public class SearchBar {
      */
     public User selectCreator(final Integer itemNumber) {
         if (this.userResults.size() < itemNumber) {
-            results.clear();
             userResults.clear();
 
             return null;
@@ -184,7 +185,6 @@ public class SearchBar {
     public LibraryEntry select(final Integer itemNumber) {
         if (this.results.size() < itemNumber) {
             results.clear();
-            userResults.clear();
 
             return null;
         } else {

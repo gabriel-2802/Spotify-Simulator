@@ -26,7 +26,7 @@ import java.util.Comparator;
 public final class Admin {
     private static Admin instance = null;
     @Getter
-    private static List<User> users = new ArrayList<>();
+    private static  List<User> users = new ArrayList<>();
     @Getter
     private static List<Song> songs = new ArrayList<>();
     @Getter
@@ -56,7 +56,7 @@ public final class Admin {
      * adds the data from the input file to the program
      * @param userInputList the input file
      */
-    public static void setUsers(final List<UserInput> userInputList) {
+    public void setUsers(final List<UserInput> userInputList) {
         users = new ArrayList<>();
         for (UserInput userInput : userInputList) {
             users.add(new User(userInput.getUsername(), userInput.getAge(), userInput.getCity()));
@@ -67,7 +67,7 @@ public final class Admin {
      * adds the data from the input file to the program
      * @param songInputList the input file
      */
-    public static void setSongs(final List<SongInput> songInputList) {
+    public void setSongs(final List<SongInput> songInputList) {
         songs = new ArrayList<>();
         for (SongInput songInput : songInputList) {
             songs.add(new Song(songInput.getName(), songInput.getDuration(), songInput.getAlbum(),
@@ -80,7 +80,7 @@ public final class Admin {
      * adds the data from the input file to the program
      * @param podcastInputList the input file
      */
-    public static void setPodcasts(final List<PodcastInput> podcastInputList) {
+    public void setPodcasts(final List<PodcastInput> podcastInputList) {
         podcasts = new ArrayList<>();
         for (PodcastInput podcastInput : podcastInputList) {
             List<Episode> episodes = new ArrayList<>();
@@ -96,7 +96,7 @@ public final class Admin {
      * the method returns all the playlists from the program
      * @return a list of all the playlists
      */
-    public static List<Playlist> getPlaylists() {
+    public  List<Playlist> getPlaylists() {
         List<Playlist> playlists = new ArrayList<>();
         for (User user : users) {
             playlists.addAll(user.getPlaylists());
@@ -108,7 +108,7 @@ public final class Admin {
      * the method returns all the artists from the program
      * @return a list of all the artists
      */
-    public static List<Artist> getArtists() {
+    public List<Artist> getArtists() {
         List<Artist> artists = new ArrayList<>();
         for (User user : users) {
             if (user.getType() == Enums.UserType.ARTIST) {
@@ -122,7 +122,7 @@ public final class Admin {
      * the method returns all the hosts from the program
      * @return a list of all the hosts
      */
-    public static List<Host> getHosts() {
+    public List<Host> getHosts() {
         List<Host> hosts = new ArrayList<>();
         for (User user : users) {
             if (user.getType() == Enums.UserType.HOST) {
@@ -150,7 +150,7 @@ public final class Admin {
      * the method updates the timestamp of the program and simulates the time for all the users
      * @param newTimestamp the new timestamp
      */
-    public static void updateTimestamp(final int newTimestamp) {
+    public void updateTimestamp(final int newTimestamp) {
         int elapsed = newTimestamp - timestamp;
         timestamp = newTimestamp;
         if (elapsed == 0) {
@@ -166,7 +166,7 @@ public final class Admin {
      * the method returns top 5 most liked songs
      * @return a list of the top 5 most liked songs
      */
-    public static List<String> getTop5Songs() {
+    public List<String> getTop5Songs() {
         List<Song> sortedSongs = new ArrayList<>(songs);
         sortedSongs.sort(Comparator.comparingInt(Song::getLikes).reversed());
         List<String> topSongs = new ArrayList<>();
@@ -185,7 +185,7 @@ public final class Admin {
      * the method returns top 5 most followed playlists
      * @return a list of the top 5 most followed playlists
      */
-    public static List<String> getTop5Playlists() {
+    public List<String> getTop5Playlists() {
         List<Playlist> sortedPlaylists = new ArrayList<>(getPlaylists());
         sortedPlaylists.sort(Comparator.comparingInt(Playlist::getFollowers)
                 .reversed()
@@ -205,7 +205,7 @@ public final class Admin {
     /**
      * the method resets the data of the program
      */
-    public static void reset() {
+    public void reset() {
         users = new ArrayList<>();
         songs = new ArrayList<>();
         podcasts = new ArrayList<>();
@@ -217,7 +217,7 @@ public final class Admin {
      * the method returns the online users
      * @return a list of the online users
      */
-    public static ArrayList<String> getOnlineUsers() {
+    public ArrayList<String> getOnlineUsers() {
         ArrayList<String> onlineUsers = new ArrayList<>();
         for (User user : users) {
             if (user.getConnectionStatus().equals(Enums.Connection.ONLINE)
@@ -236,7 +236,7 @@ public final class Admin {
      * @param userType of the user
      * @return a message that the user was added successfully or not
      */
-    public static String addUser(final String username, final int age, final String city,
+    public String addUser(final String username, final int age, final String city,
                                  final Enums.UserType userType) {
         for (User user : users) {
             if (user.getUsername().equals(username)) {
@@ -259,7 +259,7 @@ public final class Admin {
      * the methods adds an album in the database
      * @param album to be added
      */
-    public static void addAlbum(final Album album) {
+    public void addAlbum(final Album album) {
         albums.add(album);
         songs.addAll(album.getSongs());
     }
@@ -268,7 +268,7 @@ public final class Admin {
      * the methods adds a podcast in the database
      * @param podcast to be added
      */
-    public static void addPodcast(final Podcast podcast) {
+    public  void addPodcast(final Podcast podcast) {
         podcasts.add(podcast);
     }
 
@@ -276,7 +276,7 @@ public final class Admin {
      * the method returns all the users from the database
      * @return a list of all the names the users
      */
-    public static ArrayList<String> getAllUsers() {
+    public ArrayList<String> getAllUsers() {
         ArrayList<String> allUsers = new ArrayList<>();
         for (User user : users) {
            if (user.getType() == Enums.UserType.USER) {
@@ -298,7 +298,7 @@ public final class Admin {
     * the method checks if a user can be deleted
     * @username of the user to be deleted
     **/
-    private static boolean validUserDelete(final String username) {
+    private boolean validUserDelete(final String username) {
         for (User user : users) {
 
                 AudioFile userSource = user.listeningToFile();
@@ -376,7 +376,7 @@ public final class Admin {
      * @username of the user
      * @return a message that the user was deleted successfully or not
      **/
-    public static String deleteUser(final String username) {
+    public String deleteUser(final String username) {
         User user = getUser(username);
         if (user == null) {
             return "User " + username + " doesn't exist.";
@@ -396,7 +396,7 @@ public final class Admin {
      * @param creatorName of the creator
      * @return true if the media can be deleted, false otherwise
      */
-    public static boolean invalidMediaDelete(final String creatorName) {
+    public boolean invalidMediaDelete(final String creatorName) {
         for (User user : users) {
             if (user.listeningToFile() != null
                     && user.listeningToFile().getOwner().equals(creatorName)) {
@@ -421,7 +421,7 @@ public final class Admin {
      * @album to be deleted
      * @return a message that the album was deleted successfully or not
      **/
-    public static String removeAlbum(final Artist artist, final Album album) {
+    public String removeAlbum(final Artist artist, final Album album) {
         if (invalidMediaDelete(artist.getUsername())) {
             return artist.getUsername() + " can't delete this album.";
         }
@@ -450,7 +450,7 @@ public final class Admin {
      * @podcast to be deleted
      * @return a message that the podcast was deleted successfully or not
      **/
-    public static String removePodcast(final Host host, final Podcast podcast) {
+    public String removePodcast(final Host host, final Podcast podcast) {
         if (invalidMediaDelete(host.getUsername())) {
             return host.getUsername() + " can't delete this podcast.";
         }
@@ -467,7 +467,7 @@ public final class Admin {
      * the method finds top 5 most liked albums
      * @return a list of the top 5 most liked albums
      **/
-    public static List<String> getTop5Albums() {
+    public List<String> getTop5Albums() {
         List<String> topAlbums = new ArrayList<>();
         List<Album> sortedAlbums = new ArrayList<>(albums);
         sortedAlbums.sort(Comparator.comparingInt(Album::likes).
@@ -488,7 +488,7 @@ public final class Admin {
      * the method finds top 5 most liked artists
      * @return a list of the top 5 most liked artists
      **/
-    public static List<String> getTop5Artists() {
+    public List<String> getTop5Artists() {
         List<String> topArtists = new ArrayList<>();
         List<Artist> sortedArtists = new ArrayList<>(getArtists());
         sortedArtists.sort(Comparator.comparingInt(Artist::likes).reversed());

@@ -20,7 +20,8 @@ public class  GetAllUsers extends Command {
             */
     @Override
         public ObjectNode execute() {
-        List<String> results = Admin.getAllUsers();
+        Admin admin = Admin.getInstance();
+        List<String> results = admin.getAllUsers();
         return new OutputBuilder<String>().setShowCommand(getCommand(), getTimestamp(),
                 results).build();
         }

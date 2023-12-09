@@ -66,7 +66,8 @@ public class Artist extends Creator {
 
         Album newAlbum = new Album(name, owner, releaseYear, description, songs);
         albums.add(newAlbum);
-        Admin.addAlbum(newAlbum);
+        Admin admin = Admin.getInstance();
+        admin.addAlbum(newAlbum);
         return getUsername() + " has added new album successfully.";
     }
 
@@ -150,7 +151,8 @@ public class Artist extends Creator {
             return getUsername() + " doesn't have an album with the given name.";
         }
 
-        return Admin.removeAlbum(this, albumToRemove);
+        Admin admin = Admin.getInstance();
+        return admin.removeAlbum(this, albumToRemove);
     }
 
     /**

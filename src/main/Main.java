@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -81,10 +82,11 @@ public final class Main {
         admin.setSongs(library.getSongs());
         admin.setPodcasts(library.getPodcasts());
 
-        for (Command command : commandsList) {
-            admin.updateTimestamp(command.getTimestamp());
-            outputs.add(command.execute());
-        }
+        Arrays.stream(commandsList).forEach(command -> {
+                    admin.updateTimestamp(command.getTimestamp());
+                    outputs.add(command.execute());
+        });
+
 
         ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
         objectWriter.writeValue(new File(filePath2), outputs);

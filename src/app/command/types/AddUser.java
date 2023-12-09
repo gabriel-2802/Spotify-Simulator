@@ -29,7 +29,8 @@ public class  AddUser extends Command {
                         case "host" -> Enums.UserType.HOST;
                         default -> Enums.UserType.USER;
                 };
-                String message = Admin.addUser(getUsername(),
+                Admin admin = Admin.getInstance();
+                String message = admin.addUser(getUsername(),
                         getAge(), getCity(), userType);
 
                 return new OutputBuilder<>().setMessageCommand(getCommand(), getUsername(),

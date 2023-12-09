@@ -65,7 +65,8 @@ public class Host extends Creator {
 
         Podcast newPodcast = new Podcast(name, owner, episodes);
         podcasts.add(newPodcast);
-        Admin.addPodcast(newPodcast);
+        Admin admin = Admin.getInstance();
+        admin.addPodcast(newPodcast);
         return getUsername() + " has added new podcast successfully.";
     }
 
@@ -136,7 +137,8 @@ public class Host extends Creator {
             return getUsername() + " doesn't have a podcast with the given name.";
         }
 
-        return Admin.removePodcast(this, podcastToRemove);
+        Admin admin = Admin.getInstance();
+        return admin.removePodcast(this, podcastToRemove);
     }
 
     /**

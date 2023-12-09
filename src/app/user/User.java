@@ -124,15 +124,18 @@ public class User {
                 for (LibraryEntry libraryEntry : libraryEntries) {
                     results.add(libraryEntry.getName());
                 }
+                break;
             case "artist", "host":
                 List<User> users = searchBar.searchCreators(typee, filters.getName());
 
                 for (User user : users) {
                     results.add(user.getUsername());
                 }
+                break;
             default:
-                return results;
+                break;
         }
+        return results;
     }
 
     /**
