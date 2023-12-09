@@ -19,7 +19,7 @@ public class GetTop5Playlists extends Command {
     @Override
     public ObjectNode execute() {
         Admin admin = Admin.getInstance();
-        List<String>playlists = admin.getTop5Playlists();
+        List<String> playlists = admin.getTop5Playlists();
         return new OutputBuilder().setShowCommand(getCommand(), getTimestamp(),
                 playlists).build();
     }

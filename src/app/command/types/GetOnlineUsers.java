@@ -20,7 +20,7 @@ public class  GetOnlineUsers extends Command {
     @Override
     public ObjectNode execute() {
         Admin admin = Admin.getInstance();
-        List<String>onlineUsers = admin.getOnlineUsers();
+        List<String> onlineUsers = admin.getOnlineUsers();
         return new OutputBuilder().setShowCommand(getCommand(), getTimestamp(),
                 onlineUsers).build();
     }

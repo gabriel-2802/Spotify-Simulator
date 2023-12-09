@@ -20,7 +20,7 @@ import app.player.Player;
 import app.player.PlayerStats;
 import app.player.PodcastBookmark;
 import app.searchBar.Filters;
-import app.searchBar.SearchBar;
+import app.searchBar.SearchBarV2;
 import app.user.utils.Event;
 import app.user.utils.Merch;
 import app.utils.Enums;
@@ -47,7 +47,7 @@ public class User {
     @Getter
     private final ArrayList<Playlist> followedPlaylists;
     private final Player player;
-    private final SearchBar searchBar;
+    private final SearchBarV2 searchBar;
     private boolean lastSearched;
     @Getter
     private Enums.Connection connectionStatus;
@@ -66,7 +66,7 @@ public class User {
         likedSongs = new ArrayList<>();
         followedPlaylists = new ArrayList<>();
         player = new Player();
-        searchBar = new SearchBar(username);
+        searchBar = new SearchBarV2(username);
         lastSearched = false;
         connectionStatus = Enums.Connection.ONLINE;
         type = Enums.UserType.USER;
@@ -79,33 +79,13 @@ public class User {
      * @param typee the type of the search
      * @return list of results as strings
      */
-    public ArrayList<String> search(final Filters filters, final String typee) {
+    public List<String> search(final Filters filters, final String typee) {
         searchBar.clearSelection();
         player.stop();
 
         lastSearched = true;
 
-        ArrayList<String> results = new ArrayList<>();
-
-        switch (typee) {
-            case "song", "album", "playlist", "podcast":
-                List<LibraryEntry> libraryEntries = searchBar.search(filters, typee);
-
-                for (LibraryEntry libraryEntry : libraryEntries) {
-                    results.add(libraryEntry.getName());
-                }
-                break;
-            case "artist", "host":
-                List<User> users = searchBar.searchCreators(typee, filters.getName());
-
-                for (User user : users) {
-                    results.add(user.getUsername());
-                }
-                break;
-            default:
-                break;
-        }
-        return results;
+        return searchBar.search(filters, typee);
     }
 
     /**
@@ -123,38 +103,27 @@ public class User {
 
         lastSearched = false;
 
-        switch (searchBar.getLastSearchType()) {
-            case "song", "album", "playlist", "podcast":
-                LibraryEntry selected = searchBar.select(itemNumber);
-
-                if (selected == null) {
-                    return "The selected ID is too high.";
-                }
-
-                return "Successfully selected %s.".formatted(selected.getName());
-            case "host":
-                User selectedUser = searchBar.selectCreator(itemNumber);
-
-                if (selectedUser == null) {
-                    return "The selected ID is too high.";
-                } else {
-                    page = new HostPage(selectedUser);
-                }
-
-                return "Successfully selected %s's page.".formatted(selectedUser.getUsername());
-            case "artist":
-                User selectedArtist = searchBar.selectCreator(itemNumber);
-
-                if (selectedArtist == null) {
-                    return "The selected ID is too high.";
-                } else {
-                    page = new ArtistPage(selectedArtist);
-                }
-
-                return "Successfully selected %s's page.".formatted(selectedArtist.getUsername());
-            default:
-                return "Invalid search type.";
+        boolean selected = searchBar.select(itemNumber);
+        if (!selected) {
+            return "The selected ID is too high.";
         }
+
+        return switch (searchBar.getLastSearchType()) {
+            case "song", "album", "playlist", "podcast" -> "Successfully selected %s."
+                    .formatted(searchBar.getLastSelectedMedia().getName());
+            case "artist" -> {
+                page = new ArtistPage((Artist) searchBar.getLastSelectedUser());
+                yield "Successfully selected %s's page.".
+                        formatted(searchBar.getLastSelectedUser().getUsername());
+            }
+            case "host" -> {
+                page = new HostPage((Host) searchBar.getLastSelectedUser());
+                yield "Successfully selected %s's page.".
+                        formatted(searchBar.getLastSelectedUser().getUsername());
+            }
+            default -> "Invalid search type.";
+        };
+
     }
 
     /**
@@ -166,15 +135,15 @@ public class User {
             return username + " is offline.";
         }
 
-        if (searchBar.getLastSelected() == null) {
+        if (searchBar.getLastSelectedMedia() == null) {
             return "Please select a source before attempting to load.";
         }
 
         if (!searchBar.getLastSearchType().equals("song")
-                && ((AudioCollection) searchBar.getLastSelected()).getNumberOfTracks() == 0) {
+                && ((AudioCollection) searchBar.getLastSelectedMedia()).getNumberOfTracks() == 0) {
             return "You can't load an empty audio collection!";
         }
-        player.setSource(searchBar.getLastSelected(), searchBar.getLastSearchType());
+        player.setSource(searchBar.getLastSelectedMedia(), searchBar.getLastSearchType());
 
         searchBar.clearSelection();
         player.pause();
@@ -471,7 +440,7 @@ public class User {
         if (connectionStatus.equals(Enums.Connection.OFFLINE)) {
             return username + " is offline.";
         }
-        LibraryEntry selection = searchBar.getLastSelected();
+        LibraryEntry selection = searchBar.getLastSelectedMedia();
         String typee = searchBar.getLastSearchType();
 
         if (selection == null) {

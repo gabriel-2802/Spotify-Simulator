@@ -41,7 +41,7 @@ public class  Search extends Command {
                     getUsername()).build();
         }
 
-        List<String>results = new ArrayList();
+        List<String> results = new ArrayList();
         String message;
         if (user.getConnectionStatus() == Enums.Connection.ONLINE) {
             results = user.search(searchFilters, searchType);

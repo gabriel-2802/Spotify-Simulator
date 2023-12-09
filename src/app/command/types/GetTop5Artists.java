@@ -20,7 +20,7 @@ public class  GetTop5Artists extends Command {
     @Override
     public ObjectNode execute() {
         Admin admin = Admin.getInstance();
-        List<String>artists = admin.getTop5Artists();
+        List<String> artists = admin.getTop5Artists();
         return new OutputBuilder().setShowCommand(getCommand(), getTimestamp(),
                 artists).build();
     }

@@ -5,7 +5,7 @@ import app.utils.Enums;
 /**
  * UserFactory class
  */
-public class UserFactory {
+public final class UserFactory {
     private UserFactory() {
         throw new IllegalStateException("Utility class");
     }
@@ -18,7 +18,7 @@ public class UserFactory {
      * @param userType the type of the user
      * @return the new user
      */
-    public static User createUser(final String name,final int age, final String city,
+    public static User createUser(final String name, final int age, final String city,
                                   final Enums.UserType userType) {
         return switch (userType) {
             case ARTIST -> new Artist(name, age, city);

@@ -27,7 +27,7 @@ public class  ShowPreferredSongs extends Command {
             return new OutputBuilder().setNonUserCommand(getCommand(), getTimestamp(),
                     getUsername()).build();
         }
-        List<String>songs = user.showPreferredSongs();
+        List<String> songs = user.showPreferredSongs();
         return new OutputBuilder().setCommand(getCommand(), getUsername(),
                 getTimestamp()).setResult(songs).build();
         }
