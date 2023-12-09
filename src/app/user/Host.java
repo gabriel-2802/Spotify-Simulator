@@ -18,12 +18,13 @@ public class Host extends Creator {
     private ArrayList<Podcast> podcasts;
     private ArrayList<Announcement> announcements;
 
-    public Host(final String username, final int age, final String city,
-                final Enums.UserType type) {
-        super(username, age, city, type);
+    public Host(final String name, final int age, final String city) {
+        super(name, age, city);
+        type = Enums.UserType.HOST;
         podcasts = new ArrayList<>();
         announcements = new ArrayList<>();
     }
+
     /**
      * deletes the data of the host from the platform
      */
@@ -139,15 +140,5 @@ public class Host extends Creator {
 
         Admin admin = Admin.getInstance();
         return admin.removePodcast(this, podcastToRemove);
-    }
-
-    /**
-     * changes the page of the host
-     * @param pageName the name of the page
-     * @return a message about the success of the operation
-     */
-    @Override
-    public String changePage(final String pageName) {
-        throw new UnsupportedOperationException("Host cannot change page.");
     }
 }

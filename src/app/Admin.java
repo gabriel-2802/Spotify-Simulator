@@ -10,6 +10,7 @@ import app.audio.Files.Song;
 import app.user.Artist;
 import app.user.Host;
 import app.user.User;
+import app.user.UserFactory;
 import fileio.input.PodcastInput;
 import fileio.input.SongInput;
 import fileio.input.UserInput;
@@ -59,12 +60,14 @@ public final class Admin {
     public void setUsers(final List<UserInput> userInputList) {
         users = new ArrayList<>();
         for (UserInput userInput : userInputList) {
-            users.add(new User(userInput.getUsername(), userInput.getAge(), userInput.getCity()));
+            users.add(UserFactory.createUser(userInput.getUsername(), userInput.getAge(),
+                    userInput.getCity(), Enums.UserType.USER));
         }
     }
 
     /**
      * adds the data from the input file to the program
+     * @param songInputList the input file
      * @param songInputList the input file
      */
     public void setSongs(final List<SongInput> songInputList) {
@@ -244,12 +247,7 @@ public final class Admin {
             }
         }
 
-        User newUser = switch (userType) {
-            case ARTIST -> new Artist(username, age, city, userType);
-            case HOST -> new Host(username, age, city, userType);
-            default -> new User(username, age, city);
-
-        };
+        User newUser = UserFactory.createUser(username, age, city, userType);
 
         users.add(newUser);
         return "The username " + username + " has been added successfully.";

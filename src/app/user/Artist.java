@@ -23,13 +23,15 @@ public class Artist extends Creator {
     private ArrayList<Merch> merch;
     @Getter
     private ArrayList<Event> events;
-    public Artist(final String username, final int age, final String city,
-                  final Enums.UserType type) {
-        super(username, age, city, type);
+
+    public Artist(final String username, final int age, final String city) {
+        super(username, age, city);
+        type = Enums.UserType.ARTIST;
         albums = new ArrayList<>();
         merch = new ArrayList<>();
         events = new ArrayList<>();
     }
+
 
     /**
      * Adds a new album
@@ -153,16 +155,6 @@ public class Artist extends Creator {
 
         Admin admin = Admin.getInstance();
         return admin.removeAlbum(this, albumToRemove);
-    }
-
-    /**
-     * changes the page of the artist
-     * @param pageName the name of the page
-     * @return a message about the success of the operation
-     */
-    @Override
-    public String changePage(final String pageName) {
-        throw new UnsupportedOperationException("Artist cannot change page.");
     }
 
     /**

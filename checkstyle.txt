@@ -1,2 +1,7 @@
 Starting audit...
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\user\Creator.java:6:8: Unused import - app.utils.Enums. [UnusedImports]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\user\UserFactory.java:5:1: Class UserFactory should be declared as final. [FinalClass]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\user\UserFactory.java:10:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\user\UserFactory.java:10:52: ',' is not followed by whitespace. [WhitespaceAfter]
 Audit done.
+Checkstyle ends with 4 errors.

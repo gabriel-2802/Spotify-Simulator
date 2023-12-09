@@ -52,25 +52,11 @@ public class User {
     @Getter
     private Enums.Connection connectionStatus;
     @Getter
-    private final Enums.UserType type;
+    protected Enums.UserType type;
     @Getter
     @Setter
     private Page page; // the page the user is currently on
 
-    public User() {
-        username = "";
-        age = 0;
-        city = "";
-        playlists = new ArrayList<>();
-        likedSongs = new ArrayList<>();
-        followedPlaylists = new ArrayList<>();
-        player = new Player();
-        searchBar = new SearchBar(username);
-        lastSearched = false;
-        connectionStatus = Enums.Connection.ONLINE;
-        type = Enums.UserType.USER;
-        page = new HomePage(this);
-    }
     public User(final String username, final int age, final
     String city) {
         this.username = username;
@@ -84,22 +70,6 @@ public class User {
         lastSearched = false;
         connectionStatus = Enums.Connection.ONLINE;
         type = Enums.UserType.USER;
-        page = new HomePage(this);
-    }
-
-    public User(final String username, final int age,
-                final String city, final Enums.UserType type) {
-        this.username = username;
-        this.age = age;
-        this.city = city;
-        playlists = new ArrayList<>();
-        likedSongs = new ArrayList<>();
-        followedPlaylists = new ArrayList<>();
-        player = new Player();
-        searchBar = new SearchBar(username);
-        lastSearched = false;
-        connectionStatus = Enums.Connection.ONLINE;
-        this.type = type;
         page = new HomePage(this);
     }
 

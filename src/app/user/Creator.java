@@ -13,13 +13,9 @@ import java.util.ArrayList;
  * that the commands are not executed by the inheritor classes
  */
 public abstract class Creator extends User {
-    public Creator() {
-        super();
-    }
 
-    public Creator(final String username, final int age, final String city,
-                   final Enums.UserType type) {
-        super(username, age, city, type);
+    public Creator(final String username, final int age, final String city) {
+        super(username, age, city);
     }
 
     /**
@@ -196,5 +192,15 @@ public abstract class Creator extends User {
     @Override
     public String getPreferredGenre() {
         throw new UnsupportedOperationException("unsupported getPreferredGenre");
+    }
+
+    /**
+     * changes the page of the creator
+     * @param pageName the name of the page
+     * @return a message about the success of the operation
+     */
+    @Override
+    public String changePage(final String pageName) {
+        throw new UnsupportedOperationException("Host cannot change page.");
     }
 }
