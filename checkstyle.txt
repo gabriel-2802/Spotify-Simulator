@@ -1,4 +1,12 @@
 Starting audit...
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\command\types\GetAllUsers.java:24:20: '>' is followed by an illegal character. [GenericWhitespace]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\command\types\GetOnlineUsers.java:23:20: '>' is followed by an illegal character. [GenericWhitespace]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\command\types\GetTop5Albums.java:23:20: '>' is followed by an illegal character. [GenericWhitespace]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\command\types\GetTop5Artists.java:23:20: '>' is followed by an illegal character. [GenericWhitespace]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\command\types\GetTop5Playlists.java:22:20: '>' is followed by an illegal character. [GenericWhitespace]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\command\types\GetTop5Songs.java:23:20: '>' is followed by an illegal character. [GenericWhitespace]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\command\types\Search.java:44:20: '>' is followed by an illegal character. [GenericWhitespace]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\command\types\ShowPreferredSongs.java:30:20: '>' is followed by an illegal character. [GenericWhitespace]
 [ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\searchBar\search\SearchStrategy.java:4:8: Unused import - app.searchBar.SearchBar. [UnusedImports]
 [ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\searchBar\search\SearchStrategy.java:17:25: Redundant 'final' modifier. [RedundantModifier]
 [ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\searchBar\search\SearchStrategyFactory.java:3:1: Class SearchStrategyFactory should be declared as final. [FinalClass]
@@ -9,4 +17,4 @@ Starting audit...
 [ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\user\UserFactory.java:8:1: Class UserFactory should be declared as final. [FinalClass]
 [ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\user\UserFactory.java:21:52: ',' is not followed by whitespace. [WhitespaceAfter]
 Audit done.
-Checkstyle ends with 9 errors.
+Checkstyle ends with 17 errors.

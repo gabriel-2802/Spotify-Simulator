@@ -24,12 +24,12 @@ public class  AddRemoveInPlaylist extends Command {
     public ObjectNode execute() {
         User user = Admin.getUser(getUsername());
         if (user == null || !user.getConnectionStatus().equals(Enums.Connection.ONLINE)) {
-            return new OutputBuilder<>().setNonUserCommand(getCommand(), getTimestamp(),
+            return new OutputBuilder().setNonUserCommand(getCommand(), getTimestamp(),
                     getUsername()).build();
         }
 
         String message = user.addRemoveInPlaylist(getPlaylistId());
-        return new OutputBuilder<>().setMessageCommand(getCommand(), getUsername(),
+        return new OutputBuilder().setMessageCommand(getCommand(), getUsername(),
                 getTimestamp(), message).build();
 
     }

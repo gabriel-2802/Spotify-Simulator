@@ -33,7 +33,7 @@ public class  AddUser extends Command {
                 String message = admin.addUser(getUsername(),
                         getAge(), getCity(), userType);
 
-                return new OutputBuilder<>().setMessageCommand(getCommand(), getUsername(),
+                return new OutputBuilder().setMessageCommand(getCommand(), getUsername(),
                         getTimestamp(), message).build();
         }
 }

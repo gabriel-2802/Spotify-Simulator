@@ -26,13 +26,13 @@ public class  ShowAlbums extends Command {
     public ObjectNode execute() {
         User user = Admin.getUser(getUsername());
         if (user == null) {
-            return new OutputBuilder<>().setNonUserCommand(getCommand(), getTimestamp(),
+            return new OutputBuilder().setNonUserCommand(getCommand(), getTimestamp(),
                     getUsername()).build();
         }
 
         List<AlbumOutput> albums = user.showAlbums();
-        return new OutputBuilder<AlbumOutput>().setCommand(getCommand(), getUsername(),
-                getTimestamp()).setResult(albums).build();
+        return new OutputBuilder().setCommand(getCommand(), getUsername(),
+                getTimestamp()).setAlbumResult(albums).build();
 
     }
 }

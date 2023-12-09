@@ -24,11 +24,11 @@ public class  ShowPreferredSongs extends Command {
         public ObjectNode execute() {
         User user = Admin.getUser(getUsername());
         if (user == null) {
-            return new OutputBuilder<>().setNonUserCommand(getCommand(), getTimestamp(),
+            return new OutputBuilder().setNonUserCommand(getCommand(), getTimestamp(),
                     getUsername()).build();
         }
-        List<String> songs = user.showPreferredSongs();
-        return new OutputBuilder<String>().setCommand(getCommand(), getUsername(),
+        List<String>songs = user.showPreferredSongs();
+        return new OutputBuilder().setCommand(getCommand(), getUsername(),
                 getTimestamp()).setResult(songs).build();
         }
 }

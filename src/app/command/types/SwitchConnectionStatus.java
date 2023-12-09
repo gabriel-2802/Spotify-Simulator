@@ -31,7 +31,7 @@ public class  SwitchConnectionStatus extends Command {
             message = user.switchConnectionStatus();
         }
 
-        return new OutputBuilder<>().setMessageCommand(getCommand(), getUsername(),
+        return new OutputBuilder().setMessageCommand(getCommand(), getUsername(),
                 getTimestamp(), message).build();
     }
 }

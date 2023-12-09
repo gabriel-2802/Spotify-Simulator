@@ -26,12 +26,12 @@ public class  ShowPlaylists extends Command {
     public ObjectNode execute() {
         User user = Admin.getUser(getUsername());
         if (user == null) {
-            return new OutputBuilder<>().setNonUserCommand(getCommand(), getTimestamp(),
+            return new OutputBuilder().setNonUserCommand(getCommand(), getTimestamp(),
                     getUsername()).build();
         }
 
         List<PlaylistOutput> playlists = user.showPlaylists();
-        return new OutputBuilder<PlaylistOutput>().setCommand(getCommand(), getUsername(),
-                getTimestamp()).setResult(playlists).build();
+        return new OutputBuilder().setCommand(getCommand(), getUsername(),
+                getTimestamp()).setPlaylistResult(playlists).build();
     }
 }

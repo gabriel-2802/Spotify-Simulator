@@ -23,12 +23,12 @@ public class  RemovePodcast extends Command {
     public ObjectNode execute() {
         User user = Admin.getUser(getUsername());
         if (user == null) {
-            return new OutputBuilder<>().setNonUserCommand(getCommand(), getTimestamp(),
+            return new OutputBuilder().setNonUserCommand(getCommand(), getTimestamp(),
                     getUsername()).build();
         }
 
         String message = user.removePodcast(getName());
-        return new OutputBuilder<>().setMessageCommand(getCommand(), getUsername(),
+        return new OutputBuilder().setMessageCommand(getCommand(), getUsername(),
                 getTimestamp(), message).build();
 
     }

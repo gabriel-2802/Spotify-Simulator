@@ -37,11 +37,11 @@ public class  Search extends Command {
         Filters searchFilters = new Filters(getFilters());
         String searchType = getType();
         if (user == null) {
-            return new OutputBuilder<>().setNonUserCommand(getCommand(), getTimestamp(),
+            return new OutputBuilder().setNonUserCommand(getCommand(), getTimestamp(),
                     getUsername()).build();
         }
 
-        List<String> results = new ArrayList<>();
+        List<String>results = new ArrayList();
         String message;
         if (user.getConnectionStatus() == Enums.Connection.ONLINE) {
             results = user.search(searchFilters, searchType);
@@ -50,7 +50,7 @@ public class  Search extends Command {
             message = getUsername() + " is offline.";
         }
 
-        OutputBuilder<String> builder = new OutputBuilder<String>().
+        OutputBuilder builder = new OutputBuilder().
                 setMessageCommand(getCommand(), getUsername(),
                 getTimestamp(), message);
         builder.setSearchResults(results);

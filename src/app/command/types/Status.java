@@ -24,12 +24,12 @@ public class  Status extends Command {
         public ObjectNode execute() {
         User user = Admin.getUser(getUsername());
         if (user == null) {
-            return new OutputBuilder<>().setNonUserCommand(getCommand(), getTimestamp(),
+            return new OutputBuilder().setNonUserCommand(getCommand(), getTimestamp(),
                     getUsername()).build();
         }
 
         PlayerStats stats = user.getPlayerStats();
-        return new OutputBuilder<>().setCommand(getCommand(), getUsername(),
+        return new OutputBuilder().setCommand(getCommand(), getUsername(),
                 getTimestamp()).setStats(stats).build();
 
         }

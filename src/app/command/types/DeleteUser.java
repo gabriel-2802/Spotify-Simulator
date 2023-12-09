@@ -22,7 +22,7 @@ public class  DeleteUser extends Command {
     public ObjectNode execute() {
         Admin admin = Admin.getInstance();
         String message = admin.deleteUser(getUsername());
-        return new OutputBuilder<>().setMessageCommand(getCommand(), getUsername(),
+        return new OutputBuilder().setMessageCommand(getCommand(), getUsername(),
                 getTimestamp(), message).build();
     }
 }

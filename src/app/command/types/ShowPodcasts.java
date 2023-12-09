@@ -27,12 +27,12 @@ public class  ShowPodcasts extends Command {
         public ObjectNode execute() {
         User user = Admin.getUser(getUsername());
         if (user == null) {
-            return new OutputBuilder<>().setNonUserCommand(getCommand(), getTimestamp(),
+            return new OutputBuilder().setNonUserCommand(getCommand(), getTimestamp(),
                     getUsername()).build();
         }
 
         List<PodcastOutput> podcasts = user.showPodcasts();
-        return new OutputBuilder<PodcastOutput>().setCommand(getCommand(), getUsername(),
-                getTimestamp()).setResult(podcasts).build();
+        return new OutputBuilder().setCommand(getCommand(), getUsername(),
+                getTimestamp()).setPodcastResult(podcasts).build();
         }
 }

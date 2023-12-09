@@ -27,7 +27,7 @@ public class  AddEvent extends Command {
         public ObjectNode execute() {
                 User user = Admin.getUser(getUsername());
                 if (user == null) {
-                        return new OutputBuilder<>().setNonUserCommand(getCommand(), getTimestamp(),
+                        return new OutputBuilder().setNonUserCommand(getCommand(), getTimestamp(),
                                 getUsername()).build();
                 }
 
@@ -35,7 +35,7 @@ public class  AddEvent extends Command {
                         getDate(), getDescription());
                 String message = user.addEvent(newEvent);
 
-                return new OutputBuilder<>().setMessageCommand(getCommand(), getUsername(),
+                return new OutputBuilder().setMessageCommand(getCommand(), getUsername(),
                         getTimestamp(), message).build();
         }
 }

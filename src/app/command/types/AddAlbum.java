@@ -28,13 +28,13 @@ public class  AddAlbum extends Command {
         public ObjectNode execute() {
                 User user = Admin.getUser(username);
                 if (user == null) {
-                     return new OutputBuilder<>().setNonUserCommand("addAlbum",
+                     return new OutputBuilder().setNonUserCommand("addAlbum",
                              timestamp, username).build();
                 }
 
                 String message = user.addAlbum(getName(), getReleaseYear(),
                         getDescription(), getUsername(), getSongs());
-                return new OutputBuilder<>().setMessageCommand(getCommand(), getUsername(),
+                return new OutputBuilder().setMessageCommand(getCommand(), getUsername(),
                         getTimestamp(), message).build();
         }
 }
