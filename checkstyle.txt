@@ -1,7 +1,12 @@
 Starting audit...
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\searchBar\search\SearchStrategy.java:4:8: Unused import - app.searchBar.SearchBar. [UnusedImports]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\searchBar\search\SearchStrategy.java:17:25: Redundant 'final' modifier. [RedundantModifier]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\searchBar\search\SearchStrategyFactory.java:3:1: Class SearchStrategyFactory should be declared as final. [FinalClass]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\searchBar\search\SongSearch.java:7:8: Unused import - app.searchBar.SearchBar. [UnusedImports]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\searchBar\search\SongSearch.java:16:5: Class 'SongSearch' looks like designed for extension (can be subclassed), but the method 'search' does not have javadoc that explains how to do that safely. If class is not designed for extension consider making the class 'SongSearch' final or making the method 'search' static/final/abstract/empty, or adding allowed annotation for the method. [DesignForExtension]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\searchBar\search\SongSearch.java:17:32: Parameter filters should be final. [FinalParameters]
 [ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\user\Creator.java:6:8: Unused import - app.utils.Enums. [UnusedImports]
-[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\user\UserFactory.java:5:1: Class UserFactory should be declared as final. [FinalClass]
-[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\user\UserFactory.java:10:5: Missing a Javadoc comment. [MissingJavadocMethod]
-[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\user\UserFactory.java:10:52: ',' is not followed by whitespace. [WhitespaceAfter]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\user\UserFactory.java:8:1: Class UserFactory should be declared as final. [FinalClass]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\user\UserFactory.java:21:52: ',' is not followed by whitespace. [WhitespaceAfter]
 Audit done.
-Checkstyle ends with 4 errors.
+Checkstyle ends with 9 errors.
