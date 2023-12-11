@@ -87,7 +87,6 @@ public final class Main {
                     outputs.add(command.execute());
         });
 
-
         ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
         objectWriter.writeValue(new File(filePath2), outputs);
 

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 
 /**
- * Mapper class for JSON
+ * app.command.Mapper class for JSON
  */
 @Getter
 public final class Mapper {

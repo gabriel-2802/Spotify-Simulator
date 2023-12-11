@@ -9,10 +9,9 @@
 * ```player```: contains the newly updated player and it now supports Albums
 * ```searchBar```: contains the search functionality for the project and it now supports host and artist searches
 * ```user```: contains the 3 types of users and their functionality
-  * ```utils```: contains the user support classes such as ```Merch```, ```Announcement``` and ```Event```
-* ```utils``` : contains enums used for the project
-* ```Admin``` : utility class for admin functionalities
-* ```app.CommandRunner``` : utility class for app.command line functionalities
+  * ```user.utils```: contains the user support classes such as ```Merch```, ```Announcement``` and ```Event```
+* ```utils``` : contains the enums used for the project
+* ```Admin``` : singleton for admin functionalities
 
 ## Implementation
 
@@ -22,6 +21,21 @@
 * The programme now supports the removal of users and all their interactions with the other users.
 * In order to successfully implement the ```deleteUser``` functionality, we must first check if anyone is listening to the content of the user that is to be deleted. If so, the user cannot be deleted. Otherwise we remove all the follows and likes the user ever gave, delete the playlists he created and remove the content he uploaded from the library, as well as from the playlists of all other users.
 * In order to efficiently print the content of the pages, I chose to overwrite the ```toString``` method of the ```Page``` , ```Album```, ```Song```, ```Merch```, ```Event```, ```Announcement``` and  ```Playlist``` classes
-* Regarding the design patterns, I chose to use a singleton with lazy initialization for the ```Admin``` class, and since in the next phase of the project we may get more types of pages and more operations on them, I chose to use the Visitor design pattern for the ```Page``` class, as it allows us to add new operations without modifying the classes themselves.
+## Design Patterns
+
+* I chose to use a singleton with lazy initialization for the ```Admin``` class
+* We must instantiate different types of users, therefore I chose to use the Factory Method design pattern for the ```User``` class and subclasses
+* Since in the next phase of the project we may get more types of pages and more operations on them, I chose to use the Visitor design pattern for the ```Page``` class, as it allows us to add new operations without modifying the classes themselves.
 * I also chose to restructure the ```CommandRunner``` and I created a new abstract class ```Command``` and subclasses for each command, allowing me to implement the command design pattern. Moreover, I used jackson annotations to deserialize the subclasses commands from the json file.
-* Since the output of the commands has similar structure, I chose to implement Builder to create the ObjectNode for each command.
+* Since the output of the commands has a similar structure, I chose to implement the Builder  Design Pattern to create the ObjectNode for each command.
+* I also updates to SearchBar class. It now uses the Strategy Design Pattern to each type of search and a Factory Method Design Pattern to instantiate the correct type of search.
+
+## Refferences
+* I used ChatGPT to explain me the different design patterns I used
+* This youtube channel has been the basis of my research for the design patterns: https://www.youtube.com/@kantancoding
+* ChatGPT helped me with the jackson annotations for the commands and the use of the streams in the action class
+* I tried using ChatGPT to debug some issues, however it was unable to provide useful information(ex: initally the command abstract class had a  field of type ```ObjectMapper```, but it led to problems with the deserialization of the commands, so I had to remove it)
+
+## Git file
+* I initialised my git repository with the ```git init``` command inside the src directory
+* I hope it will not be an issue
