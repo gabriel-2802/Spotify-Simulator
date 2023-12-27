@@ -1,10 +1,15 @@
 package app.command.types;
 import app.command.types.admin.AddUser;
 import app.command.types.admin.DeleteUser;
-import app.command.types.creators.*;
+import app.command.types.users.creators.*;
 import app.command.types.stats.*;
 import app.command.types.users.*;
+import app.command.types.users.pagination.NextPage;
+import app.command.types.users.pagination.PreviousPage;
+import app.command.types.users.pagination.PrintCurrentPage;
 import app.command.types.users.player.*;
+import app.command.types.users.search.Search;
+import app.command.types.users.search.Select;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.Data;
 
@@ -55,7 +60,19 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = SwitchConnectionStatus.class, name = "switchConnectionStatus"),
         @JsonSubTypes.Type(value = SwitchVisibility.class, name = "switchVisibility"),
         @JsonSubTypes.Type(value = Follow.class, name = "follow"),
-        @JsonSubTypes.Type(value = Forward.class, name = "forward")
+        @JsonSubTypes.Type(value = Forward.class, name = "forward"),
+        @JsonSubTypes.Type(value = Wrapped.class, name = "wrapped"),
+        @JsonSubTypes.Type(value = BuyMerch.class, name = "buyMerch"),
+        @JsonSubTypes.Type(value = SeeMerch.class, name = "seeMerch"),
+        @JsonSubTypes.Type(value = BuyPremium.class, name = "buyPremium"),
+        @JsonSubTypes.Type(value = CancelPremium.class, name = "cancelPremium"),
+        @JsonSubTypes.Type(value = AdBreak.class, name = "adBreak"),
+        @JsonSubTypes.Type(value = Subscribe.class, name = "subscribe"),
+        @JsonSubTypes.Type(value = GetNotifications.class, name = "getNotifications"),
+        @JsonSubTypes.Type(value = UpdateRecommendations.class, name = "updateRecommendations"),
+        @JsonSubTypes.Type(value = LoadRecommendations.class, name = "loadRecommendations"),
+        @JsonSubTypes.Type(value = NextPage.class, name = "nextPage"),
+        @JsonSubTypes.Type(value = PreviousPage.class, name = "previousPage")
 })
 @Data
 public abstract class Command implements GeneralCommand {
