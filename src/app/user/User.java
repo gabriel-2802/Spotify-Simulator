@@ -546,8 +546,8 @@ public class User {
      * updates the page of the user
      */
     public void updatePage() {
-        PageVisitor updateVisitor = new UpdateVisitor();
-        page.acceptVisitor(updateVisitor);
+        page.updatePage();
+
     }
 
     /**

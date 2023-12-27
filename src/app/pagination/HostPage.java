@@ -1,7 +1,10 @@
 package app.pagination;
 
+import app.audio.Collections.Podcast;
 import app.pagination.visitors.PageVisitor;
+import app.user.Host;
 import app.user.User;
+import app.user.utils.Announcement;
 import lombok.Getter;
 import java.util.ArrayList;
 
@@ -29,15 +32,20 @@ public class HostPage extends Page {
                 podcasts.clear();
 
         }
-
-        /**
-         * Accepts a visitor
-         * @param visitor the visitor
-         */
+        
         @Override
-        public void acceptVisitor(final PageVisitor visitor) {
-                visitor.visit(this);
+        public void updatePage() {
+                clearPage();
+
+                for (Podcast podcast: ((Host) getHost()).getPodcasts()) {
+                        getPodcasts().add(podcast.toString());
+                }
+
+                for (Announcement announcement: ((Host) getHost()).getAnnouncements()) {
+                        getAnnouncements().add(announcement.toString());
+                }
         }
+
 
         /**
          * Returns a string representation of the page

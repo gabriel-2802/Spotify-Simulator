@@ -1,5 +1,6 @@
 package app.pagination;
 
+import app.audio.Files.Song;
 import app.pagination.visitors.PageVisitor;
 import app.user.User;
 import lombok.Getter;
@@ -27,14 +28,17 @@ public class LikedContentPage extends Page {
                 songs.clear();
                 playlists.clear();
         }
-
-        /**
-         * Accepts a visitor
-         * @param visitor the visitor
-         */
+        
         @Override
-        public void acceptVisitor(final PageVisitor visitor) {
-                visitor.visit(this);
+        public void updatePage() {
+                clearPage();
+                for (Song song : getUser().getLikedSongs()) {
+                        getSongs().add(song.toString());
+                }
+
+                for (app.audio.Collections.Playlist playlist : getUser().getFollowedPlaylists()) {
+                        getPlaylists().add(playlist.toString());
+                }
         }
 
         /**

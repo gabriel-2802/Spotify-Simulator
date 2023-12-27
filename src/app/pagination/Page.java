@@ -8,7 +8,7 @@ import lombok.Getter;
  * Abstract class for pages
  */
 @Getter
-public abstract class Page implements Visitable {
+public abstract class Page {
     // The owner of the page
     protected String owner;;
 
@@ -18,8 +18,7 @@ public abstract class Page implements Visitable {
    public abstract void clearPage();
 
     /**
-     * Accepts a visitor
-     * @param visitor the visitor
+     * updates the page
      */
-    public abstract void acceptVisitor(PageVisitor visitor);
+    public abstract void updatePage();
 }

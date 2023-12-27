@@ -3,5 +3,22 @@ Starting audit...
 [ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\command\types\Command.java:5:31: Using the '.*' form of import should be avoided - app.command.types.stats.*. [AvoidStarImport]
 [ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\command\types\Command.java:6:31: Using the '.*' form of import should be avoided - app.command.types.users.*. [AvoidStarImport]
 [ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\command\types\Command.java:7:38: Using the '.*' form of import should be avoided - app.command.types.users.player.*. [AvoidStarImport]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\pagination\ArtistPage.java:4:8: Unused import - app.pagination.visitors.PageVisitor. [UnusedImports]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\pagination\ArtistPage.java:39: Line has trailing spaces. [RegexpSingleline]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\pagination\ArtistPage.java:40:5: Class 'ArtistPage' looks like designed for extension (can be subclassed), but the method 'updatePage' does not have javadoc that explains how to do that safely. If class is not designed for extension consider making the class 'ArtistPage' final or making the method 'updatePage' static/final/abstract/empty, or adding allowed annotation for the method. [DesignForExtension]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\pagination\ArtistPage.java:44:20: 'merch' hides a field. [HiddenField]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\pagination\HomePage.java:5:8: Unused import - app.pagination.visitors.PageVisitor. [UnusedImports]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\pagination\HomePage.java:35: Line has trailing spaces. [RegexpSingleline]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\pagination\HomePage.java:36:5: Class 'HomePage' looks like designed for extension (can be subclassed), but the method 'updatePage' does not have javadoc that explains how to do that safely. If class is not designed for extension consider making the class 'HomePage' final or making the method 'updatePage' static/final/abstract/empty, or adding allowed annotation for the method. [DesignForExtension]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\pagination\HostPage.java:4:8: Unused import - app.pagination.visitors.PageVisitor. [UnusedImports]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\pagination\HostPage.java:35: Line has trailing spaces. [RegexpSingleline]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\pagination\HostPage.java:36:9: Class 'HostPage' looks like designed for extension (can be subclassed), but the method 'updatePage' does not have javadoc that explains how to do that safely. If class is not designed for extension consider making the class 'HostPage' final or making the method 'updatePage' static/final/abstract/empty, or adding allowed annotation for the method. [DesignForExtension]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\pagination\LikedContentPage.java:4:8: Unused import - app.pagination.visitors.PageVisitor. [UnusedImports]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\pagination\LikedContentPage.java:31: Line has trailing spaces. [RegexpSingleline]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\pagination\LikedContentPage.java:32:9: Class 'LikedContentPage' looks like designed for extension (can be subclassed), but the method 'updatePage' does not have javadoc that explains how to do that safely. If class is not designed for extension consider making the class 'LikedContentPage' final or making the method 'updatePage' static/final/abstract/empty, or adding allowed annotation for the method. [DesignForExtension]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\pagination\Page.java:3:8: Unused import - app.pagination.visitors.Visitable. [UnusedImports]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\pagination\Page.java:4:8: Unused import - app.pagination.visitors.PageVisitor. [UnusedImports]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\user\User.java:17:8: Unused import - app.pagination.visitors.UpdateVisitor. [UnusedImports]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\user\User.java:18:8: Unused import - app.pagination.visitors.PageVisitor. [UnusedImports]
 Audit done.
-Checkstyle ends with 4 errors.
+Checkstyle ends with 21 errors.

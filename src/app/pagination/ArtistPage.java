@@ -1,7 +1,11 @@
 package app.pagination;
 
+import app.audio.Collections.Album;
 import app.pagination.visitors.PageVisitor;
+import app.user.Artist;
 import app.user.User;
+import app.user.utils.Event;
+import app.user.utils.Merch;
 import lombok.Getter;
 import java.util.ArrayList;
 
@@ -32,14 +36,22 @@ public class ArtistPage extends Page {
         merch.clear();
         events.clear();
     }
-
-    /**
-     * Accepts a visitor
-     * @param visitor the visitor
-     */
+    
     @Override
-    public void acceptVisitor(final PageVisitor visitor) {
-        visitor.visit(this);
+    public void updatePage() {
+        clearPage();
+
+        for (Merch merch : ((Artist) getArtist()).getMerch()) {
+            getMerch().add(merch.toString());
+        }
+
+        for (Album album : ((Artist) getArtist()).getAlbums()) {
+            getAlbums().add(album.getName());
+        }
+
+        for (Event event : ((Artist) getArtist()).getEvents()) {
+            getEvents().add(event.toString());
+        }
     }
 
     /**
