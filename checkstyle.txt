@@ -1,2 +1,7 @@
 Starting audit...
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\command\types\Command.java:4:34: Using the '.*' form of import should be avoided - app.command.types.creators.*. [AvoidStarImport]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\command\types\Command.java:5:31: Using the '.*' form of import should be avoided - app.command.types.stats.*. [AvoidStarImport]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\command\types\Command.java:6:31: Using the '.*' form of import should be avoided - app.command.types.users.*. [AvoidStarImport]
+[ERROR] C:\Users\gabri\OneDrive\Desktop\oop-project-2023\etapa2\.\src\app\command\types\Command.java:7:38: Using the '.*' form of import should be avoided - app.command.types.users.player.*. [AvoidStarImport]
 Audit done.
+Checkstyle ends with 4 errors.
