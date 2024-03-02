@@ -29,13 +29,3 @@
 * I also chose to restructure the ```CommandRunner``` and I created a new abstract class ```Command``` and subclasses for each command, allowing me to implement the command design pattern. Moreover, I used jackson annotations to deserialize the subclasses commands from the json file.
 * Since the output of the commands has a similar structure, I chose to implement the Builder  Design Pattern to create the ObjectNode for each command.
 * I also updates to SearchBar class. It now uses the Strategy Design Pattern to each type of search and a Factory Method Design Pattern to instantiate the correct type of search.
-
-## Refferences
-* I used ChatGPT to explain me the different design patterns I used
-* This youtube channel has been the basis of my research for the design patterns: https://www.youtube.com/@kantancoding
-* ChatGPT helped me with the jackson annotations for the commands and the use of the streams in the action class
-* I tried using ChatGPT to debug some issues, however it was unable to provide useful information(ex: initally the command abstract class had a  field of type ```ObjectMapper```, but it led to problems with the deserialization of the commands, so I had to remove it)
-
-## Git file
-* I initialised my git repository with the ```git init``` command inside the src directory
-* I hope it will not be an issue
